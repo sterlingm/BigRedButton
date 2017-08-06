@@ -25,11 +25,18 @@ public class Enemy : MonoBehaviour {
 	private Rigidbody rb;
 
 	private TopicList topicList;
-	private Dictionary<Topic, string> responses;
-	public string lastResponse;
+	[SerializeField]
+	public Dictionary<Topic, EnemyResponse> responses;
+	public EnemyResponse lastResponse;
 
-	// Use this for initialization
-	void Start () 
+
+
+	public void AddResponse(EnemyResponse er)
+	{
+		responses.Add (topicList.list [er.i_topic], er);
+	}
+
+	void Awake()
 	{
 		hp = 10f;
 		weakMod = 3f;
@@ -38,6 +45,8 @@ public class Enemy : MonoBehaviour {
 
 		weakTo = new List<Common.TopicType> ();
 		strongTo = new List<Common.TopicType> ();
+		weakTo.Add (Common.TopicType.HOSTILE_TALK);
+		strongTo.Add (Common.TopicType.SHOP_TALK);
 
 		// Get and store transform of the player
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -48,20 +57,20 @@ public class Enemy : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider> ();
 		rb 			= GetComponent<Rigidbody> ();
 
-		responses = new Dictionary<Topic, string> ();
+		responses = new Dictionary<Topic, EnemyResponse> ();
 	}
+
+	// Use this for initialization
+	void Start () 
+	{
+	}
+
+
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(responses.Count == 0 && topicList.list != null)
-		{
-			responses.Add (topicList.list [0], "It's a scorcher out there!");
-			responses.Add (topicList.list [1], "Look, okay, what we really want is for the American people to not be forced into something that they don't want.");
-			responses.Add (topicList.list [2], "Spreading rumors that the President would do such a thing...is a very serious accusation.");
-			responses.Add (topicList.list [3], "There is simply NO evidence of that!");
-			responses.Add (topicList.list [4], "Russia will continue to manipulate us for as long as possible.");
-		}
+		
 	}
 
 	void OnCollisionEnter(Collision coll)
@@ -87,20 +96,23 @@ public class Enemy : MonoBehaviour {
 
 		if(weakTo.Contains(topic.type))
 		{
+			Debug.Log ("Adding weakMod");
 			result += weakMod;
 		}
 		else if(strongTo.Contains(topic.type))
 		{
+			Debug.Log ("Adding strongMod");
 			result += strongMod;
 		}
 
+		Debug.Log ("Damage: " + result);
 		return result;
 	}
 
 	public IEnumerator DisplayResponse()
 	{
 		textbox.text = "";
-		foreach(char letter in lastResponse.ToCharArray())
+		foreach(char letter in lastResponse.response.ToCharArray())
 		{
 			textbox.text += letter;
 
@@ -114,6 +126,7 @@ public class Enemy : MonoBehaviour {
 		 *  Determine loss of hp
 		 */
 		hp -= CalculateDmg (topic);
+		Debug.Log ("hp: " + hp);
 
 		// Set response
 		responses.TryGetValue (topic, out lastResponse);
@@ -124,4 +137,7 @@ public class Enemy : MonoBehaviour {
 	{
 		return String.Format ("Enemy:\n\tName: {0}\n\tHP: {1}", enemyName, hp.ToString ());
 	}
+
+
+
 }

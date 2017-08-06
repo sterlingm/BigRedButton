@@ -25,7 +25,7 @@ public class TopicList : MonoBehaviour
 		public string baseDamage;
 	}
 
-	void Start ()
+	void Awake ()
 	{
 		rowList = new List<Row>();
 		file = Resources.Load ("topics") as TextAsset;
@@ -62,6 +62,8 @@ public class TopicList : MonoBehaviour
 					i, rowList[i].id, rowList[i].title, rowList[i].type, rowList[i].baseDamage));
 			}
 		}
+
+		Debug.Log (String.Format("TopicList initialized with {0} elements", list.Count));
 	}
 
 

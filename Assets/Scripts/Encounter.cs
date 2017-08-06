@@ -59,6 +59,14 @@ public class Encounter : MonoBehaviour {
 		dropDown.AddOptions (topicStrs);
 	}
 
+	private void setOptions()
+	{
+		List<string> topicStrs = player.GetTopicStrings ();
+		topicStrs.Insert (0, "Make a selection");
+		dropDown.ClearOptions ();
+		dropDown.AddOptions (topicStrs);
+	}
+
 	public void Update()
 	{
 		if(enemy.hp > 0)
@@ -79,6 +87,17 @@ public class Encounter : MonoBehaviour {
 
 				// Reset dropdown
 				dropDown.value = 0;
+
+				// Check for any topics to add
+				/*List<int> resTopics = enemy.lastResponse.topicsToObtain;
+				foreach(int i_t in resTopics)
+				{
+					if(!player.topics.Contains(i_t))
+					{
+						player.topics.Add (i_t);
+						setOptions ();
+					}
+				}*/
 
 				// Reset choiceMade
 				choiceMade = false;
