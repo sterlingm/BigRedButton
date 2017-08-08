@@ -16,6 +16,7 @@ public class Encounter : MonoBehaviour {
 
 
 	public bool active;
+	public bool displayingResponse;
 	public Enemy enemy;
 	public Player player;
 	private bool choiceMade;
@@ -34,10 +35,6 @@ public class Encounter : MonoBehaviour {
 		
 	}
 
-	void DisplayEnemyResponse()
-	{
-		
-	}
 
 	private void DropdownValueChanged(int choice)
 	{
@@ -84,37 +81,52 @@ public class Encounter : MonoBehaviour {
 		}
 	}
 
+
+	public IEnumerator DisplayEnemyResponse()
+	{
+		displayingResponse = true;
+		enemy.textbox.text = "";
+		foreach(char letter in enemy.lastResponse.response.ToCharArray())
+		{
+			enemy.textbox.text += letter;
+
+			yield return new WaitForSeconds (0.05f);
+		}
+		displayingResponse = false;
+	}
+
 	public void Update()
 	{
-		if(enemy.hp > 0)
+
+		if(choiceMade)
 		{
-			if(choiceMade)
-			{
-				// Player's turn
-				// Get the choice from the Dropdown
-				// Subtract 1 because the first index is "Make a selection"
-				int choice = dropDown.value-1;
-				//Debug.Log ("choice: " + player.topics[choice].title);
+			// Player's turn
+			// Get the choice from the Dropdown
+			// Subtract 1 because the first index is "Make a selection"
+			int choice = dropDown.value-1;
+			//Debug.Log ("choice: " + player.topics[choice].title);
 
-				// Apply topic to enemy
-				enemy.ApplyTopic (player.GetTopic(choice));
+			// Apply topic to enemy
+			enemy.ApplyTopic (player.GetTopic(choice));
 
-				// Choose and display enemy response
-				DisplayEnemyResponse ();
+			// Display enemy response
+			StartCoroutine (DisplayEnemyResponse ());
 
-				// Check enemy response for new topics
-				checkNewTopics ();
+			// Check enemy response for new topics
+			checkNewTopics ();
 
-				setOptions ();
+			// Set dropdown options to show any new topics
+			setOptions ();
 
-				// Reset dropdown
-				dropDown.value = 0;
+			// Reset dropdown
+			dropDown.value = 0;
 
-				// Reset choiceMade
-				choiceMade = false;
-			}
+			// Reset choiceMade
+			choiceMade = false;
 		}
-		else
+			
+		// Check if enemy is dead
+		if (enemy.hp <= 0 && !displayingResponse)
 		{
 			enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
@@ -122,6 +134,8 @@ public class Encounter : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+
 	public void go()
 	{
 		Debug.Log ("Encounter started with "+enemy.enemyName);

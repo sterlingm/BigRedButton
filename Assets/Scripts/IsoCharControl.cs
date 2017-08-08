@@ -47,7 +47,17 @@ public class IsoCharControl : MonoBehaviour {
 		Vector3 upMovement 		= forward * moveSpeed * Time.deltaTime * Input.GetAxis ("VerticalKey");
 		Vector3 moveVec 		= rightMovement + upMovement;
 
+		double norm = moveVec.magnitude;
 		Vector3 heading = Vector3.Normalize (moveVec);
+
+		/*Debug.Log ("norm: " + norm);
+		Debug.Log ("Time.deltaTime: " + Time.deltaTime);
+		Debug.Log (String.Format ("rightMove: {0}, {1}, {2}", rightMovement.x, rightMovement.y, rightMovement.z));
+		Debug.Log ("upMovement:" + rightMovement);
+		Debug.Log ("moveVec:" + moveVec);
+		Debug.Log ("heading: " + heading);*/
+
+
 
 		transform.forward = heading;
 		transform.position += moveVec;

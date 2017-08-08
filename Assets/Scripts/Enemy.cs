@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour {
 
 		// Set response
 		responses.TryGetValue (topic, out lastResponse);
-		StartCoroutine (DisplayResponse ());
+		//StartCoroutine (DisplayResponse ());
 	}
 
 	public override string ToString()
