@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 [System.Serializable]
 public class EnemyResponse
@@ -12,7 +13,7 @@ public class EnemyResponse
 
 	// All Topics that the user can gain from this response 
 	// This must be initialized from the TopicList
-	public List<int> topicsToObtain;
+	public List<int> topicsToObtain = new List<int> ();
 
 	public void init(int i, string res)
 	{

@@ -67,6 +67,23 @@ public class Encounter : MonoBehaviour {
 		dropDown.AddOptions (topicStrs);
 	}
 
+	public void checkNewTopics()
+	{
+		foreach(int i_topics in enemy.lastResponse.topicsToObtain)
+		{
+			Debug.Log ("i_topics: " + i_topics);
+			if(player.topics.Contains(i_topics))
+			{
+				Debug.Log ("Player already has topic i");
+			}
+			else
+			{
+				Debug.Log ("Player does not have topic "+i_topics);
+				player.topics.Add (i_topics);
+			}
+		}
+	}
+
 	public void Update()
 	{
 		if(enemy.hp > 0)
@@ -85,19 +102,13 @@ public class Encounter : MonoBehaviour {
 				// Choose and display enemy response
 				DisplayEnemyResponse ();
 
+				// Check enemy response for new topics
+				checkNewTopics ();
+
+				setOptions ();
+
 				// Reset dropdown
 				dropDown.value = 0;
-
-				// Check for any topics to add
-				/*List<int> resTopics = enemy.lastResponse.topicsToObtain;
-				foreach(int i_t in resTopics)
-				{
-					if(!player.topics.Contains(i_t))
-					{
-						player.topics.Add (i_t);
-						setOptions ();
-					}
-				}*/
 
 				// Reset choiceMade
 				choiceMade = false;
@@ -108,7 +119,7 @@ public class Encounter : MonoBehaviour {
 			enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
 			player.GetComponent<IsoCharControl> ().enabled = true;
-			Destroy (this);
+			Destroy (gameObject);
 		}
 	}
 	public void go()
