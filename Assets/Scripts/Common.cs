@@ -10,7 +10,7 @@ public class Common
 		SHOP_TALK,
 		HOSTILE_TALK
 	}
-	public static List<TopicType> typeList = new List<TopicType> { TopicType.SMALL_TALK, TopicType.SHOP_TALK, TopicType.HOSTILE_TALK };
+	public static List<TopicType> topicTypeList = new List<TopicType> { TopicType.SMALL_TALK, TopicType.SHOP_TALK, TopicType.HOSTILE_TALK };
 
 	public static string ENC_EVENT_STR = "Encounter";
 

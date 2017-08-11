@@ -65,12 +65,29 @@ public class EnemyCreator : MonoBehaviour
 				float.TryParse (rowList [i].x_pos, out p.x);
 				float.TryParse (rowList [i].y_pos, out p.z);
 
+				// Set y based on prefab y so that mesh is flush with the movement plane
+				p.y = enemyPrefab.transform.position.y;
+
+				// Create/Instantiate the enemy
 				Enemy e = Instantiate (enemyPrefab, p, Quaternion.identity) as Enemy;
-				Debug.Log (String.Format ("p: {0}", p.ToString ()));
-				//e.transform.position = p;
 
-				//e.type = type;
+				// Set the type
+				switch(type)
+				{
+				case 0:
+					e.type = new Congress ();
+					break;
+				case 1:
+					e.type = new Press ();
+					break;
+				case 2:
+					e.type = new Cabinet ();
+					break;
+				}
 
+				/*
+				 * Set responses
+				 */ 
 				Char delimiter = ' ';
 				for(int j=0;j<rowList[i].responses.Count;j++)
 				{
@@ -79,9 +96,9 @@ public class EnemyCreator : MonoBehaviour
 					er.init (j, rowList[i].responses[j]);
 					er.i_topic = j;
 
+					// Get and add the topics that the player can obtain from the response
 					string topsStr = rowList [i].topics [j];
 					String[] tops = topsStr.Split (delimiter);
-					Debug.Log ("rowList[" + i + "] Topics "+j+" topsStr " + topsStr);
 					foreach(string t in tops)
 					{
 						int topic;
@@ -89,13 +106,14 @@ public class EnemyCreator : MonoBehaviour
 						er.topicsToObtain.Add (topic);
 					}
 
+					// Add response to enemy's list of responses
 					e.AddResponse (er);
 				}
+
+				// Add the enemy to list
 				enemyList.Add (e);
 			}
 		}
-
-		//Debug.Log (String.Format("TopicList initialized with {0} elements", list.Count));
 	}
 
 

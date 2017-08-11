@@ -25,10 +25,7 @@ public class IsoCharControl : MonoBehaviour {
 
 		// Re-normalize the vectors after changing y
 		forward = Vector3.Normalize (forward);
-		right = Vector3.Normalize (right);
-
-		string s = String.Format("Camera.right: {0},{1},{2}", Camera.main.transform.right.x, Camera.main.transform.right.y, Camera.main.transform.right.z);
-		Debug.Log (s);
+		right 	= Vector3.Normalize (right);
 	}
 	
 	// Update is called once per frame
@@ -43,22 +40,16 @@ public class IsoCharControl : MonoBehaviour {
 	void Move()
 	{
 		// Use the camera right and forward axes to get character movement
-		Vector3 rightMovement 	= right   * moveSpeed * Time.deltaTime * Input.GetAxis ("HorizontalKey");
-		Vector3 upMovement 		= forward * moveSpeed * Time.deltaTime * Input.GetAxis ("VerticalKey");
-		Vector3 moveVec 		= rightMovement + upMovement;
+		Vector3 rightMovement 	= right 	* Input.GetAxis ("HorizontalKey");
+		Vector3 upMovement 		= forward 	* Input.GetAxis ("VerticalKey");
 
-		double norm = moveVec.magnitude;
-		Vector3 heading = Vector3.Normalize (moveVec);
+		// Heading is just the normalized direction
+		Vector3 heading = Vector3.Normalize (rightMovement + upMovement);
 
-		/*Debug.Log ("norm: " + norm);
-		Debug.Log ("Time.deltaTime: " + Time.deltaTime);
-		Debug.Log (String.Format ("rightMove: {0}, {1}, {2}", rightMovement.x, rightMovement.y, rightMovement.z));
-		Debug.Log ("upMovement:" + rightMovement);
-		Debug.Log ("moveVec:" + moveVec);
-		Debug.Log ("heading: " + heading);*/
+		// Move vector is the position change in heading direction based on speed*time
+		Vector3 moveVec = heading * (moveSpeed * Time.deltaTime);
 
-
-
+		// Set new heading and add position change to transform.position
 		transform.forward = heading;
 		transform.position += moveVec;
 	}

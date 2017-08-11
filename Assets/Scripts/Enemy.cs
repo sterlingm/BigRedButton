@@ -94,12 +94,12 @@ public class Enemy : MonoBehaviour {
 	{
 		float result = topic.baseDmg;
 
-		if(weakTo.Contains(topic.type))
+		if(type.weakTo.Contains(topic.type))
 		{
 			Debug.Log ("Adding weakMod");
 			result += weakMod;
 		}
-		else if(strongTo.Contains(topic.type))
+		else if(type.strongTo.Contains(topic.type))
 		{
 			Debug.Log ("Adding strongMod");
 			result += strongMod;

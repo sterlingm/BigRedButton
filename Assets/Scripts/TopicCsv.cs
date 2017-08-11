@@ -41,7 +41,7 @@ public class TopicCsv : MonoBehaviour
 			if(Int32.TryParse(rowList[i].id, out id) && Int32.TryParse(rowList[i].type, out type) && Double.TryParse(rowList[i].baseDamage, out baseDmg))
 			{
 				// Get TopicType from the list
-				Common.TopicType topicType 	= Common.typeList [Int32.Parse (rowList [i].type)];
+				Common.TopicType topicType 	= Common.topicTypeList [Int32.Parse (rowList [i].type)];
 
 				// Initialize a topic
 				Topic t = new Topic ();

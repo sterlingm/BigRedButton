@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{23AED5B9-C5F8-9AF2-4496-0037AFBAD839}</ProjectGuid>
+    <ProjectGuid>{81A68DDE-FCB1-1F24-AD7D-919240CDD5F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-Boo</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -46,83 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CSV2Table\Demo\C2TDemo.cs" />
-     <Compile Include="Assets\CSV2Table\Demo\SampleTable.cs" />
-     <Compile Include="Assets\CSV2Table\Scripts\CsvParser.cs" />
-     <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
-     <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
-     <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Audio\MusicManager.cs" />
-     <Compile Include="Assets\Scripts\Audio\SoundPlayer.cs" />
-     <Compile Include="Assets\Scripts\Audio\SoundPlayerOnClick.cs" />
-     <Compile Include="Assets\Scripts\Audio\SoundPlayerOnSelect.cs" />
-     <Compile Include="Assets\Scripts\Camera\CameraHolderManager.cs" />
-     <Compile Include="Assets\Scripts\Camera\DollyZoom.cs" />
-     <Compile Include="Assets\Scripts\Camera\PerlinShake.cs" />
-     <Compile Include="Assets\Scripts\Common.cs" />
-     <Compile Include="Assets\Scripts\Core\UserData.cs" />
-     <Compile Include="Assets\Scripts\Core\UserPrefsData.cs" />
-     <Compile Include="Assets\Scripts\Core\UserSetting.cs" />
-     <Compile Include="Assets\Scripts\Core\UserSettingAudio.cs" />
-     <Compile Include="Assets\Scripts\Encounter.cs" />
-     <Compile Include="Assets\Scripts\EncounterEvent.cs" />
-     <Compile Include="Assets\Scripts\EncounterEventManager.cs" />
-     <Compile Include="Assets\Scripts\Enemy.cs" />
-     <Compile Include="Assets\Scripts\EnemyCreator.cs" />
-     <Compile Include="Assets\Scripts\EnemyResponse.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Cabinet.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Congress.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\EnemyType.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Press.cs" />
-     <Compile Include="Assets\Scripts\EventTriggerTest.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Custom\ObjectPoolControllerExtentions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Custom\TimerExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\System\ArrayExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\System\CollectionsExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\System\StringExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\CameraExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\ColorExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\GameObjectExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\RectExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\TransformExtensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\Vector2Extensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\Vector3Extensions.cs" />
-     <Compile Include="Assets\Scripts\Extensions\Unity\Vector4Extensions.cs" />
-     <Compile Include="Assets\Scripts\GameEventManager.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\IsoCharControl.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\PlayerAction.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneAssetPath.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneAutoLoad.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneInitializer.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneLoad.cs" />
-     <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
-     <Compile Include="Assets\Scripts\Test1.cs" />
-     <Compile Include="Assets\Scripts\Topic.cs" />
-     <Compile Include="Assets\Scripts\TopicCsv.cs" />
-     <Compile Include="Assets\Scripts\TopicList.cs" />
-     <Compile Include="Assets\Scripts\Transition\STCrossFade.cs" />
-     <Compile Include="Assets\Scripts\Transition\STDissolve.cs" />
-     <Compile Include="Assets\Scripts\Transition\STDistort.cs" />
-     <Compile Include="Assets\Scripts\Transition\STFadeToColor.cs" />
-     <Compile Include="Assets\Scripts\Transition\STPixelate.cs" />
-     <Compile Include="Assets\Scripts\Transition\STScaleFade.cs" />
-     <Compile Include="Assets\Scripts\Transition\STSlideFade.cs" />
-     <Compile Include="Assets\Scripts\Transition\ScreenTrans.cs" />
-     <Compile Include="Assets\Scripts\Transition\ScreenTransPlayer.cs" />
-     <Compile Include="Assets\Scripts\Transition\ScreenTransRender.cs" />
-     <Compile Include="Assets\Scripts\Utilities\ArrayUtil.cs" />
-     <Compile Include="Assets\Scripts\Utilities\CacheList.cs" />
-     <Compile Include="Assets\Scripts\Utilities\GenericParams.cs" />
-     <Compile Include="Assets\Scripts\Utilities\Log.cs" />
-     <Compile Include="Assets\Scripts\Utilities\MathHelper.cs" />
-     <Compile Include="Assets\Scripts\Utilities\PrefabAttribute.cs" />
-     <Compile Include="Assets\Scripts\Utilities\SingletonBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Utilities\TaskManager.cs" />
-     <Compile Include="Assets\Scripts\Utilities\Timer.cs" />
-     <Compile Include="Assets\Scripts\Utilities\UnityHelper.cs" />
+     <Compile Include="Assets\Scripts\EnemyTypes\Congress.boo" />
      <None Include="Assets\Shaders\Transition\TransPixelate.shader" />
      <None Include="Assets\Shaders\Transition\TransCrossFade.shader" />
      <None Include="Assets\Shaders\Transition\TransFadeColor.shader" />
