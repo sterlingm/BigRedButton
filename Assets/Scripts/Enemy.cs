@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 public class Enemy : MonoBehaviour {
 
-	public EnemyType type;
+	public Common.EnemyType type;
 	public float hp;
 	public String enemyName;
 	public String initEncounter;
@@ -94,12 +94,12 @@ public class Enemy : MonoBehaviour {
 	{
 		float result = topic.baseDmg;
 
-		if(type.weakTo.Contains(topic.type))
+		if(Common.weakTo[(int)type].Contains(topic.type))
 		{
 			Debug.Log ("Adding weakMod");
 			result += weakMod;
 		}
-		else if(type.strongTo.Contains(topic.type))
+		else if(Common.strongTo[(int)type].Contains(topic.type))
 		{
 			Debug.Log ("Adding strongMod");
 			result += strongMod;

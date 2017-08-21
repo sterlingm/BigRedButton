@@ -70,10 +70,6 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyCreator.cs" />
      <Compile Include="Assets\Scripts\EnemyResponse.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Cabinet.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Congress.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\EnemyType.cs" />
-     <Compile Include="Assets\Scripts\EnemyTypes\Press.cs" />
      <Compile Include="Assets\Scripts\EventTriggerTest.cs" />
      <Compile Include="Assets\Scripts\Extensions\Custom\ObjectPoolControllerExtentions.cs" />
      <Compile Include="Assets\Scripts\Extensions\Custom\TimerExtensions.cs" />

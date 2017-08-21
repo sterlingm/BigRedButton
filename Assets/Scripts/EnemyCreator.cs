@@ -75,13 +75,13 @@ public class EnemyCreator : MonoBehaviour
 				switch(type)
 				{
 				case 0:
-					e.type = new Congress ();
+					e.type = Common.EnemyType.CABINET;
 					break;
 				case 1:
-					e.type = new Press ();
+					e.type = Common.EnemyType.CONGRESS;
 					break;
 				case 2:
-					e.type = new Cabinet ();
+					e.type = Common.EnemyType.PRESS;
 					break;
 				}
 
