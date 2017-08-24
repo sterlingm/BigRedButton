@@ -54,6 +54,9 @@ public class Encounter : MonoBehaviour {
 		List<string> topicStrs = player.GetTopicStrings ();
 		topicStrs.Insert (0, "Make a selection");
 		dropDown.AddOptions (topicStrs);
+
+		// Set enemy text box
+		//enemy.textbox.transform.position = enemy.gameObject.transform.position;
 	}
 
 	private void setOptions()
@@ -86,12 +89,14 @@ public class Encounter : MonoBehaviour {
 	{
 		displayingResponse = true;
 		enemy.textbox.text = "";
+		dropDown.interactable = false;
 		foreach(char letter in enemy.lastResponse.response.ToCharArray())
 		{
 			enemy.textbox.text += letter;
 
 			yield return new WaitForSeconds (0.05f);
 		}
+		dropDown.interactable = true;
 		displayingResponse = false;
 	}
 

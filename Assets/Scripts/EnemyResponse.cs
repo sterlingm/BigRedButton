@@ -15,6 +15,11 @@ public class EnemyResponse
 	// This must be initialized from the TopicList
 	public List<int> topicsToObtain = new List<int> ();
 
+	public EnemyResponse()
+	{
+		response = "I don't know anything about that.";
+	}
+
 	public void init(int i, string res)
 	{
 		i_topic = i;

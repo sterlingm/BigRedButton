@@ -32,5 +32,5 @@ public class Common
 	private static List<TopicType> pressStrongTo = new List<TopicType> { TopicType.HOSTILE_TALK };
 	public static List< List<TopicType> > strongTo = new List< List<TopicType> > { cabinetStrongTo, congressStrongTo, pressStrongTo };
 
-
+	public static EnemyResponse enemyDefaultResp = new EnemyResponse ();
 }

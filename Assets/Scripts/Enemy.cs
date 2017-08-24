@@ -109,16 +109,6 @@ public class Enemy : MonoBehaviour {
 		return result;
 	}
 
-	public IEnumerator DisplayResponse()
-	{
-		textbox.text = "";
-		foreach(char letter in lastResponse.response.ToCharArray())
-		{
-			textbox.text += letter;
-
-			yield return new WaitForSeconds (0.05f);
-		}
-	}
 
 	public void ApplyTopic(Topic topic)
 	{
@@ -130,7 +120,10 @@ public class Enemy : MonoBehaviour {
 
 		// Set response
 		responses.TryGetValue (topic, out lastResponse);
-		//StartCoroutine (DisplayResponse ());
+		if(lastResponse.response.CompareTo("") == 0)
+		{
+			lastResponse = Common.enemyDefaultResp;
+		}
 	}
 
 	public override string ToString()
