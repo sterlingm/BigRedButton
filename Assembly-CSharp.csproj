@@ -126,6 +126,7 @@
      <None Include="Assets\Shaders\Transition\TransDissolve.shader" />
      <None Include="Assets\Shaders\Transition\TransScaleFade.shader" />
      <None Include="Assets\Shaders\Transition\TransSlideFade.shader" />
+     <None Include="Assets\Assets\floors\readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
