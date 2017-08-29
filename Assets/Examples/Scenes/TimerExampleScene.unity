@@ -1295,25 +1295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9dd746df43e44158ddf629cf588edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurationField: {fileID: 1746744357}
-  StartTimerButton: {fileID: 100313904}
-  CancelTimerButton: {fileID: 589068323}
-  PauseTimerButton: {fileID: 1270757752}
-  ResumeTimerButton: {fileID: 1589048210}
-  IsLoopedToggle: {fileID: 486803762}
-  UseGameTimeToggle: {fileID: 1100837634}
-  TimescaleSlider: {fileID: 1864528867}
-  NeedsRestartText: {fileID: 871413728}
-  TimeElapsedText: {fileID: 1985258558}
-  TimeRemainingText: {fileID: 1907179416}
-  PercentageCompletedText: {fileID: 1442983714}
-  PercentageRemainingText: {fileID: 961178991}
-  NumberOfLoopsText: {fileID: 1802690907}
-  IsCancelledText: {fileID: 806959435}
-  IsCompletedText: {fileID: 1953716879}
-  IsPausedText: {fileID: 2046297450}
-  IsDoneText: {fileID: 1795501218}
-  UpdateText: {fileID: 386615279}
 --- !u!1 &717569865
 GameObject:
   m_ObjectHideFlags: 0

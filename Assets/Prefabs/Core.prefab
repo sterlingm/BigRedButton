@@ -83,11 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cee5bcbf4c584e9185a593af8028f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  isMain: 0
-  loadOnStart: 1
-  autoSave: 1
-  _prefKey: 7564
 --- !u!114 &114750998305270234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,11 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cee5bcbf4c584e9185a593af8028f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  isMain: 0
-  loadOnStart: 1
-  autoSave: 1
-  _prefKey: 7564
 --- !u!114 &114881685121453280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,11 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02949893c462843fd8a90df304bb032a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
-  useLoadingScene: 1
-  loadingSceneName: 4c6f6164696e67
-  useRootScene: 0
-  rootSceneName: 
 --- !u!114 &114882254991234214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,4 +116,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c793fd502cb749e99c709ee16ae2c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userData: {fileID: 0}

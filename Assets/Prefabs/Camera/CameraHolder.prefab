@@ -136,10 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aed87dd508284c8390ed7176f7175ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  audioListener: {fileID: 0}
-  isLoadingScene: 0
-  isActiveScene: 0
 --- !u!114 &114467239813585696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,15 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8e247aa475a4dc094e03b72bd7dab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.5
-  speed: 1
-  magnitude: 0.1
-  commonDuration: 1
-  commonSpeed: 50
-  commonMagnitude: 0.07
-  test: 0
-  _transform: {fileID: 0}
-  currentState: 0
 --- !u!124 &124163621688405994
 Behaviour:
   m_ObjectHideFlags: 1

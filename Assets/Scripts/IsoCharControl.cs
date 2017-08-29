@@ -52,5 +52,15 @@ public class IsoCharControl : MonoBehaviour {
 		// Set new heading and add position change to transform.position
 		transform.forward = heading;
 		transform.position += moveVec;
+
+		CenterCameraOnPlayer ();
+	}
+
+	void CenterCameraOnPlayer()
+	{
+		Vector3 v_player = transform.position;
+		v_player.y = 20;
+
+		Camera.main.transform.position = v_player;
 	}
 }

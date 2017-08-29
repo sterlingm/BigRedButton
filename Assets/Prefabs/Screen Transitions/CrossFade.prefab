@@ -51,28 +51,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced5c28359f974c2fb61bc731bf60e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: c1bf9b1bc745d45d4962dc9e5f42653d, type: 3}
-  delay: 1
-  curve:
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  curveNormalized: 1
-  cameraType: 0
-  cameraTarget: {fileID: 0}
-  target: 0
-  targetTexture: {fileID: 0}
-  curSceneName: 
-  source: 0
-  sourceTexture: {fileID: 0}

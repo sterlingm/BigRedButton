@@ -52,8 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02b711328c3c444599d41b5822a5d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionOut: {fileID: 0}
-  transitionIn: {fileID: 0}
 --- !u!114 &114762980322319310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,6 +63,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d1528617d30423d9f9aa6a8bc7e506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoadingScene: 1
-  isActiveScene: 0
-  isSplashScene: 0

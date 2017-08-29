@@ -52,6 +52,8 @@
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
      <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
+     <Compile Include="Assets\Goal.cs" />
+     <Compile Include="Assets\GoalLocation.cs" />
      <Compile Include="Assets\Scripts\Audio\MusicManager.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayer.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnClick.cs" />
