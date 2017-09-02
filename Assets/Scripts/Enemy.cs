@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour {
 	public Vector3 goalOrig;
 	public List<Vector3> movementDetails;
 
+	public bool move;
 	public float speed;
 	public float goalThreshold;
 
@@ -51,8 +52,9 @@ public class Enemy : MonoBehaviour {
 		weakMod = 3f;
 		strongMod = -3f;
 		collidingWithPlayer = false;
-		speed = 3f;
+		speed = 5f;
 		goalThreshold = 0.15f;
+		move = true;
 
 		weakTo = new List<Common.TopicType> ();
 		strongTo = new List<Common.TopicType> ();
@@ -143,48 +145,48 @@ public class Enemy : MonoBehaviour {
 
 	public void Move()
 	{
-		// Get vector between goal and start
-		Vector3 diff = goal - transform.position;
-		Debug.Log (String.Format ("diff: {0} diff.mag: {1} goalThreshold: {2}", diff.ToString(), diff.magnitude, goalThreshold));
-
-		// Check that we are greater than some threshold
-		// TODO: Fix jittering when it gets close to goal
-		if (diff.magnitude-transform.position.y > goalThreshold)
+		// Check that the enemy should be moving
+		if(move)
 		{
-			// Get the correct axes to move on
-			Vector3 forward = Vector3.Normalize (Camera.main.transform.forward);
-			Vector3 right = Vector3.Normalize (Camera.main.transform.right);
-	
-			// Project the diff vector onto the movement/camera axes
-			Vector3 a = Vector3.Project (diff, forward);
-			Vector3 b = Vector3.Project (diff, right);
-			Debug.Log (String.Format ("a: {0} b: {0}", a.ToString (), b.ToString ()));
+			// Get vector between goal and start
+			// Set y to 0 because transform will have nonzero y value based on environment plane
+			Vector3 diff = goal - transform.position;
+			diff.y = 0;
 
-			// Get a heading vector
-			Vector3 heading = Vector3.Normalize (a + b);
+			// Check that we are greater than some threshold
+			if (diff.magnitude > goalThreshold)
+			{
+				// Get the correct axes to move on
+				Vector3 forward = Vector3.Normalize (Camera.main.transform.forward);
+				Vector3 right = Vector3.Normalize (Camera.main.transform.right);
 
-			// Get movement vector
-			Vector3 moveVec = heading * speed * Time.deltaTime;
-			Debug.Log (String.Format ("moveVec: {0}", moveVec.ToString ()));
+				// Project the diff vector onto the movement/camera axes
+				Vector3 a = Vector3.Project (diff, forward);
+				Vector3 b = Vector3.Project (diff, right);
 
-			// Don't increase y value
-			moveVec.y = 0;
+				// Get a heading vector
+				Vector3 heading = Vector3.Normalize (a + b);
 
-			// Apply movement
-			transform.position += moveVec;
-		}
-		// Else if it is at the goal (i.e. not at the start)
-		else if( (goal - start).magnitude > 0.1 && movementDetails.Count > 0)
-		{
-			Debug.Log ("Changing goal = start");
-			goal = start;
-		}
-		// Else if it's back at the start
-		else
-		{
-			Debug.Log ("goal = goalOrig");
-			goal = goalOrig;
-		}
+				// Get movement vector
+				Vector3 moveVec = heading * speed * Time.deltaTime;
+
+				// Don't increase y value
+				moveVec.y = 0;
+
+				// Apply movement
+				transform.position += moveVec;
+			}
+			// Else if it is at the goal (i.e. not at the start)
+			else if( (goal - start).magnitude > 0.1 && movementDetails.Count > 0)
+			{
+				goal = start;
+			}
+			// Else if it's back at the start
+			else
+			{
+				goal = goalOrig;
+			}
+		}	// end if move
 	}
 
 	public override string ToString()

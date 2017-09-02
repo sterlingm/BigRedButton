@@ -47,13 +47,20 @@ public class Encounter : MonoBehaviour {
 
 	public void init(Player p, Enemy e)
 	{
+		// Set references
 		player = p;
 		enemy = e;
+
+		// Clear player topic options
 		dropDown.ClearOptions ();
 
+		// Populate topic options
 		List<string> topicStrs = player.GetTopicStrings ();
 		topicStrs.Insert (0, "Make a selection");
 		dropDown.AddOptions (topicStrs);
+
+		// Stop enemy from moving
+		e.move = false;
 
 		// Set enemy text box
 		//enemy.textbox.transform.position = enemy.gameObject.transform.position;
@@ -133,9 +140,15 @@ public class Encounter : MonoBehaviour {
 		// Check if enemy is dead
 		if (enemy.hp <= 0 && !displayingResponse)
 		{
+			// Deal with enemy
+			enemy.move = true;
 			enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
+
+			// Enable character control again
 			player.GetComponent<IsoCharControl> ().enabled = true;
+
+			// Destroy this Encounter object
 			Destroy (gameObject);
 		}
 	}
