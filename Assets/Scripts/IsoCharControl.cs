@@ -26,6 +26,9 @@ public class IsoCharControl : MonoBehaviour {
 		// Re-normalize the vectors after changing y
 		forward = Vector3.Normalize (forward);
 		right 	= Vector3.Normalize (right);
+
+		// Center camera on the player
+		CenterCameraOnPlayer ();
 	}
 	
 	// Update is called once per frame
@@ -53,6 +56,7 @@ public class IsoCharControl : MonoBehaviour {
 		transform.forward = heading;
 		transform.position += moveVec;
 
+		// Update the camera's position so that the player stays in view
 		CenterCameraOnPlayer ();
 	}
 

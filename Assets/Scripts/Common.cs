@@ -14,6 +14,12 @@ public class Common
 
 	public static string ENC_EVENT_STR = "Encounter";
 
+	public enum MovementType
+	{
+		LOITER,
+		PATH,
+		PATROL
+	}
 
 	public enum EnemyType
 	{
@@ -21,7 +27,6 @@ public class Common
 		CONGRESS,
 		PRESS
 	}
-
 	private static List<TopicType> cabinetWeakTo = new List<TopicType> { TopicType.HOSTILE_TALK };
 	private static List<TopicType> congressWeakTo = new List<TopicType> { TopicType.SHOP_TALK };
 	private static List<TopicType> pressWeakTo = new List<TopicType> { TopicType.SMALL_TALK };

@@ -7,7 +7,10 @@ using NUnit.Framework;
 
 public class Enemy : MonoBehaviour {
 
-	public Common.EnemyType type;
+	public Common.EnemyType enemyType;
+	public Common.MovementType movementType;
+
+
 	public float hp;
 	public String enemyName;
 	public String initEncounter;
@@ -29,7 +32,13 @@ public class Enemy : MonoBehaviour {
 	public Dictionary<Topic, EnemyResponse> responses;
 	public EnemyResponse lastResponse;
 
+	public Vector3 start;
+	public Vector3 goal;
+	public Vector3 goalOrig;
+	public List<Vector3> movementDetails;
 
+	public float speed;
+	public float goalThreshold;
 
 	public void AddResponse(EnemyResponse er)
 	{
@@ -42,6 +51,8 @@ public class Enemy : MonoBehaviour {
 		weakMod = 3f;
 		strongMod = -3f;
 		collidingWithPlayer = false;
+		speed = 3f;
+		goalThreshold = 0.15f;
 
 		weakTo = new List<Common.TopicType> ();
 		strongTo = new List<Common.TopicType> ();
@@ -58,6 +69,10 @@ public class Enemy : MonoBehaviour {
 		rb 			= GetComponent<Rigidbody> ();
 
 		responses = new Dictionary<Topic, EnemyResponse> ();
+
+		start = new Vector3 ();
+		goal = new Vector3 ();
+		movementDetails = new List<Vector3> ();
 	}
 
 	// Use this for initialization
@@ -70,7 +85,7 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		Move ();
 	}
 
 	void OnCollisionEnter(Collision coll)
@@ -94,12 +109,12 @@ public class Enemy : MonoBehaviour {
 	{
 		float result = topic.baseDmg;
 
-		if(Common.weakTo[(int)type].Contains(topic.type))
+		if(Common.weakTo[(int)enemyType].Contains(topic.type))
 		{
 			Debug.Log ("Adding weakMod");
 			result += weakMod;
 		}
-		else if(Common.strongTo[(int)type].Contains(topic.type))
+		else if(Common.strongTo[(int)enemyType].Contains(topic.type))
 		{
 			Debug.Log ("Adding strongMod");
 			result += strongMod;
@@ -123,6 +138,52 @@ public class Enemy : MonoBehaviour {
 		if(lastResponse.response.CompareTo("") == 0)
 		{
 			lastResponse = Common.enemyDefaultResp;
+		}
+	}
+
+	public void Move()
+	{
+		// Get vector between goal and start
+		Vector3 diff = goal - transform.position;
+		Debug.Log (String.Format ("diff: {0} diff.mag: {1} goalThreshold: {2}", diff.ToString(), diff.magnitude, goalThreshold));
+
+		// Check that we are greater than some threshold
+		// TODO: Fix jittering when it gets close to goal
+		if (diff.magnitude-transform.position.y > goalThreshold)
+		{
+			// Get the correct axes to move on
+			Vector3 forward = Vector3.Normalize (Camera.main.transform.forward);
+			Vector3 right = Vector3.Normalize (Camera.main.transform.right);
+	
+			// Project the diff vector onto the movement/camera axes
+			Vector3 a = Vector3.Project (diff, forward);
+			Vector3 b = Vector3.Project (diff, right);
+			Debug.Log (String.Format ("a: {0} b: {0}", a.ToString (), b.ToString ()));
+
+			// Get a heading vector
+			Vector3 heading = Vector3.Normalize (a + b);
+
+			// Get movement vector
+			Vector3 moveVec = heading * speed * Time.deltaTime;
+			Debug.Log (String.Format ("moveVec: {0}", moveVec.ToString ()));
+
+			// Don't increase y value
+			moveVec.y = 0;
+
+			// Apply movement
+			transform.position += moveVec;
+		}
+		// Else if it is at the goal (i.e. not at the start)
+		else if( (goal - start).magnitude > 0.1 && movementDetails.Count > 0)
+		{
+			Debug.Log ("Changing goal = start");
+			goal = start;
+		}
+		// Else if it's back at the start
+		else
+		{
+			Debug.Log ("goal = goalOrig");
+			goal = goalOrig;
 		}
 	}
 

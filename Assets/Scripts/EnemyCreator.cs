@@ -19,13 +19,15 @@ public class EnemyCreator : MonoBehaviour
 		public string type;
 		public string x_pos;
 		public string y_pos;
+		public string movement_type;
+		public string movement_details;
 		public List<string> responses = new List<string> ();
 		public List<string> topics = new List<string> ();
 	}
 
 	[SerializeField]
 	TextAsset file;
-	private int i_startResps = 5;
+	private int i_startResps = 7;
 	public List<Enemy> list;
 	public List<Row> rowList;
 	bool isLoaded = false;
@@ -47,6 +49,30 @@ public class EnemyCreator : MonoBehaviour
 	}
 
 	/*
+	 * Parse the string and build a list of vector2 positions
+	 */
+	public List<Vector3> getMovementDetails(string csv_str)
+	{
+		List<Vector3> result = new List<Vector3> ();
+
+		string[] strs = csv_str.Split (',');
+		for(int i=0;i<strs.Length-1;i+=2)
+		{
+			int x, z;
+			Int32.TryParse (strs [i], out x);
+			Int32.TryParse (strs [i+1], out z);
+
+			Vector3 pos = new Vector3 ();
+			pos.x = x;
+			pos.z = z;
+
+			result.Add (pos);
+		}
+
+		return result;
+	}
+
+	/*
 	 * Initialize the list
 	 */ 
 	public void init()
@@ -54,13 +80,15 @@ public class EnemyCreator : MonoBehaviour
 
 		for(int i=0;i<rowList.Count;i++)
 		{
+			// If an id exists, get all the other fields
 			int id;
 			if(Int32.TryParse(rowList[i].id, out id))
 			{
+				// Name
 				string name = rowList [i].name;
-				int type;
-				Int32.TryParse (rowList [i].type, out type);
 
+
+				// Position
 				Vector3 p = new Vector3 ();
 				float.TryParse (rowList [i].x_pos, out p.x);
 				float.TryParse (rowList [i].y_pos, out p.z);
@@ -68,25 +96,63 @@ public class EnemyCreator : MonoBehaviour
 				// Set y based on prefab y so that mesh is flush with the movement plane
 				p.y = enemyPrefab.transform.position.y;
 
+
 				// Create/Instantiate the enemy
 				Enemy e = Instantiate (enemyPrefab, p, Quaternion.identity) as Enemy;
 
-				// Set the type
-				switch(type)
+				// Set start member
+				e.start = p;
+
+				// Enemy Type
+				int enemyType;
+				Int32.TryParse (rowList [i].type, out enemyType);
+
+				// Set the enemy type
+				switch(enemyType)
 				{
 				case 0:
-					e.type = Common.EnemyType.CABINET;
+					e.enemyType = Common.EnemyType.CABINET;
 					break;
 				case 1:
-					e.type = Common.EnemyType.CONGRESS;
+					e.enemyType = Common.EnemyType.CONGRESS;
 					break;
 				case 2:
-					e.type = Common.EnemyType.PRESS;
+					e.enemyType = Common.EnemyType.PRESS;
 					break;
 				}
 
+				// Movement type
+				int movementType;
+				Int32.TryParse (rowList [i].movement_type, out movementType);
+
+				// Set the movement type
+				switch(movementType)
+				{
+				case 0:
+					e.movementType = Common.MovementType.LOITER;
+					break;
+				case 1:
+					e.movementType = Common.MovementType.PATH;
+					break;
+				case 2:
+					e.movementType = Common.MovementType.PATROL;
+					break;
+				}
+
+				// Get the movement details
+				e.movementDetails = getMovementDetails (rowList [i].movement_details);
+				if(e.movementDetails.Count > 0)
+				{
+					e.goal = e.movementDetails [0];
+				}
+				else
+				{
+					e.goal = e.start;
+				}
+				e.goalOrig = e.goal;
+
 				/*
-				 * Set responses
+				 * Responses
 				 */ 
 				Char delimiter = ' ';
 				for(int j=0;j<rowList[i].responses.Count;j++)
@@ -112,9 +178,9 @@ public class EnemyCreator : MonoBehaviour
 
 				// Add the enemy to list
 				enemyList.Add (e);
-			}
-		}
-	}
+			}	// end if id field exists
+		}	// end for each element in rowList
+	}	// End init()
 
 
 	/*
@@ -145,6 +211,8 @@ public class EnemyCreator : MonoBehaviour
 			row.type = grid[i][2];
 			row.x_pos = grid[i][3];
 			row.y_pos = grid[i][4];
+			row.movement_type = grid [i] [5];
+			row.movement_details = grid [i] [6];
 
 			// Load in response strings
 			for(int j=i_startResps;j<grid[i].Length;j+=2)
