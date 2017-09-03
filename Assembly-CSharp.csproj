@@ -122,6 +122,7 @@
      <Compile Include="Assets\Scripts\Utilities\Timer.cs" />
      <Compile Include="Assets\Scripts\Utilities\UnityHelper.cs" />
      <None Include="Assets\Shaders\Transition\TransPixelate.shader" />
+     <None Include="Assets\Resources\id-reference.txt" />
      <None Include="Assets\Shaders\Transition\TransCrossFade.shader" />
      <None Include="Assets\Shaders\Transition\TransFadeColor.shader" />
      <None Include="Assets\Shaders\Transition\TransDistort.shader" />

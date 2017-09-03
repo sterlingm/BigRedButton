@@ -49,6 +49,7 @@
      <Compile Include="Assets\CSV2Table\Editor\CSV2Table.cs" />
      <Compile Include="Assets\CSV2Table\Editor\CSVView.cs" />
      <None Include="Assets\Shaders\Transition\TransPixelate.shader" />
+     <None Include="Assets\Resources\id-reference.txt" />
      <None Include="Assets\Shaders\Transition\TransCrossFade.shader" />
      <None Include="Assets\Shaders\Transition\TransFadeColor.shader" />
      <None Include="Assets\Shaders\Transition\TransDistort.shader" />

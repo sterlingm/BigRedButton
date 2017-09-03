@@ -150,6 +150,8 @@ public class Enemy : MonoBehaviour {
 		{
 			// Get vector between goal and start
 			// Set y to 0 because transform will have nonzero y value based on environment plane
+
+			// Both goal, start, and transform.position are relative to world frame
 			Vector3 diff = goal - transform.position;
 			diff.y = 0;
 

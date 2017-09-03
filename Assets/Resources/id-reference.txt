@@ -1,0 +1,26 @@
+Enemy type ids:
+0 - cabinet
+1 - congress
+2 - press
+
+topic type ids:
+0 - small talk
+1 - shop talk
+2 - hostile talk
+
+movement type ids:
+0 - loiter
+1 - path
+2 - patrol
+
+topics (type id, base dmg)
+0 - how are you (0, 2)
+1 - aca repeal (1,3)
+2 - big red button (2,6)
+3 - collusion (2,4)
+4 - russia (1,4)
+5 - trump hotel (2,5)
+6 - outfit (0,2)
+7 - weather (0,2)
+8 - hair strands (0,5)
+9 - scotus (1,4)
