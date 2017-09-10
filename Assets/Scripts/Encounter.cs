@@ -79,14 +79,14 @@ public class Encounter : MonoBehaviour {
 		foreach(int i_topics in enemy.lastResponse.topicsToObtain)
 		{
 			Debug.Log ("i_topics: " + i_topics);
-			if(player.topics.Contains(i_topics))
+			if(player.i_topics.Contains(i_topics))
 			{
 				Debug.Log ("Player already has topic i");
 			}
 			else
 			{
 				Debug.Log ("Player does not have topic "+i_topics);
-				player.topics.Add (i_topics);
+				player.i_topics.Add (i_topics);
 			}
 		}
 	}

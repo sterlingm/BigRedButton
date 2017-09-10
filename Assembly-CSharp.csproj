@@ -46,18 +46,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BossFightManager.cs" />
      <Compile Include="Assets\CSV2Table\Demo\C2TDemo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\SampleTable.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
+     <Compile Include="Assets\DontDestroy.cs" />
      <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
      <Compile Include="Assets\Goal.cs" />
      <Compile Include="Assets\GoalLocation.cs" />
+     <Compile Include="Assets\POTUSActionList.cs" />
+     <Compile Include="Assets\PlayerActionList.cs" />
      <Compile Include="Assets\Scripts\Audio\MusicManager.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayer.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnClick.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnSelect.cs" />
+     <Compile Include="Assets\Scripts\Boss.cs" />
+     <Compile Include="Assets\Scripts\BossAction.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraHolderManager.cs" />
      <Compile Include="Assets\Scripts\Camera\DollyZoom.cs" />
      <Compile Include="Assets\Scripts\Camera\PerlinShake.cs" />

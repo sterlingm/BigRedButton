@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292f8caa712f4504b828b52ba6c8dda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csv: {fileID: 4900000, guid: 8668f308e21658a42b40c50bc7591881, type: 3}
+  csv: {fileID: 4900000, guid: 70c08c8f0edceef409501a34ce88a806, type: 3}
   input: {fileID: 2008647007}
   output: {fileID: 344807538}
 --- !u!1 &1739848236
