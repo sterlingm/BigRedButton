@@ -57,7 +57,12 @@ public class BossFightManager : MonoBehaviour {
 			int choice = dropDown.value-1;
 
 			// Apply the Action to the boss
-			boss.hp -= player.actions [choice].damage;
+			boss.ApplyPlayerAction (player.actionList.list [choice]);
+
+			// Make Boss choose an actions
+			int bossChoice = Random.Range (0, boss.actionList.list.Count);
+			BossAction b = boss.actionList.list [bossChoice];
+			player.ApplyBossAction (b);
 
 			// Set dropdown options to show any new topics
 			setOptions ();

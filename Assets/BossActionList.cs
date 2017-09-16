@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
+using NUnit.Framework;
+using System.Collections;
+using System.IO;
+using System;
 
-public class PlayerActionList : MonoBehaviour
+[Serializable]
+public class BossActionList : MonoBehaviour
 {
-
 	public class Row
 	{
 		public string id;
 		public string title;
-		public string damage;
-		public string actionType;
-		public string allyType;
-
+		public string baseDamage;
+		public string maxTargets;
 	}
 
 
@@ -23,21 +24,20 @@ public class PlayerActionList : MonoBehaviour
 	TextAsset file;
 
 	[SerializeField]
-	public List<PlayerAction> list;
+	public List<BossAction> list;
 
 
 	void Awake ()
 	{
 		rowList = new List<Row>();
-		file = Resources.Load ("player-actions") as TextAsset;
+		file = Resources.Load ("potus-actions") as TextAsset;
 		Load (file);
 		init ();
 	}
 
-
-	void init()
+	public void init()
 	{
-		list = new List<PlayerAction> ();
+		list = new List<BossAction> ();
 
 		// Go through row count
 		for(int i=0;i<rowList.Count;i++)
@@ -45,26 +45,23 @@ public class PlayerActionList : MonoBehaviour
 			int id;
 			if(Int32.TryParse(rowList[i].id, out id))
 			{
-				PlayerAction pa = new PlayerAction ();
-				pa.id = id;
+				BossAction ba = new BossAction ();
+				ba.id = id;
 
-				pa.title = rowList [i].title;
+				ba.title = rowList [i].title;
 
-				Int32.TryParse (rowList [i].damage, out pa.damage);
+				Int32.TryParse (rowList [i].baseDamage, out ba.baseDmg);
 
-				Int32.TryParse (rowList [i].actionType, out pa.actionType);
-				Int32.TryParse (rowList [i].allyType, out pa.allyType);
+				Int32.TryParse (rowList [i].maxTargets, out ba.maxTargets);
 
-				list.Add (pa);
+				list.Add (ba);
 			}
 			else
 			{
 				Debug.LogWarning ("An error occurerd reading POTUS actions");
 			}
 		}
-		
 	}
-
 
 
 	public bool IsLoaded()
@@ -86,9 +83,8 @@ public class PlayerActionList : MonoBehaviour
 			Row row = new Row();
 			row.id = grid[i][0];
 			row.title = grid[i][1];
-			row.damage = grid[i][2];
-			row.actionType = grid[i][3];
-			row.allyType = grid[i][4];
+			row.baseDamage = grid[i][2];
+			row.maxTargets = grid[i][3];
 
 			rowList.Add(row);
 		}
@@ -123,31 +119,22 @@ public class PlayerActionList : MonoBehaviour
 	{
 		return rowList.FindAll(x => x.title == find);
 	}
-	public Row Find_baseDamagePlayerActionList(string find)
+	public Row Find_baseDamage(string find)
 	{
-		return rowList.Find(x => x.damage == find);
+		return rowList.Find(x => x.baseDamage == find);
 	}
-	public List<Row> FindAll_baseDamagePlayerActionList(string find)
+	public List<Row> FindAll_baseDamage(string find)
 	{
-		return rowList.FindAll(x => x.damage == find);
+		return rowList.FindAll(x => x.baseDamage == find);
 	}
-	public Row Find_actionTypePlayerActionList(string find)
+	public Row Find_maxTargets(string find)
 	{
-		return rowList.Find(x => x.actionType == find);
+		return rowList.Find(x => x.maxTargets == find);
 	}
-	public List<Row> FindAll_actionTypePlayerActionList(string find)
+	public List<Row> FindAll_maxTargets(string find)
 	{
-		return rowList.FindAll(x => x.actionType == find);
+		return rowList.FindAll(x => x.maxTargets == find);
 	}
-	public Row Find_allyTypePlayerActionList(string find)
-	{
-		return rowList.Find(x => x.allyType == find);
-	}
-	public List<Row> FindAll_allyTypePlayerActionList(string find)
-	{
-		return rowList.FindAll(x => x.allyType == find);
-	}
-
 
 }
 

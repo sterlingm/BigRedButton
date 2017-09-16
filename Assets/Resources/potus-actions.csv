@@ -1,4 +1,4 @@
-﻿id,title,base damage,targets
+﻿id,title,baseDamage,maxTargets
 0,Spew,2,1
 1,Great Great Wall,-4,0
 2,Confuse,1,2

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/CSV2Table/Demo/Demo.unity
+- path: C:/Users/Sterling/Documents/AxisFootball/Assets/Scenes/Game.unity
   isLoaded: 1
   isActive: 1

@@ -7,33 +7,24 @@ using NUnit.Framework;
 public class Player : MonoBehaviour
 {
 
+	// List of topics for the main game loop
 	private TopicList topicList;
-	private PlayerActionList actionList;
 	public List<int> i_topics;
 
-	// Boss fight actions
 	[SerializeField]
-	public List<PlayerAction> actions;
+	// Boss fight actions
+	public PlayerActionList actionList;
+
+	// Boss fight stats
+	public int hp;
+
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		/*
 		 *  Initialize stuff
 		 */ 
-		// Make some fake actions for now
-		PlayerAction a = new PlayerAction ();
-		a.title = "Action a";
-		PlayerAction b = new PlayerAction ();
-		b.title = "Action b";
-		PlayerAction c = new PlayerAction ();
-		c.title = "Action c";
-
-		actions = new List<PlayerAction> ();
-		actions.Add (a);
-		actions.Add (b);
-		actions.Add (c);
-
 
 		// Give the player a few topics to bring up initially
 		topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();
@@ -42,12 +33,18 @@ public class Player : MonoBehaviour
 		i_topics.Add (1);
 		i_topics.Add (2);
 
+		hp = 10;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 	
+	}
+
+	public void ApplyBossAction(BossAction b)
+	{
+		hp -= b.baseDmg;
 	}
 
 	public Topic GetTopic(int i)
@@ -69,9 +66,9 @@ public class Player : MonoBehaviour
 	public List<string> GetActionStrings()
 	{
 		List<string> result = new List<string> ();
-		for(int i=0;i<actions.Count;i++)
+		for(int i=0;i<actionList.list.Count;i++)
 		{
-			result.Add (actions [i].title);
+			result.Add (actionList.list[i].title);
 		}
 		return result;
 	}
