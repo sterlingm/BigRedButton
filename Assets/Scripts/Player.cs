@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using NUnit.Framework;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -25,13 +26,16 @@ public class Player : MonoBehaviour
 		/*
 		 *  Initialize stuff
 		 */ 
-
-		// Give the player a few topics to bring up initially
-		topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();
-		i_topics = new List<int> ();
-		i_topics.Add (0);
-		i_topics.Add (1);
-		i_topics.Add (2);
+		// If Game scene is loaded, grab topicList object
+		if(SceneManager.GetActiveScene().buildIndex == 0)
+		{
+			// Give the player a few topics to bring up initially
+			topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();
+			i_topics = new List<int> ();
+			i_topics.Add (0);
+			i_topics.Add (1);
+			i_topics.Add (2);
+		}
 
 		hp = 10;
 	}
