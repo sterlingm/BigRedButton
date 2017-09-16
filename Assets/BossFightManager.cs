@@ -14,6 +14,8 @@ public class BossFightManager : MonoBehaviour {
 
 	private bool init;
 
+	public Text bossActionText;
+
 	void Awake()
 	{
 		choiceMade = false;
@@ -63,6 +65,7 @@ public class BossFightManager : MonoBehaviour {
 			int bossChoice = Random.Range (0, boss.actionList.list.Count);
 			BossAction b = boss.actionList.list [bossChoice];
 			player.ApplyBossAction (b);
+			bossActionText.text = b.title;
 
 			// Set dropdown options to show any new topics
 			setOptions ();
