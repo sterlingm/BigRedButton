@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 	// Boss fight stats
 	public int hp;
 
+	public List<Ally> allies;
+
 
 	// Use this for initialization
 	void Awake ()
@@ -38,6 +40,8 @@ public class Player : MonoBehaviour
 		}
 
 		hp = 10;
+
+		BuildAlly ();
 	}
 	
 	// Update is called once per frame
@@ -66,6 +70,28 @@ public class Player : MonoBehaviour
 		}
 		return result;
 	}
+
+
+	public void BuildAlly()
+	{
+		Ally a = new Ally ();
+
+		a.i_actions.Add (0);
+		a.i_actions.Add (2);
+
+		Ally b = new Ally ();
+		b.i_actions.Add (1);
+		b.i_actions.Add (3);
+
+		a.actionList = actionList;
+		b.actionList = actionList;
+
+		// NPCs will have a list of actions available to them
+		allies.Add (a);
+		allies.Add (b);
+	}
+
+
 
 	public List<string> GetActionStrings()
 	{

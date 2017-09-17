@@ -8,6 +8,8 @@ public class BossFightManager : MonoBehaviour {
 	public Player player;
 	public Boss boss;
 
+
+
 	public Dropdown dropDown;
 
 	public bool choiceMade;
@@ -15,6 +17,8 @@ public class BossFightManager : MonoBehaviour {
 	private bool init;
 
 	public Text bossActionText;
+
+	private int i_activeChar;
 
 	void Awake()
 	{
@@ -37,11 +41,18 @@ public class BossFightManager : MonoBehaviour {
 
 	private void setOptions()
 	{
-		List<string> actionStrs = player.GetActionStrings ();
+		// Get list of actions for the current active character
+		List<string> actionStrs = i_activeChar == 0 ? player.GetActionStrings () 
+													: player.allies [i_activeChar - 1].GetActionsStrs ();
+
+		// Insert "Make a selection to prompt the user
 		actionStrs.Insert (0, "Make a selection");
+
+		// Clear and re-set the options	
 		dropDown.ClearOptions ();
 		dropDown.AddOptions (actionStrs);
 	}
+		
 
 	void Update()
 	{
@@ -60,11 +71,22 @@ public class BossFightManager : MonoBehaviour {
 			// Apply the Action to the boss
 			boss.ApplyPlayerAction (player.actionList.list [choice]);
 
-			// Make Boss choose an actions
-			int bossChoice = Random.Range (0, boss.actionList.list.Count);
-			BossAction b = boss.actionList.list [bossChoice];
-			player.ApplyBossAction (b);
-			bossActionText.text = b.title;
+			// If the player has selected an action for each character, it is the boss' turn
+			if(i_activeChar == player.allies.Count)
+			{
+				// Make Boss choose an actions
+				int bossChoice = Random.Range (0, boss.actionList.list.Count);
+				BossAction b = boss.actionList.list [bossChoice];
+				player.ApplyBossAction (b);
+				bossActionText.text = b.title;
+
+				// Set active character back to player
+				i_activeChar = 0;
+			}
+			else
+			{
+				i_activeChar++;
+			}
 
 			// Set dropdown options to show any new topics
 			setOptions ();
