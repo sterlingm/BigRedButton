@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/Users/Sterling/Documents/AxisFootball/Assets/Scenes/Game.unity
+- path: Assets/Scenes/Boss.unity
   isLoaded: 1
   isActive: 1

@@ -23,7 +23,6 @@ public class BossFightManager : MonoBehaviour {
 		dropDown.onValueChanged.AddListener(DropdownValueChanged);
 
 		init = false;
-		choiceMade = false;
 	}
 
 
@@ -78,9 +77,6 @@ public class BossFightManager : MonoBehaviour {
 		}
 
 		// Check if boss is dead
-
-
-		// Check if enemy is dead
 		if (boss.hp <= 0)
 		{
 			// Deal with enemy
