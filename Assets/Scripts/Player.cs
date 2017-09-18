@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
+using System.Security.AccessControl;
 
 public class Player : MonoBehaviour
 {
@@ -78,13 +79,18 @@ public class Player : MonoBehaviour
 
 		a.i_actions.Add (0);
 		a.i_actions.Add (2);
+		foreach(int i in a.i_actions)
+		{
+			a.actions.Add (actionList.list [i]);
+		}
 
 		Ally b = new Ally ();
 		b.i_actions.Add (1);
 		b.i_actions.Add (3);
-
-		a.actionList = actionList;
-		b.actionList = actionList;
+		foreach(int i in b.i_actions)
+		{
+			b.actions.Add (actionList.list [i]);
+		}
 
 		// NPCs will have a list of actions available to them
 		allies.Add (a);

@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEngine.iOS;
 
 [Serializable]
 public class Ally
@@ -16,20 +17,21 @@ public class Ally
 	 * set the objects in a Player method called BuildAlly
 	 */ 
 	public List<int> i_actions;
-	public PlayerActionList actionList;
+	public List<PlayerAction> actions;
 
 	public Ally()
 	{
 		i_actions = new List<int> ();
+		actions = new List<PlayerAction> ();
 	}
 
 	public List<string> GetActionsStrs()
 	{
 		List<string> result = new List<string> ();
 
-		foreach(int i in i_actions)
+		foreach(PlayerAction pa in actions)
 		{
-			result.Add (actionList.list [i].title);
+			result.Add (pa.title);
 		}
 
 		return result;

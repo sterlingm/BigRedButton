@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BossFightManager : MonoBehaviour {
 
@@ -41,6 +42,10 @@ public class BossFightManager : MonoBehaviour {
 
 	private void setOptions()
 	{
+		if(i_activeChar - 1 < player.allies.Count)
+		{
+			Debug.LogWarning (String.Format ("i_activeChar: {0} player.allies.Count: {1}", i_activeChar, player.allies.Count));
+		}
 		// Get list of actions for the current active character
 		List<string> actionStrs = i_activeChar == 0 ? player.GetActionStrings () 
 													: player.allies [i_activeChar - 1].GetActionsStrs ();
@@ -75,7 +80,7 @@ public class BossFightManager : MonoBehaviour {
 			if(i_activeChar == player.allies.Count)
 			{
 				// Make Boss choose an actions
-				int bossChoice = Random.Range (0, boss.actionList.list.Count);
+				int bossChoice = UnityEngine.Random.Range (0, boss.actionList.list.Count);
 				BossAction b = boss.actionList.list [bossChoice];
 				player.ApplyBossAction (b);
 				bossActionText.text = b.title;
