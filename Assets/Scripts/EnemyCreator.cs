@@ -100,7 +100,10 @@ public class EnemyCreator : MonoBehaviour
 				// Create/Instantiate the enemy
 				Enemy e = Instantiate (enemyPrefab, p, Quaternion.identity) as Enemy;
 
-				// Set start member
+				// Set id
+				e.id = id;
+
+				// Set start position
 				e.start = p;
 
 				// Enemy Type

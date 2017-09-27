@@ -8,7 +8,7 @@ using UnityEngine.iOS;
 [Serializable]
 public class Ally
 {
-	public int id;
+	public int id;	// Should equal the Enemy id that was used to create the Ally
 	public string name;
 
 	/*

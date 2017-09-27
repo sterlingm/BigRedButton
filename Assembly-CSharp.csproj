@@ -46,25 +46,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Ally.cs" />
-     <Compile Include="Assets\BossActionList.cs" />
-     <Compile Include="Assets\BossFightManager.cs" />
      <Compile Include="Assets\CSV2Table\Demo\C2TDemo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\SampleTable.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
-     <Compile Include="Assets\DontDestroy.cs" />
      <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
-     <Compile Include="Assets\Goal.cs" />
-     <Compile Include="Assets\GoalLocation.cs" />
-     <Compile Include="Assets\PlayerActionList.cs" />
+     <Compile Include="Assets\Scripts\Ally.cs" />
      <Compile Include="Assets\Scripts\Audio\MusicManager.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayer.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnClick.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnSelect.cs" />
      <Compile Include="Assets\Scripts\Boss.cs" />
      <Compile Include="Assets\Scripts\BossAction.cs" />
+     <Compile Include="Assets\Scripts\BossActionList.cs" />
+     <Compile Include="Assets\Scripts\BossFightManager.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraHolderManager.cs" />
      <Compile Include="Assets\Scripts\Camera\DollyZoom.cs" />
      <Compile Include="Assets\Scripts\Camera\PerlinShake.cs" />
@@ -73,6 +69,7 @@
      <Compile Include="Assets\Scripts\Core\UserPrefsData.cs" />
      <Compile Include="Assets\Scripts\Core\UserSetting.cs" />
      <Compile Include="Assets\Scripts\Core\UserSettingAudio.cs" />
+     <Compile Include="Assets\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\Encounter.cs" />
      <Compile Include="Assets\Scripts\EncounterEvent.cs" />
      <Compile Include="Assets\Scripts\EncounterEventManager.cs" />
@@ -95,9 +92,12 @@
      <Compile Include="Assets\Scripts\Extensions\Unity\Vector4Extensions.cs" />
      <Compile Include="Assets\Scripts\GameEventManager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Goal.cs" />
+     <Compile Include="Assets\Scripts\GoalLocation.cs" />
      <Compile Include="Assets\Scripts\IsoCharControl.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerAction.cs" />
+     <Compile Include="Assets\Scripts\PlayerActionList.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneAssetPath.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneAutoLoad.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
@@ -131,6 +131,7 @@
      <None Include="Assets\Shaders\Transition\TransPixelate.shader" />
      <None Include="Assets\Resources\id-reference.txt" />
      <None Include="Assets\Shaders\Transition\TransCrossFade.shader" />
+     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
      <None Include="Assets\Shaders\Transition\TransFadeColor.shader" />
      <None Include="Assets\Shaders\Transition\TransDistort.shader" />
      <None Include="Assets\Shaders\Transition\TransDissolve.shader" />

@@ -1,26 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BossFightManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ally.cs">
     <Files>
-      <File FileName="Assets\BossFightManager.cs" Line="74" Column="22" />
-      <File FileName="Assets\Scripts\Encounter.cs" Line="131" Column="14" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Goal.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyCreator.cs" Line="1" Column="1" />
-      <File FileName="..\Scavengers\Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Common.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TopicCsv.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Boss.cs" Line="14" Column="3" />
-      <File FileName="Assets\Scripts\Player.cs" Line="37" Column="21" />
-      <File FileName="Assets\Scripts\TopicList.cs" Line="4" Column="17" />
-      <File FileName="Assets\Scripts\PlayerAction.cs" Line="14" Column="20" />
-      <File FileName="Assets\PlayerActionList.cs" Line="28" Column="2" />
-      <File FileName="Assets\BossActionList.cs" Line="7" Column="1" />
-      <File FileName="Assets\Scripts\BossAction.cs" Line="9" Column="17" />
+      <File FileName="Assets\Scripts\Player.cs" Line="43" Column="11" />
+      <File FileName="Assets\Scripts\EncounterEventManager.cs" Line="10" Column="29" />
+      <File FileName="Assets\Scripts\Encounter.cs" Line="124" Column="28" />
+      <File FileName="Assets\Scripts\Ally.cs" Line="12" Column="9" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="13" Column="16" />
+      <File FileName="Assets\Scripts\EnemyCreator.cs" Line="106" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Sterling\Documents\BigRedButton\Assets\BossFightManager.cs" line="50" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

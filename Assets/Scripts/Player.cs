@@ -41,8 +41,6 @@ public class Player : MonoBehaviour
 		}
 
 		hp = 10;
-
-		BuildAlly ();
 	}
 	
 	// Update is called once per frame
@@ -69,32 +67,24 @@ public class Player : MonoBehaviour
 		{
 			result.Add (topicList.list[i_topics [i]].title);
 		}
+
+		// Insert "Make Ally"
+		result.Add ("Make ally");
 		return result;
 	}
 
 
-	public void BuildAlly()
+	public void BuildAlly(Enemy e)
 	{
 		Ally a = new Ally ();
-
 		a.i_actions.Add (0);
 		a.i_actions.Add (2);
-		foreach(int i in a.i_actions)
-		{
-			a.actions.Add (actionList.list [i]);
-		}
 
-		Ally b = new Ally ();
-		b.i_actions.Add (1);
-		b.i_actions.Add (3);
-		foreach(int i in b.i_actions)
-		{
-			b.actions.Add (actionList.list [i]);
-		}
+		// Set name and id
+		a.name = e.enemyName;
 
-		// NPCs will have a list of actions available to them
+
 		allies.Add (a);
-		allies.Add (b);
 	}
 
 

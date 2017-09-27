@@ -118,14 +118,24 @@ public class Encounter : MonoBehaviour {
 			int choice = dropDown.value-1;
 			//Debug.Log ("choice: " + player.topics[choice].title);
 
-			// Apply topic to enemy
-			enemy.ApplyTopic (player.GetTopic(choice));
+			// If the user selected "Make ally"
+			if(choice == player.i_topics.Count)
+			{
+				player.BuildAlly (enemy);
+			}
 
-			// Display enemy response
-			StartCoroutine (DisplayEnemyResponse ());
+			else
+			{
+				// Apply topic to enemy
+				enemy.ApplyTopic (player.GetTopic(choice));
 
-			// Check enemy response for new topics
-			checkNewTopics ();
+				// Display enemy response
+				StartCoroutine (DisplayEnemyResponse ());
+
+				// Check enemy response for new topics
+				checkNewTopics ();
+			}
+
 
 			// Set dropdown options to show any new topics
 			setOptions ();

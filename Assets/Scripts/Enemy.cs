@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour {
 	public Common.EnemyType enemyType;
 	public Common.MovementType movementType;
 
-
+	public int id;
 	public float hp;
 	public String enemyName;
 	public String initEncounter;
