@@ -1,0 +1,8 @@
+id,title,baseDmg,allyType
+0,Attack,2,"0,1,2"
+1,Contradict,3,2
+2,Poke fun,2,0
+3,Cite facts,2,"0,2"
+4,Threaten,1,"0,1"
+5,Vote Nay,4,1
+6,Quote Reagan,1,"0,1"

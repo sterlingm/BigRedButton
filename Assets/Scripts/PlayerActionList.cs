@@ -11,7 +11,6 @@ public class PlayerActionList : MonoBehaviour
 		public string title;
 		public string damage;
 		public string actionType;
-		public string allyType;
 
 	}
 
@@ -53,7 +52,6 @@ public class PlayerActionList : MonoBehaviour
 				Int32.TryParse (rowList [i].damage, out pa.damage);
 
 				Int32.TryParse (rowList [i].actionType, out pa.actionType);
-				Int32.TryParse (rowList [i].allyType, out pa.allyType);
 
 				list.Add (pa);
 			}
@@ -88,7 +86,6 @@ public class PlayerActionList : MonoBehaviour
 			row.title = grid[i][1];
 			row.damage = grid[i][2];
 			row.actionType = grid[i][3];
-			row.allyType = grid[i][4];
 
 			rowList.Add(row);
 		}
@@ -138,14 +135,6 @@ public class PlayerActionList : MonoBehaviour
 	public List<Row> FindAll_actionTypePlayerActionList(string find)
 	{
 		return rowList.FindAll(x => x.actionType == find);
-	}
-	public Row Find_allyTypePlayerActionList(string find)
-	{
-		return rowList.Find(x => x.allyType == find);
-	}
-	public List<Row> FindAll_allyTypePlayerActionList(string find)
-	{
-		return rowList.FindAll(x => x.allyType == find);
 	}
 
 

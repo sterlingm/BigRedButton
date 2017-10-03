@@ -1,6 +1,6 @@
-﻿id,title,damage,actionType,allyType
-0,Attack,2,0,0
-1,Contradict,3,1,2
-2,Poke fun,2,0,0
-3,Cite facts,2,0,0
-4,Threaten,1,0,0
+id,title,damage,actionType
+0,Attack,2,0
+1,Contradict,3,1
+2,Poke fun,2,0
+3,Cite facts,2,0
+4,Threaten,1,0
