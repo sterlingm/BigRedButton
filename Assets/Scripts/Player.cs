@@ -63,23 +63,23 @@ public class Player : MonoBehaviour
 			i_allyActionsForType.Add (ones);
 			i_allyActionsForType.Add (twos);
 
-			// For each enemy type, look through the ally action list and get possible actions
-			//for (int k = 0; k < 3; k++)
-			//{
-				// For each ally action
-				for (int i = 0; i < allyActionList.list.Count; i++)
+			/*
+			 * Go through the ally action list and initialize the 2d list of indices
+			 * for each ally type
+			 */ 
+			// For each ally action
+			for (int i = 0; i < allyActionList.list.Count; i++)
+			{
+				// For each type for that ally action
+				// BUILD A LIST, SHOULD NOT TRY TO ADD ON TO CURRENT LIST
+				for (int j = 0; j < allyActionList.list [i].allyType.Count; j++)
 				{
-					// For each type for that ally action
-					// BUILD A LIST, SHOULD NOT TRY TO ADD ON TO CURRENT LIST
-					for (int j = 0; j < allyActionList.list [i].allyType.Count; j++)
-					{
-						int i_type = allyActionList.list [i].allyType [j];
-						int actionId = allyActionList.list [i].id;
+					int i_type = allyActionList.list [i].allyType [j];
+					int actionId = allyActionList.list [i].id;
 
-						i_allyActionsForType [i_type].Add (actionId);
-					}
+					i_allyActionsForType [i_type].Add (actionId);
 				}
-			//}
+			}
 		}
 
 		hp = 10;
@@ -99,6 +99,11 @@ public class Player : MonoBehaviour
 		List<int> actions = i_allyActionsForType [(int)type];
 		foreach(int i in actions)
 		{
+			// ***************************************************************
+			// **** Add a random check to see if the ally gets the action ****
+			// ***************************************************************
+
+			// Add the action
 			a.actions.Add (allyActionList.list[i]);
 		}
 

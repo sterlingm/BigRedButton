@@ -91,6 +91,14 @@ public class Encounter : MonoBehaviour {
 		}
 	}
 
+	private bool tryMakeAlly()
+	{
+		int threshold = (int)Math.Floor(enemy.hp);
+
+		int num = UnityEngine.Random.Range (0, 10);
+
+		return num >= threshold;
+	}
 
 	public IEnumerator DisplayEnemyResponse()
 	{
@@ -109,7 +117,6 @@ public class Encounter : MonoBehaviour {
 
 	public void Update()
 	{
-
 		if(choiceMade)
 		{
 			// Player's turn
@@ -121,7 +128,16 @@ public class Encounter : MonoBehaviour {
 			// If the user selected "Make ally"
 			if(choice == player.i_topics.Count)
 			{
-				player.BuildAlly (enemy);
+				if(tryMakeAlly())
+				{
+					player.BuildAlly (enemy);
+					enemy.hp = 0;
+				}
+				else
+				{
+					// Some penalty
+					// Maybe remove time from timer? Display a certain message? "The office is onto you!"
+				}
 			}
 
 			else
