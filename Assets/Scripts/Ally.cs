@@ -17,21 +17,21 @@ public class Ally
 	 * set the objects in a Player method called BuildAlly
 	 */ 
 	public List<int> i_actions;
-	public List<PlayerAction> actions;
+	public List<AllyAction> actions;
 
 	public Ally()
 	{
 		i_actions = new List<int> ();
-		actions = new List<PlayerAction> ();
+		actions = new List<AllyAction> ();
 	}
 
 	public List<string> GetActionsStrs()
 	{
 		List<string> result = new List<string> ();
 
-		foreach(PlayerAction pa in actions)
+		foreach(AllyAction aa in actions)
 		{
-			result.Add (pa.title);
+			result.Add (aa.title);
 		}
 
 		return result;

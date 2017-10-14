@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+[Serializable]
 public class AllyActionList : MonoBehaviour
 {
 
@@ -64,8 +65,7 @@ public class AllyActionList : MonoBehaviour
 			{
 				Debug.LogWarning ("An error occurerd reading POTUS actions");
 			}
-		}
-
+		}	// end for each row
 	}
 
 

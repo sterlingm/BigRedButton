@@ -1,18 +1,23 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyCreator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="62" Column="18" />
-      <File FileName="Assets\Scripts\EncounterEventManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Encounter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ally.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyCreator.cs" Line="215" Column="1" />
-      <File FileName="Assets\Scripts\PlayerActionList.cs" Line="23" Column="1" />
-      <File FileName="Assets\Scripts\AllyActionList.cs" Line="58" Column="17" />
-      <File FileName="Assets\Scripts\PlayerAction.cs" Line="5" Column="3" />
-      <File FileName="Assets\Scripts\AllyAction.cs" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="57" Column="63" NotebookId="1" />
+      <File FileName="Assets\Scripts\EncounterEventManager.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\Encounter.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\Ally.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\PlayerActionList.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\PlayerAction.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\AllyActionList.cs" Line="24" Column="31" NotebookId="1" />
     </Files>
+    <FloatingWindows>
+      <FloatingWindow WindowId="1" X="0" Y="0" Width="942" Height="985">
+        <Files>
+          <File FileName="Assets\Scripts\AllyAction.cs" Line="19" Column="1" />
+        </Files>
+      </FloatingWindow>
+    </FloatingWindows>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
