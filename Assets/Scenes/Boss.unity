@@ -925,10 +925,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 771159536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3396d3df3cab7545b7df62ed9063d58, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dd661ea14cd5ba4bb8b218cbd2f5745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  list: []
 --- !u!4 &771159538
 Transform:
   m_ObjectHideFlags: 0
@@ -1090,7 +1089,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1107694164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f9d2851dd0be0b4f95647d4bc579513, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2374997c28aec4596b0ea99e6e14ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   list: []
@@ -1233,7 +1232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1462578172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1309,10 +1308,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770bbc0f1d362c4ea34d2f60fa4a0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topicList: {fileID: 0}
   i_topics: 
   actionList: {fileID: 771159537}
   hp: 0
   allies: []
+  allyActionList: {fileID: 0}
 --- !u!1 &1701680052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,10 +1542,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868964836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ae97a4a266a0348b831ac4d59e07e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6be36f04cb78a0f418e2415897fd8c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1462578176}
+  player: {fileID: 0}
   boss: {fileID: 2146807805}
   dropDown: {fileID: 450898097}
   choiceMade: 0
