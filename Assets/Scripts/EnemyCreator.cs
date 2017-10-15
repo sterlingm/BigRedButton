@@ -103,6 +103,10 @@ public class EnemyCreator : MonoBehaviour
 				// Set id
 				e.id = id;
 
+				// Set name
+				e.name = name;
+				e.enemyName = name;
+
 				// Set start position
 				e.start = p;
 

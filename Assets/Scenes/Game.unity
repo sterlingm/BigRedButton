@@ -1769,7 +1769,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915854402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9602a32b33d95a74990e333b1ea5f699, type: 3}
+  m_Script: {fileID: 11500000, guid: 2126bc7c43e4c0a47a989ad9061c2fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1923807283
@@ -1817,10 +1817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770bbc0f1d362c4ea34d2f60fa4a0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topicList: {fileID: 0}
   i_topics: 
   actionList: {fileID: 0}
   hp: 0
   allies: []
+  allyActionList: {fileID: 0}
 --- !u!114 &1923807286
 MonoBehaviour:
   m_ObjectHideFlags: 0
