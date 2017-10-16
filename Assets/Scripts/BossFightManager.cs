@@ -23,20 +23,14 @@ public class BossFightManager : MonoBehaviour {
 
 	void Awake()
 	{
+		// Set dropdown object
 		choiceMade = false;
 		dropDown = GameObject.Find ("/GUI/BossFightActions").GetComponent<Dropdown> ();
 		dropDown.onValueChanged.AddListener(DropdownValueChanged);
 
 		// Set player object
+		// Cannot link in inspector because Player comes from previous scene
 		player = GameObject.Find ("Player").GetComponent<Player> ();
-		Vector3 playerPos = new Vector3 (25f, 0.5f, 15f);
-		player.transform.position = playerPos;
-
-		// Set player action list for player object
-		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionList> ();
-
-		// Disable player movement
-		player.GetComponent<IsoCharControl> ().enabled = false;
 
 		init = false;
 	}

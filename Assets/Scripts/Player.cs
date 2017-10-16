@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 	// Boss fight stats
 	public int hp;
 
-	public List<Ally> allies;
+	public List<AllyInfo> allies;
 
 	[SerializeField]
 	public AllyActionList allyActionList;
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
 	public void BuildAlly(Enemy e)
 	{
-		Ally a = new Ally ();
+		AllyInfo a = new AllyInfo ();
 
 		// Set name and id
 		a.name = e.enemyName;

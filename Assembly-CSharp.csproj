@@ -46,12 +46,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AllyInfo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\C2TDemo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\SampleTable.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
      <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
+     <Compile Include="Assets\SceneSetup.cs" />
      <Compile Include="Assets\Scripts\Ally.cs" />
      <Compile Include="Assets\Scripts\AllyAction.cs" />
      <Compile Include="Assets\Scripts\AllyActionList.cs" />
