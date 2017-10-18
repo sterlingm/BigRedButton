@@ -10,14 +10,11 @@ public class Goal : MonoBehaviour {
 	 */
 	void OnCollisionEnter(Collision coll)
 	{
-		// Load new scene
-		SceneManager.LoadScene ("Boss");
-	
-		// Put Player in front of Boss
-		/*if(coll.gameObject.name == "Player"d)
+		// If player collided with goal
+		// Load new scene 
+		if(coll.gameObject.name == "Player")
 		{
-			Vector3 p_new = new Vector3 (130, 0.5f, 130);
-			coll.gameObject.transform.position = p_new;
-		}*/
+			SceneManager.LoadScene ("Boss");
+		}
 	}
 }

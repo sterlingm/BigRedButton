@@ -21,6 +21,8 @@ public class Encounter : MonoBehaviour {
 	public Player player;
 	private bool choiceMade;
 
+	public Text errorMsg;
+
 
 	// Use this for initialization
 	void Awake () 
@@ -28,6 +30,8 @@ public class Encounter : MonoBehaviour {
 		choiceMade = false;
 		dropDown = GameObject.Find ("/GUI/TopicList").GetComponent<Dropdown> ();
 		dropDown.onValueChanged.AddListener(DropdownValueChanged);
+
+		errorMsg = GameObject.Find ("/GUI/ErrorMsgs").GetComponent<Text> ();
 	}
 
 	void ApplyPlayerAction()
@@ -128,7 +132,12 @@ public class Encounter : MonoBehaviour {
 			// If the user selected "Make ally"
 			if(choice == player.i_topics.Count)
 			{
-				if(tryMakeAlly())
+				if(player.allies.Count >= 2)
+				{
+					// Display some error message
+					errorMsg.text = "You already have 2 allies!";
+				}
+				else if(tryMakeAlly())
 				{
 					player.BuildAlly (enemy);
 					enemy.hp = 0;
