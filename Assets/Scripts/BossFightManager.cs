@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Security.Cryptography.X509Certificates;
+using UnityEditor;
 
 public class BossFightManager : MonoBehaviour {
 
 	public Player player;
 	public Boss boss;
-
-
-
 	public Dropdown dropDown;
 
 	public bool choiceMade;
@@ -20,6 +19,14 @@ public class BossFightManager : MonoBehaviour {
 	public Text bossActionText;
 
 	private int i_activeChar;
+
+	public Text playerTurnText;
+	public Text allyOneTurnText;
+	public Text allyTwoTurnText;
+	public Text bossTurnText;
+	public Text bossHp;
+
+	public Camera camera;
 
 	void Awake()
 	{
@@ -32,6 +39,40 @@ public class BossFightManager : MonoBehaviour {
 		// Cannot link in inspector because Player comes from previous scene
 		player = GameObject.Find ("Player").GetComponent<Player> ();
 
+		// Set player turn indicator text position
+		Vector3 playerPos = camera.WorldToScreenPoint (player.transform.position);
+		playerPos.x += 50;
+		playerPos.y -= 50;
+		playerTurnText.transform.position = playerPos;
+
+		// Set boss turn indicator text position
+		Vector3 potusPos = camera.WorldToScreenPoint (boss.transform.position);
+		potusPos.x += 30;
+		potusPos.y += 50;
+		bossTurnText.transform.position = potusPos;
+
+		// Set ally turn indicator text position
+		if(player.allies.Count > 0)
+		{
+			Ally temp = GameObject.Find ("Ally 1").GetComponent<Ally> ();
+			Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+			screenPos.x += 50;
+			screenPos.y -= 50;
+			allyOneTurnText.transform.position = screenPos;
+		}
+		if(player.allies.Count > 1)
+		{
+			Ally temp = GameObject.Find ("Ally 2").GetComponent<Ally> ();
+			Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+			screenPos.x += 50;
+			screenPos.y -= 50;
+			allyTwoTurnText.transform.position = screenPos;
+		}
+
+		// Set the turn indicator
+		SetTurnIndicator ();
+
+		// End initialization
 		init = false;
 	}
 
@@ -63,6 +104,29 @@ public class BossFightManager : MonoBehaviour {
 		dropDown.AddOptions (actionStrs);
 	}
 		
+	void SetTurnIndicator()
+	{
+		playerTurnText.gameObject.SetActive (false);
+		bossTurnText.gameObject.SetActive (false);
+		allyOneTurnText.gameObject.SetActive (false);
+		allyTwoTurnText.gameObject.SetActive (false);
+		if(i_activeChar == 0)
+		{
+			playerTurnText.gameObject.SetActive (true);
+		}
+		else if(i_activeChar == 1)
+		{
+			allyOneTurnText.gameObject.SetActive (true);
+		}
+		else if(i_activeChar == 2)
+		{
+			allyTwoTurnText.gameObject.SetActive (true);
+		}
+		else
+		{
+			bossTurnText.gameObject.SetActive (true);
+		}
+	}
 
 	void Update()
 	{
@@ -84,6 +148,7 @@ public class BossFightManager : MonoBehaviour {
 			// If the player has selected an action for each character, it is the boss' turn
 			if(i_activeChar == player.allies.Count)
 			{
+				
 				// Make Boss choose an actions
 				int bossChoice = UnityEngine.Random.Range (0, boss.actionList.list.Count);
 				BossAction b = boss.actionList.list [bossChoice];
@@ -103,6 +168,12 @@ public class BossFightManager : MonoBehaviour {
 
 			// Reset dropdown
 			dropDown.value = 0;
+
+			// Set new turn indicator
+			SetTurnIndicator ();
+
+			// Set new boss HP
+			bossHp.text = String.Format ("HP: {0}", boss.hp);
 
 			// Reset choiceMade
 			choiceMade = false;
