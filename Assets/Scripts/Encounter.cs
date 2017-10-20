@@ -179,6 +179,7 @@ public class Encounter : MonoBehaviour {
 			enemy.move = true;
 			enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
+			GameObject.Find ("Scroll View").SetActive (false);
 
 			// Enable character control again
 			player.GetComponent<IsoCharControl> ().enabled = true;

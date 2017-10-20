@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	public Encounter encounterPrefab;
 	public Encounter encounterInstance;
 	public bool encActive;
+	public RectTransform scrollView;
 
 	// Use this for initialization
 	void Awake () 
@@ -27,11 +28,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (encActive)
+		if (!encActive && scrollView.gameObject.activeInHierarchy)
 		{
-			//encounterInstance.go ();
-			//encActive = false;
-			//Destroy (encounterInstance);
+			scrollView.gameObject.SetActive (false);
 		}
 	}
 
@@ -45,6 +44,7 @@ public class GameManager : MonoBehaviour {
 		Debug.Log ("In OnEncounter");
 		if(!GameObject.Find("Encounter(Clone)"))
 		{
+			scrollView.gameObject.SetActive (true);
 			encounterInstance = Instantiate (encounterPrefab) as Encounter;
 			encounterInstance.init (player, e);
 			encActive = true;
