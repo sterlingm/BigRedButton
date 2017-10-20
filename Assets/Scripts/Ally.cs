@@ -9,6 +9,16 @@ using UnityEngine.iOS;
 public class Ally : MonoBehaviour
 {
 	public AllyInfo allyInfo;
+	public int hp;
 
+	void Awake()
+	{
+		hp = 10;
+	}
+
+	public void ApplyBossAction(BossAction b)
+	{
+		hp -= b.baseDmg;
+	}
 }
 
