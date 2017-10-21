@@ -7,7 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-public class BossFightManager : MonoBehaviour {
+public class BossFightManager : MonoBehaviour 
+{
 
 	public Player player;
 	public Boss boss;

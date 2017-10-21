@@ -15,18 +15,25 @@ public class Encounter : MonoBehaviour {
 	public Dropdown dropDown;
 
 
-	public bool active;
-	public bool displayingResponse;
-	public Enemy enemy;
-	public Player player;
+	// Player and enemy involved in the encounter
+	public Enemy 	enemy;
+	public Player 	player;
+
+	// Flag for if the enemy response is still being displayed
+	public bool 	displayingResponse;
+
+	// Flag for when the player has selected a topic
 	private bool choiceMade;
 
+	// Display any error messages
 	public Text errorMsg;
 
+	// Number of times the player has selected a topic
 	private int numRounds;
 
-
-	// Use this for initialization
+	/*
+	 * Awake
+	 */ 
 	void Awake () 
 	{
 		choiceMade = false;
@@ -38,16 +45,21 @@ public class Encounter : MonoBehaviour {
 		numRounds = 0;
 	}
 
-
+	/*
+	 * Change choiceMade to true
+	 * Take an arg to satisfy listener signature
+	 */ 
 	private void DropdownValueChanged(int choice)
 	{
-		Debug.Log ("In DropdownValueChanged");
 		if(!choiceMade)
 		{
 			choiceMade = true;
 		}
 	}
 
+	/*
+	 * Initialize the Encounter object with a player and enemy
+	 */ 
 	public void init(Player p, Enemy e)
 	{
 		// Set references
@@ -65,20 +77,31 @@ public class Encounter : MonoBehaviour {
 		// Stop enemy from moving
 		e.move = false;
 
+		// Set numRounds 
 		numRounds = 0;
-		// Set enemy text box
-		//enemy.textbox.transform.position = enemy.gameObject.transform.position;
 	}
 
+	/*
+	 * Set the options for the dropdown
+	 * The options are the topics that a player can choose
+	 */ 
 	private void setOptions()
 	{
+		// Get topic strings
 		List<string> topicStrs = player.GetTopicStrings ();
+
+		// Insert "Make a selection" to prompt the user
 		topicStrs.Insert (0, "Make a selection");
+
+		// Set options
 		dropDown.ClearOptions ();
 		dropDown.AddOptions (topicStrs);
 	}
 
-	public void checkNewTopics()
+	/*
+	 * Add any new topics that the player can obtain from the enemy's latest response
+	 */ 
+	public void addNewTopics()
 	{
 		foreach(int i_topics in enemy.lastResponse.topicsToObtain)
 		{
@@ -95,6 +118,10 @@ public class Encounter : MonoBehaviour {
 		}
 	}
 
+	/*
+	 * Attempt to make the enemy an Ally
+	 * Return true if successful
+	 */ 
 	private bool tryMakeAlly()
 	{
 		int threshold = (int)Math.Floor(enemy.hp);
@@ -104,21 +131,35 @@ public class Encounter : MonoBehaviour {
 		return numRounds > 2 && num <= threshold;
 	}
 
+	/*
+	 * Display the enemy's response on screen
+	 * It displays each character one by one with a slight delay
+	 */ 
 	public IEnumerator DisplayEnemyResponse()
 	{
+		// Set flag 
 		displayingResponse = true;
+
+		// Reset text and make dropdop not interactable while displaying response
 		enemy.textbox.text = "";
 		dropDown.interactable = false;
+
+		// Display the characters
 		foreach(char letter in enemy.lastResponse.response.ToCharArray())
 		{
 			enemy.textbox.text += letter;
 
 			yield return new WaitForSeconds (0.05f);
 		}
+
+		// Turn stuff back on
 		dropDown.interactable = true;
 		displayingResponse = false;
 	}
 
+	/*
+	 * Update
+	 */ 
 	public void Update()
 	{
 		if(choiceMade)
@@ -127,16 +168,17 @@ public class Encounter : MonoBehaviour {
 			// Get the choice from the Dropdown
 			// Subtract 1 because the first index is "Make a selection"
 			int choice = dropDown.value-1;
-			//Debug.Log ("choice: " + player.topics[choice].title);
 
 			// If the user selected "Make ally"
 			if(choice == player.i_topics.Count)
 			{
+				// Check if they already have max # of allies
 				if(player.allies.Count >= 2)
 				{
 					// Display some error message
 					errorMsg.text = "You already have 2 allies!";
 				}
+				// Try to make an ally
 				else if(tryMakeAlly())
 				{
 					player.BuildAlly (enemy);
@@ -149,6 +191,7 @@ public class Encounter : MonoBehaviour {
 				}
 			}
 
+			// Else if a topic was selected
 			else
 			{
 				// Apply topic to enemy
@@ -158,7 +201,7 @@ public class Encounter : MonoBehaviour {
 				StartCoroutine (DisplayEnemyResponse ());
 
 				// Check enemy response for new topics
-				checkNewTopics ();
+				addNewTopics ();
 
 				// Increment numRounds
 				numRounds++;
@@ -192,15 +235,5 @@ public class Encounter : MonoBehaviour {
 			// Destroy this Encounter object
 			Destroy (gameObject);
 		}
-	}
-
-
-	public void go()
-	{
-		Debug.Log ("Encounter started with "+enemy.enemyName);
-
-		Debug.Log (String.Format ("Enemy: {0}", enemy.initEncounter));
-
-		choiceMade = false;
-	}
+	}	// End Update
 }

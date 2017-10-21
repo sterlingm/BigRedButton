@@ -12,43 +12,48 @@ public class GameManager : MonoBehaviour {
 
 
 	[SerializeField]
-	public Player player;
-	public Encounter encounterPrefab;
-	public Encounter encounterInstance;
-	public bool encActive;
-	public RectTransform scrollView;
+	public Player 			player;
+	public Encounter 		encounterPrefab;
+	public Encounter 		encounterInstance;
+	public RectTransform 	scrollView;
+	public bool 			encActive;
 
-	// Use this for initialization
+	/*
+	 * Awake
+	 */ 
 	void Awake () 
 	{
 		encListener = new UnityAction<Enemy> (OnEncounter);
 		EncounterEventManager.StartListening (Common.ENC_EVENT_STR, encListener);
 	}
-	
-	// Update is called once per frame
+
+	/*
+	 * Update
+	 */ 
 	void Update () 
 	{
+		// If no encounter is active, then make the scroll view inactive
 		if (!encActive && scrollView.gameObject.activeInHierarchy)
 		{
 			scrollView.gameObject.SetActive (false);
 		}
 	}
 
-	void onSomeEvent()
-	{
-		
-	}
-
+	/*
+	 * Listener for EncounterEvents
+	 * This creates a new Encounter object, and turns on and off some objects
+	 */ 
 	void OnEncounter(Enemy e)
 	{
-		Debug.Log ("In OnEncounter");
-		if(!GameObject.Find("Encounter(Clone)"))
-		{
-			scrollView.gameObject.SetActive (true);
-			encounterInstance = Instantiate (encounterPrefab) as Encounter;
-			encounterInstance.init (player, e);
-			encActive = true;
-			player.GetComponent<IsoCharControl>().enabled = false;
-		}
+		// Set the enemy text scroll view to active
+		scrollView.gameObject.SetActive (true);
+
+		// Create the Encounter and initialize it
+		encounterInstance = Instantiate (encounterPrefab) as Encounter;
+		encounterInstance.init (player, e);
+
+		// Set encActive to true, and disable the player character movement
+		encActive = true;
+		player.GetComponent<IsoCharControl>().enabled = false;
 	}
 }
