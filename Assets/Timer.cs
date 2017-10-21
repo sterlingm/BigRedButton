@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gui = GetComponent<Text> ();
-		seconds = 120.0f;
+		seconds = 60.0f;
 	}
 	
 	// Update is called once per frame

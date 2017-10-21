@@ -92,10 +92,12 @@ public class Enemy : MonoBehaviour {
 
 	void OnCollisionEnter(Collision coll)
 	{
-		Debug.Log ("Hey we're in collision!");
 		if(coll.gameObject.name == "Player" && !collidingWithPlayer)
 		{
-			textbox.text = String.Format ("{0}, I'm {1}", initEncounter, enemyName);
+			if(textbox.text.Length == 0)
+			{
+				textbox.text = String.Format ("{0}, I'm {1}", initEncounter, enemyName);
+			}
 			textbox.gameObject.SetActive (true);
 			EncounterEventManager.TriggerEvent (Common.ENC_EVENT_STR, this);
 			collidingWithPlayer = true;

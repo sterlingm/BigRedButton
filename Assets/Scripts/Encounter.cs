@@ -184,6 +184,8 @@ public class Encounter : MonoBehaviour {
 			GameObject.Find ("Enemy Text").SetActive (false);
 			GameObject.Find ("Scroll View").SetActive (false);
 
+			enemy.textbox.text = "";
+
 			// Enable character control again
 			player.GetComponent<IsoCharControl> ().enabled = true;
 
