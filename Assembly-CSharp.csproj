@@ -46,17 +46,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AllyInfo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\C2TDemo.cs" />
      <Compile Include="Assets\CSV2Table\Demo\SampleTable.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\CsvParser2.cs" />
      <Compile Include="Assets\CSV2Table\Scripts\TableCodeGen.cs" />
      <Compile Include="Assets\Examples\Scripts\TestTimerBehaviour.cs" />
-     <Compile Include="Assets\SceneSetup.cs" />
      <Compile Include="Assets\Scripts\Ally.cs" />
      <Compile Include="Assets\Scripts\AllyAction.cs" />
      <Compile Include="Assets\Scripts\AllyActionList.cs" />
+     <Compile Include="Assets\Scripts\AllyInfo.cs" />
      <Compile Include="Assets\Scripts\Audio\MusicManager.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayer.cs" />
      <Compile Include="Assets\Scripts\Audio\SoundPlayerOnClick.cs" />
@@ -108,6 +107,7 @@
      <Compile Include="Assets\Scripts\Scene\SceneInitializer.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneLoad.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
+     <Compile Include="Assets\Scripts\SceneSetup.cs" />
      <Compile Include="Assets\Scripts\Test1.cs" />
      <Compile Include="Assets\Scripts\Topic.cs" />
      <Compile Include="Assets\Scripts\TopicCsv.cs" />
@@ -132,6 +132,7 @@
      <Compile Include="Assets\Scripts\Utilities\TaskManager.cs" />
      <Compile Include="Assets\Scripts\Utilities\Timer.cs" />
      <Compile Include="Assets\Scripts\Utilities\UnityHelper.cs" />
+     <Compile Include="Assets\Timer.cs" />
      <None Include="Assets\Shaders\Transition\TransPixelate.shader" />
      <None Include="Assets\Resources\id-reference.txt" />
      <None Include="Assets\Shaders\Transition\TransCrossFade.shader" />
