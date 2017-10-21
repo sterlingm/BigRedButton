@@ -19,6 +19,11 @@ public class Ally : MonoBehaviour
 	public void ApplyBossAction(BossAction b)
 	{
 		hp -= b.baseDmg;
+
+		if(hp <= 0)
+		{
+			Destroy (gameObject);
+		}
 	}
 }
 

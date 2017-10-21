@@ -1264,6 +1264,7 @@ MonoBehaviour:
     type: 2}
   encounterInstance: {fileID: 0}
   encActive: 0
+  scrollView: {fileID: 17810793}
 --- !u!114 &1206835930
 MonoBehaviour:
   m_ObjectHideFlags: 0

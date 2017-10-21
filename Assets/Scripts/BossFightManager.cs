@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class BossFightManager : MonoBehaviour {
 
@@ -206,6 +207,19 @@ public class BossFightManager : MonoBehaviour {
 		}
 	}
 
+	void CheckGameOver()
+	{
+		if(boss.hp <= 0)
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene ("GameWon");
+		}
+
+		if(player.hp <= 0)
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene ("GameLost");
+		}
+	}
+
 	void Update()
 	{
 		if (!init)
@@ -240,6 +254,9 @@ public class BossFightManager : MonoBehaviour {
 				// Update the HP texts
 				updateHpText ();
 
+				// Check if game is over
+				CheckGameOver ();
+
 				// Set active character back to player
 				i_activeChar = 0;
 			}
@@ -273,5 +290,5 @@ public class BossFightManager : MonoBehaviour {
 			// Destroy this Encounter object
 			Destroy (gameObject);
 		}
-	}
+	}	// End Update
 }

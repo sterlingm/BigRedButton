@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boss.unity
     guid: 40423e1e85184a348a01b08f7b9c807c
+  - enabled: 1
+    path: Assets/Scenes/GameLost.unity
+    guid: cfe751482d5282d43b67f79e7e21fba6
+  - enabled: 1
+    path: Assets/Scenes/GameWon.unity
+    guid: 3b15f643fdfb33744ab179c18cc5186e

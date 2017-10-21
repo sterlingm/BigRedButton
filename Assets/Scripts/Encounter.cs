@@ -23,6 +23,8 @@ public class Encounter : MonoBehaviour {
 
 	public Text errorMsg;
 
+	private int numRounds;
+
 
 	// Use this for initialization
 	void Awake () 
@@ -32,11 +34,8 @@ public class Encounter : MonoBehaviour {
 		dropDown.onValueChanged.AddListener(DropdownValueChanged);
 
 		errorMsg = GameObject.Find ("/GUI/ErrorMsgs").GetComponent<Text> ();
-	}
 
-	void ApplyPlayerAction()
-	{
-		
+		numRounds = 0;
 	}
 
 
@@ -66,6 +65,7 @@ public class Encounter : MonoBehaviour {
 		// Stop enemy from moving
 		e.move = false;
 
+		numRounds = 0;
 		// Set enemy text box
 		//enemy.textbox.transform.position = enemy.gameObject.transform.position;
 	}
@@ -101,7 +101,7 @@ public class Encounter : MonoBehaviour {
 
 		int num = UnityEngine.Random.Range (0, 10);
 
-		return num >= threshold;
+		return numRounds > 2 && num <= threshold;
 	}
 
 	public IEnumerator DisplayEnemyResponse()
@@ -159,6 +159,9 @@ public class Encounter : MonoBehaviour {
 
 				// Check enemy response for new topics
 				checkNewTopics ();
+
+				// Increment numRounds
+				numRounds++;
 			}
 
 
