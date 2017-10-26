@@ -128,7 +128,7 @@ public class Encounter : MonoBehaviour {
 
 		int num = UnityEngine.Random.Range (0, 10);
 
-		return numRounds > 2 && num <= threshold;
+		return numRounds >= 2 && num <= threshold;
 	}
 
 	/*

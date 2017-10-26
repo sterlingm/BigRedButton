@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1538573639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f437bf406a6204eaadbd2e34366b4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 46738423de7c2e848868b206f2a633a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allyPrefab: {fileID: 114761430136967024, guid: 48bbfee3ff1919f4e8552cc882e32a30,
