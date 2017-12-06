@@ -64,9 +64,15 @@ public class IsoCharControl : MonoBehaviour {
 
 	void CenterCameraOnPlayer()
 	{
+		// Set the y-offset based on player position
 		Vector3 v_player = transform.position;
 		v_player.y = 10;
 
+		// Set position
 		Camera.main.transform.position = v_player;
+
+		// Then translate on -z
+		Vector3 z_offset = new Vector3 (0, 0, -15);
+		Camera.main.transform.Translate (z_offset);
 	}
 }
