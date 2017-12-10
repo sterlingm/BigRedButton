@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class IsoCharControl : MonoBehaviour {
+public class IsoCharControl : MonoBehaviour 
+{
 
 	// Make it modifiable in inspector without being public
 	[SerializeField]
-	float moveSpeed = 4f;
+	float moveSpeed = 0.0f;
 
 	// Axes to move the character on (different from world frame axes)
 	Vector3 forward, right;
+
+	public float z_offset=0;
+
+	Camera camMain;
+	public Player player;
 
 	// Use this for initialization
 	void Start () 
@@ -26,6 +32,8 @@ public class IsoCharControl : MonoBehaviour {
 		// Re-normalize the vectors after changing y
 		forward = Vector3.Normalize (forward);
 		right 	= Vector3.Normalize (right);
+
+		camMain = Camera.main;
 
 		// Center camera on the player
 		CenterCameraOnPlayer ();
@@ -65,14 +73,16 @@ public class IsoCharControl : MonoBehaviour {
 	void CenterCameraOnPlayer()
 	{
 		// Set the y-offset based on player position
-		Vector3 v_player = transform.position;
-		v_player.y = 10;
+		Vector3 v_player = player.transform.position;
+		v_player.x += 10.0f;
+		v_player.y = 10f;
+		v_player.z += 10.0f;
 
 		// Set position
-		Camera.main.transform.position = v_player;
+		camMain.transform.position = v_player;
 
 		// Then translate on -z
-		Vector3 z_offset = new Vector3 (0, 0, -15);
-		Camera.main.transform.Translate (z_offset);
+		//Vector3 z_translate = new Vector3 (0, 0, z_offset);
+		//camMain.transform.Translate (z_translate);
 	}
 }
