@@ -1,3 +1,8 @@
 entrace
 pos: 5,10,30
 rot: 30, -135
+
+
+hallway 2
+pos: -5,10,30
+rot: 30,135

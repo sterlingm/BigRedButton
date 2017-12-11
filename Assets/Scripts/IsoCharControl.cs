@@ -13,9 +13,13 @@ public class IsoCharControl : MonoBehaviour
 	// Axes to move the character on (different from world frame axes)
 	Vector3 forward, right;
 
-	public float z_offset=0;
+	// Offset between camera and player
+	private Vector3 offset;
 
+	// Main camera
 	Camera camMain;
+
+	// Player (set in inspector)
 	public Player player;
 
 	// Use this for initialization
@@ -33,7 +37,11 @@ public class IsoCharControl : MonoBehaviour
 		forward = Vector3.Normalize (forward);
 		right 	= Vector3.Normalize (right);
 
+		// Reference to main camera
 		camMain = Camera.main;
+
+		// Desired offset between camera and player based on the initial positions
+		offset = camMain.transform.position - transform.position;
 
 		// Center camera on the player
 		CenterCameraOnPlayer ();
@@ -47,6 +55,12 @@ public class IsoCharControl : MonoBehaviour
 			Move ();
 		}
 	}
+
+	// Use LateUpdate to move camera? I tried it once and couldn't tell a significant difference
+	/*void LateUpdate()
+	{
+		CenterCameraOnPlayer ();
+	}*/
 
 	void Move()
 	{
@@ -72,17 +86,7 @@ public class IsoCharControl : MonoBehaviour
 
 	void CenterCameraOnPlayer()
 	{
-		// Set the y-offset based on player position
-		Vector3 v_player = player.transform.position;
-		v_player.x += 10.0f;
-		v_player.y = 10f;
-		v_player.z += 10.0f;
-
-		// Set position
-		camMain.transform.position = v_player;
-
-		// Then translate on -z
-		//Vector3 z_translate = new Vector3 (0, 0, z_offset);
-		//camMain.transform.Translate (z_translate);
+		// Set the camera's position based on the player's position and desired offset
+		camMain.transform.position = player.transform.position + offset;
 	}
 }

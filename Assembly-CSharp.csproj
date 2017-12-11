@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyCreator.cs" />
      <Compile Include="Assets\Scripts\EnemyResponse.cs" />
+     <Compile Include="Assets\Scripts\EnemySpawn.cs" />
      <Compile Include="Assets\Scripts\EventTriggerTest.cs" />
      <Compile Include="Assets\Scripts\Extensions\Custom\ObjectPoolControllerExtentions.cs" />
      <Compile Include="Assets\Scripts\Extensions\Custom\TimerExtensions.cs" />
@@ -107,6 +108,7 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerAction.cs" />
      <Compile Include="Assets\Scripts\PlayerActionList.cs" />
+     <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneAssetPath.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneAutoLoad.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
