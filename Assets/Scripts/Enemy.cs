@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using NUnit.Framework;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour 
+{
 
 	public Common.EnemyType enemyType;
 	public Common.MovementType movementType;
@@ -16,6 +18,7 @@ public class Enemy : MonoBehaviour {
 	public String initEncounter;
 	public Text textbox;
 	public bool collidingWithPlayer;
+	public Transform navGoal;
 
 	private Transform player;
 	private List<Common.TopicType> weakTo;
@@ -40,6 +43,8 @@ public class Enemy : MonoBehaviour {
 	public bool move;
 	public float speed;
 	public float goalThreshold;
+
+	private NavMeshAgent agent;
 
 	public void AddResponse(EnemyResponse er)
 	{
@@ -75,11 +80,15 @@ public class Enemy : MonoBehaviour {
 		start = new Vector3 ();
 		goal = new Vector3 ();
 		movementDetails = new List<Vector3> ();
+
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Get reference to nav mesh agent
+		agent = GetComponent<NavMeshAgent> ();
+		agent.SetDestination(navGoal.position);
 	}
 
 
@@ -87,7 +96,8 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		Move ();
+		// Remove this because NavMeshAgent will move the enemy now
+		//Move ();
 	}
 
 	void OnCollisionEnter(Collision coll)
