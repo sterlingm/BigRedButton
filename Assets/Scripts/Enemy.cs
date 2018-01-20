@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour
 	public String initEncounter;
 	public Text textbox;
 	public bool collidingWithPlayer;
-	public Transform navGoal;
+	public Transform navGoalTF;
+   
 
 	private Transform player;
 	private List<Common.TopicType> weakTo;
@@ -44,9 +45,25 @@ public class Enemy : MonoBehaviour
 	public float speed;
 	public float goalThreshold;
 
-	private NavMeshAgent agent;
+    private NavMeshAgent agent;
+    private bool movingToGoal;
 
-	public void AddResponse(EnemyResponse er)
+    // These are used to set the NavMeshAgent destinations
+    private Vector3 navStart;
+    private Vector3 navGoalPersist;
+
+
+    public void StopMoving()
+    {
+        agent.isStopped = true;
+    }
+    public void StartMoving()
+    {
+        agent.isStopped = false;
+    }
+
+
+    public void AddResponse(EnemyResponse er)
 	{
 		responses.Add (topicList.list [er.i_topic], er);
 	}
@@ -77,28 +94,57 @@ public class Enemy : MonoBehaviour
 
 		responses = new Dictionary<Topic, EnemyResponse> ();
 
+        /*
+         * Old movement code for prototype
+         */ 
 		start = new Vector3 ();
 		goal = new Vector3 ();
 		movementDetails = new List<Vector3> ();
 
-	}
+        // Set the Vector3 objects to use as destinations
+        navStart        = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        navGoalPersist  = new Vector3(navGoalTF.position.x, navGoalTF.position.y, navGoalTF.position.z);
+        movingToGoal    = true;
 
-	// Use this for initialization
+        Debug.Log("In Awake, navGoal: "+navGoalTF.position.ToString());
+    }
+
+
 	void Start () 
 	{
 		// Get reference to nav mesh agent
 		agent = GetComponent<NavMeshAgent> ();
-		agent.SetDestination(navGoal.position);
-	}
+
+        // TODO: Why does agent.destination have y-value of 0.1 when navGoalPersist has y=0.8?
+        agent.SetDestination(new Vector3(navGoalPersist.x, navGoalPersist.y, navGoalPersist.z));
+    }
 
 
 	
-	// Update is called once per frame
-	void Update () 
+    void Update () 
 	{
-		// Remove this because NavMeshAgent will move the enemy now
-		//Move ();
-	}
+        // Remove this because NavMeshAgent will move the enemy now
+        //Move ();
+
+        // Check if navmeshagent has reached its goal 
+        // If so, then reverse it
+        //if(agent.remainingDistance < 0.1f && movingToGoal)
+        if (agent.remainingDistance < 0.1f && movingToGoal)
+        {
+            agent.SetDestination(navStart);
+            movingToGoal = false;
+        }
+        else if(agent.remainingDistance < 0.1f)
+        {
+            agent.SetDestination(navGoalPersist);
+            movingToGoal = true;
+        }
+        else
+        {
+            Debug.Log(String.Format("Distance: {0}", agent.remainingDistance));
+            Debug.Log(String.Format("agent.destination: {0} navGoalPersist.position: {1} navStart.position: {2}", agent.destination, navGoalPersist, navStart));
+        }
+    }
 
 	void OnCollisionEnter(Collision coll)
 	{

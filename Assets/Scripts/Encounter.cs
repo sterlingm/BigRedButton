@@ -75,7 +75,8 @@ public class Encounter : MonoBehaviour {
 		dropDown.AddOptions (topicStrs);
 
 		// Stop enemy from moving
-		e.move = false;
+		//e.move = false;
+        e.StopMoving();
 
 		// Set numRounds 
 		numRounds = 0;
@@ -221,9 +222,13 @@ public class Encounter : MonoBehaviour {
 		// Check if enemy is dead
 		if (enemy.hp <= 0 && !displayingResponse)
 		{
-			// Deal with enemy
-			enemy.move = true;
-			enemy.gameObject.SetActive (false);
+			/* 
+             * Deal with enemy
+             * 
+             */
+			//enemy.move = true;
+            enemy.StartMoving();
+            enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
 			GameObject.Find ("Scroll View").SetActive (false);
 

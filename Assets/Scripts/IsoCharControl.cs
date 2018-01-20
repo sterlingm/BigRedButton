@@ -73,11 +73,11 @@ public class IsoCharControl : MonoBehaviour
 
 		// Move vector is the position change in heading direction based on speed*time
 		Vector3 moveVec = heading * (moveSpeed * Time.deltaTime);
-		Debug.Log(String.Format("position: {0} moveVec: {1}", transform.position.ToString(), moveVec.ToString()));
+		//Debug.Log(String.Format("position: {0} moveVec: {1}", transform.position.ToString(), moveVec.ToString()));
 		// Set new heading and add position change to transform.position
 		transform.forward = heading;
 		transform.position += moveVec;
-		Debug.Log(String.Format("After, position: {0}", transform.position.ToString()));
+		//Debug.Log(String.Format("After, position: {0}", transform.position.ToString()));
 				
 
 		// Update the camera's position so that the player stays in view
