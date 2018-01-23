@@ -128,7 +128,6 @@ public class Enemy : MonoBehaviour
 
         // Check if navmeshagent has reached its goal 
         // If so, then reverse it
-        //if(agent.remainingDistance < 0.1f && movingToGoal)
         if (agent.remainingDistance < 0.1f && movingToGoal)
         {
             agent.SetDestination(navStart);
@@ -141,8 +140,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            Debug.Log(String.Format("Distance: {0}", agent.remainingDistance));
-            Debug.Log(String.Format("agent.destination: {0} navGoalPersist.position: {1} navStart.position: {2}", agent.destination, navGoalPersist, navStart));
+            //Debug.Log(String.Format("Distance: {0}", agent.remainingDistance));
+            //Debug.Log(String.Format("agent.destination: {0} navGoalPersist.position: {1} navStart.position: {2}", agent.destination, navGoalPersist, navStart));
         }
     }
 
