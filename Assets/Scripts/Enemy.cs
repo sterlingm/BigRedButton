@@ -1,24 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using NUnit.Framework;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour 
 {
 
-	public Common.EnemyType enemyType;
-	public Common.MovementType movementType;
+	public Common.EnemyType     enemyType;
+	public Common.MovementType  movementType;
 
-	public int id;
-	public float hp;
-	public String enemyName;
-	public String initEncounter;
-	public Text textbox;
-	public bool collidingWithPlayer;
-	public Transform navGoalTF;
+	public int          id;
+	public float        hp;
+	public String       enemyName;
+	public String       initEncounter;
+	public Text         textbox;
+	public bool         collidingWithPlayer;
+	public Transform    navGoalTF;
    
 
 	private Transform player;
@@ -68,6 +66,7 @@ public class Enemy : MonoBehaviour
 		responses.Add (topicList.list [er.i_topic], er);
 	}
 
+
 	void Awake()
 	{
 		hp = 10f;
@@ -78,20 +77,22 @@ public class Enemy : MonoBehaviour
 		goalThreshold = 0.15f;
 		move = true;
 
-		weakTo = new List<Common.TopicType> ();
-		strongTo = new List<Common.TopicType> ();
-		weakTo.Add (Common.TopicType.HOSTILE_TALK);
-		strongTo.Add (Common.TopicType.SHOP_TALK);
+		weakTo      = new List<Common.TopicType> ();
+		strongTo    = new List<Common.TopicType> ();
+		weakTo.Add      (Common.TopicType.HOSTILE_TALK);
+		strongTo.Add    (Common.TopicType.SHOP_TALK);
 
 		// Get and store transform of the player
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 
-		textbox = GameObject.Find ("Enemy Text").GetComponent<Text> ();
-		topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();
+        // Grab the textbox to put responses in and get the topic list
+		textbox     = GameObject.Find ("Enemy Text").GetComponent<Text> ();
+		topicList   = GameObject.Find ("Topic List").GetComponent<TopicList> ();
 
 		boxCollider = GetComponent<BoxCollider> ();
 		rb 			= GetComponent<Rigidbody> ();
 
+        // Create responses dictionary
 		responses = new Dictionary<Topic, EnemyResponse> ();
 
         /*
@@ -105,7 +106,7 @@ public class Enemy : MonoBehaviour
         navStart        = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         navGoalPersist  = new Vector3(navGoalTF.position.x, navGoalTF.position.y, navGoalTF.position.z);
         movingToGoal    = true;
-
+        
         Debug.Log("In Awake, navGoal: "+navGoalTF.position.ToString());
     }
 
@@ -113,16 +114,24 @@ public class Enemy : MonoBehaviour
 	void Start () 
 	{
 		// Get reference to nav mesh agent
-		agent = GetComponent<NavMeshAgent> ();
+        agent = GetComponentInChildren<NavMeshAgent>();
 
         // TODO: Why does agent.destination have y-value of 0.1 when navGoalPersist has y=0.8?
         agent.SetDestination(new Vector3(navGoalPersist.x, navGoalPersist.y, navGoalPersist.z));
     }
 
-
-	
+    	
     void Update () 
 	{
+        // Check if this object has EnemyResponse values
+        // If not, then it was created in the inspector 
+        // Use default values to initialize its fields
+        if(responses.Count < 1)
+        {
+            // Use default initialization for Enemy
+            initInspectorEnemy();
+        }
+
         // Remove this because NavMeshAgent will move the enemy now
         //Move ();
 
@@ -145,8 +154,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-	void OnCollisionEnter(Collision coll)
-	{
+	//void OnCollisionEnter(Collision coll)
+    void OnTriggerEnter(Collider coll)
+    {
+        Debug.Log("In OnCollisonEnter");
+        Debug.Log(String.Format("coll.gameObject.name: {0}", coll.gameObject.name));
 		if(coll.gameObject.name == "Player" && !collidingWithPlayer)
 		{
 			if(textbox.text.Length == 0)
@@ -160,11 +172,35 @@ public class Enemy : MonoBehaviour
 		else
 		{
 			Debug.Log (String.Format("coll.gameObject.name == {0}", coll.gameObject.name));
-			collidingWithPlayer = false;
+			//collidingWithPlayer = false;
 		}
 	}
 
-	private float CalculateDmg(Topic topic)
+
+    public void initInspectorEnemy()
+    {
+        Debug.Log("In initInspectorEnemy");
+        // Create or grab a list of default EnemyResponses
+        // Add them to responses field with AddResponse
+        
+        // enemyType should be set in Inspector so use that
+        // to set strongTo and weakTo
+
+        // start and goal can be set in Inspector (I think?)
+        // use those to set start and goal fields so the enemy can reverse
+        // when it reaches the goal
+        for(int i=0;i<topicList.rowList.Count-1;i++)
+        {
+            // Make an EnemyResponse
+            EnemyResponse er = new EnemyResponse();
+            er.init(i, String.Format("Default response for topic {0}", i));
+
+            AddResponse(er);
+        }
+    }
+
+
+    private float CalculateDmg(Topic topic)
 	{
 		float result = topic.baseDmg;
 
