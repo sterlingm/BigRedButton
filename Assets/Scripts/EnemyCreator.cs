@@ -6,6 +6,7 @@ using System;
 using NUnit.Framework;
 using NUnit.Framework.Internal.Filters;
 using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.AI;
 
 public class EnemyCreator : MonoBehaviour
 {
@@ -39,11 +40,11 @@ public class EnemyCreator : MonoBehaviour
 	public List<Enemy> enemyList;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		enemyList = new List<Enemy> ();
 		rowList = new List<Row>();
-		file = Resources.Load ("enemies") as TextAsset;
+        file = Resources.Load("enemy-list") as TextAsset;
 		Load (file);
 		init ();
 	}
@@ -96,12 +97,22 @@ public class EnemyCreator : MonoBehaviour
 				// Set y based on prefab y so that mesh is flush with the movement plane
 				p.y = enemyPrefab.transform.position.y;
 
+                // Get random point on navmesh for initial position
+                float walkRadius = 40f;
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+                //randomDirection += p;
+                NavMeshHit hit;
+                NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
+                Vector3 finalPosition = hit.position;
 
-				// Create/Instantiate the enemy
-				Enemy e = Instantiate (enemyPrefab, p, Quaternion.identity) as Enemy;
+                Debug.Log(String.Format("p: {0} randomDirection: {1} finalPosition: {2}", p, randomDirection, finalPosition));
 
-				// Set id
-				e.id = id;
+                // Create/Instantiate the enemy
+                //Enemy e = Instantiate (enemyPrefab, p, Quaternion.identity) as Enemy;
+                Enemy e = Instantiate(enemyPrefab, finalPosition, Quaternion.identity) as Enemy;
+
+                // Set id
+                e.id = id;
 
 				// Set name
 				e.name = name;
@@ -146,16 +157,26 @@ public class EnemyCreator : MonoBehaviour
 					break;
 				}
 
+                /*
+                 * Set the NPC's goal position (based on MovementDetails)
+                 */ 
 				// Get the movement details
 				e.movementDetails = getMovementDetails (rowList [i].movement_details);
-				if(e.movementDetails.Count > 0)
+                // If there are movement details, then it will move to a goal
+                if (e.movementDetails.Count > 0)
 				{
-					e.goal = e.movementDetails [0];
+                    // Get random point on navmesh for initial position
+                    randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+                    NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
+                    e.goal = hit.position;
+                    //e.goal = e.movementDetails [0];
 				}
+                // Else, the NPC will just stand around
 				else
 				{
 					e.goal = e.start;
 				}
+                e.navGoalTF.position = e.goal;
 				e.goalOrig = e.goal;
 
 				/*

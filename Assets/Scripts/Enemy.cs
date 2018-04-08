@@ -104,6 +104,7 @@ public class Enemy : MonoBehaviour
 
         // Set the Vector3 objects to use as destinations
         navStart        = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        navGoalTF       = gameObject.transform;
         navGoalPersist  = new Vector3(navGoalTF.position.x, navGoalTF.position.y, navGoalTF.position.z);
         movingToGoal    = true;
         
@@ -172,7 +173,6 @@ public class Enemy : MonoBehaviour
 		else
 		{
 			Debug.Log (String.Format("coll.gameObject.name == {0}", coll.gameObject.name));
-			//collidingWithPlayer = false;
 		}
 	}
 
@@ -197,6 +197,24 @@ public class Enemy : MonoBehaviour
 
             AddResponse(er);
         }
+    }
+
+    public void SetStrongWeak()
+    {
+        switch(enemyType)
+        {
+            case Common.EnemyType.CABINET:
+                weakTo.Add(Common.TopicType.HOSTILE_TALK);
+                strongTo.Add(Common.TopicType.SHOP_TALK);
+                break;
+            case Common.EnemyType.CONGRESS:
+                break;
+            case Common.EnemyType.PRESS:
+                break;
+            default:
+                break;
+        }
+            
     }
 
 
