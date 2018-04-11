@@ -47,8 +47,8 @@ public class Enemy : MonoBehaviour
     private bool movingToGoal;
 
     // These are used to set the NavMeshAgent destinations
-    private Vector3 navStart;
-    private Vector3 navGoalPersist;
+    public Vector3 navStart;
+    public Vector3 navGoalPersist;
 
 
     public void StopMoving()
@@ -104,12 +104,9 @@ public class Enemy : MonoBehaviour
 
         // Set the Vector3 objects to use as destinations
         navStart        = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-        navGoalTF       = gameObject.transform;
-        navGoalPersist  = new Vector3(navGoalTF.position.x, navGoalTF.position.y, navGoalTF.position.z);
+        navGoalPersist  = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         movingToGoal    = true;
-        
-        Debug.Log("In Awake, navGoal: "+navGoalTF.position.ToString());
-    }
+     }
 
 
 	void Start () 
@@ -136,15 +133,19 @@ public class Enemy : MonoBehaviour
         // Remove this because NavMeshAgent will move the enemy now
         //Move ();
 
+        float distThreshold = 0.2f;
+
         // Check if navmeshagent has reached its goal 
         // If so, then reverse it
-        if (agent.remainingDistance < 0.1f && movingToGoal)
+        if (agent.remainingDistance < distThreshold && movingToGoal)
         {
+            Debug.Log(string.Format("In if for enemy {0}", enemyName));
             agent.SetDestination(navStart);
             movingToGoal = false;
         }
-        else if(agent.remainingDistance < 0.1f)
+        else if(agent.remainingDistance < distThreshold)
         {
+            Debug.Log(string.Format("In else for enemy {0}", enemyName));
             agent.SetDestination(navGoalPersist);
             movingToGoal = true;
         }

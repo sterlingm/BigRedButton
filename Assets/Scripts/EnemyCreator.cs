@@ -79,7 +79,7 @@ public class EnemyCreator : MonoBehaviour
 	public void init()
 	{
 
-		for(int i=0;i<rowList.Count;i++)
+        for (int i = 0; i < rowList.Count;i++)
 		{
 			// If an id exists, get all the other fields
 			int id;
@@ -100,7 +100,6 @@ public class EnemyCreator : MonoBehaviour
                 // Get random point on navmesh for initial position
                 float walkRadius = 40f;
                 Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
-                //randomDirection += p;
                 NavMeshHit hit;
                 NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                 Vector3 finalPosition = hit.position;
@@ -169,14 +168,13 @@ public class EnemyCreator : MonoBehaviour
                     randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
                     NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                     e.goal = hit.position;
-                    //e.goal = e.movementDetails [0];
-				}
+                    e.navGoalPersist = hit.position;
+                }
                 // Else, the NPC will just stand around
 				else
 				{
 					e.goal = e.start;
 				}
-                e.navGoalTF.position = e.goal;
 				e.goalOrig = e.goal;
 
 				/*
