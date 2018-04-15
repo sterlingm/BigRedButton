@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using NUnit.Framework;
 using UnityEngine.SceneManagement;
-using System.Security.AccessControl;
-using System.Deployment.Internal;
 
 public class Player : MonoBehaviour
 {
+    public static Player self;
 
 	[SerializeField]
 	// List of topics for the main game loop
 	private TopicList topicList;
 	public List<int> i_topics;
+
+    // This is set in EncounterManager
+    public bool inEncounter;
 
 	[SerializeField]
 	// Boss fight actions
@@ -36,11 +35,16 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-		/*
+        if (self == null)
+        {
+            self = this;
+        }
+        
+        /*
 		 *  Initialize stuff
-		 */ 
-		// If Game scene is loaded, grab topicList object
-		if(SceneManager.GetActiveScene().buildIndex == 0)
+		 */
+        // If Game scene is loaded, grab topicList object
+        if (SceneManager.GetActiveScene().buildIndex == 0)
 		{
 			// Give the player a few topics to bring up initially
 			topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();

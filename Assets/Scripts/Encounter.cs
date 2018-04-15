@@ -66,6 +66,8 @@ public class Encounter : MonoBehaviour {
 		player = p;
 		enemy = e;
 
+        Player.self.inEncounter = true;
+
 		// Clear player topic options
 		dropDown.ClearOptions ();
 
@@ -231,14 +233,18 @@ public class Encounter : MonoBehaviour {
             enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
 			GameObject.Find ("Scroll View").SetActive (false);
+            GameObject.Find("TopicList").SetActive(false);
 
-			enemy.textbox.text = "";
+            enemy.textbox.text = "";
 
 			// Enable character control again
 			player.GetComponent<IsoCharControl> ().enabled = true;
 
-			// Destroy this Encounter object
-			Destroy (gameObject);
+            // Set inEncounter
+            Player.self.inEncounter = false;
+
+            // Destroy this Encounter object
+            Destroy (gameObject);
 		}
 	}	// End Update
 }

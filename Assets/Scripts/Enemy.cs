@@ -161,14 +161,15 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("In OnCollisonEnter");
         Debug.Log(String.Format("coll.gameObject.name: {0}", coll.gameObject.name));
-		if(coll.gameObject.name == "Player" && !collidingWithPlayer)
+		if(coll.gameObject.name == "Player" && !collidingWithPlayer && Player.self.inEncounter == false)
 		{
 			if(textbox.text.Length == 0)
 			{
 				textbox.text = String.Format ("{0}, I'm {1}", initEncounter, enemyName);
 			}
 			textbox.gameObject.SetActive (true);
-			EncounterEventManager.TriggerEvent (Common.ENC_EVENT_STR, this);
+            GameObject.Find("TopicList").SetActive(true);
+            EncounterEventManager.TriggerEvent (Common.ENC_EVENT_STR, this);
 			collidingWithPlayer = true;
 		}
 		else
