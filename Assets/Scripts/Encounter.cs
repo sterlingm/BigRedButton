@@ -233,7 +233,6 @@ public class Encounter : MonoBehaviour {
             enemy.gameObject.SetActive (false);
 			GameObject.Find ("Enemy Text").SetActive (false);
 			GameObject.Find ("Scroll View").SetActive (false);
-            GameObject.Find("TopicList").SetActive(false);
 
             enemy.textbox.text = "";
 

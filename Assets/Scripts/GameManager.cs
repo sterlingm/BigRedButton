@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour {
 	public Encounter 		encounterPrefab;
 	public Encounter 		encounterInstance;
 	public RectTransform 	scrollView;
-    public RectTransform    topicList;
 	public bool 			encActive;
 
 	/*
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour {
 		encListener = new UnityAction<Enemy> (OnEncounter);
 		EncounterEventManager.StartListening (Common.ENC_EVENT_STR, encListener);
         scrollView.gameObject.SetActive(false);
-        topicList.gameObject.SetActive(false);
+        //topicList.gameObject.SetActive(false);
     }
 
 	/*
@@ -39,7 +38,6 @@ public class GameManager : MonoBehaviour {
 		if (!encActive && scrollView.gameObject.activeInHierarchy)
 		{
 			scrollView.gameObject.SetActive (false);
-            topicList.gameObject.SetActive(false);
         }
 	}
 

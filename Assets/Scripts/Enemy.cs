@@ -168,7 +168,6 @@ public class Enemy : MonoBehaviour
 				textbox.text = String.Format ("{0}, I'm {1}", initEncounter, enemyName);
 			}
 			textbox.gameObject.SetActive (true);
-            GameObject.Find("TopicList").SetActive(true);
             EncounterEventManager.TriggerEvent (Common.ENC_EVENT_STR, this);
 			collidingWithPlayer = true;
 		}
