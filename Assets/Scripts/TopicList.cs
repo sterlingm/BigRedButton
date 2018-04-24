@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System;
 
 // CSV loading stuff is copied over from CSV2Table asset in asset store

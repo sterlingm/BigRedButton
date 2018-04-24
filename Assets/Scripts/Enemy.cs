@@ -29,11 +29,6 @@ public class Enemy : MonoBehaviour
 	private BoxCollider boxCollider;
 	private Rigidbody rb;
 
-	private TopicList topicList;
-	[SerializeField]
-	public Dictionary<Topic, EnemyResponse> responses;
-	public EnemyResponse lastResponse;
-
 	public Vector3 start;
 	public Vector3 goal;
 	public Vector3 goalOrig;
@@ -49,6 +44,18 @@ public class Enemy : MonoBehaviour
     // These are used to set the NavMeshAgent destinations
     public Vector3 navStart;
     public Vector3 navGoalPersist;
+
+
+    // Old
+    private TopicList topicList;
+    [SerializeField]
+    public Dictionary<Topic, EnemyResponse> responses;
+    public EnemyResponse lastResponse;
+
+    // New
+    private EnemyActionList actionList;
+    [SerializeField]
+    public List<EnemyAction> actions;
 
 
     public void StopMoving()

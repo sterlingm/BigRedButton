@@ -29,7 +29,7 @@ public class SceneSetup : MonoBehaviour {
 		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionList> ();
 
 		// Disable player movement
-		player.GetComponent<IsoCharControl> ().enabled = false;
+        player.GetComponent<IsoCharControl> ().enabled = false;
 	}
 
 	/*

@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Common
 {
@@ -12,7 +11,16 @@ public class Common
 	}
 	public static List<TopicType> topicTypeList = new List<TopicType> { TopicType.SMALL_TALK, TopicType.SHOP_TALK, TopicType.HOSTILE_TALK };
 
-	public static string ENC_EVENT_STR = "Encounter";
+
+    public enum EnemyActionType
+    {
+        NORMAL,
+        DESPERATE,
+        ACID
+    }
+    public static List<EnemyActionType> enemyActionTypeList = new List<EnemyActionType> { EnemyActionType.NORMAL, EnemyActionType.DESPERATE, EnemyActionType.ACID };
+
+    public static string ENC_EVENT_STR = "Encounter";
 
 	public enum MovementType
 	{

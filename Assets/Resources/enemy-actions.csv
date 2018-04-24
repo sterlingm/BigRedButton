@@ -1,0 +1,4 @@
+id	title	type	baseDamage	maxTargets
+0	Attack	0	2	1
+1	Gossip	0	2	0
+2	Lie	0	1	2

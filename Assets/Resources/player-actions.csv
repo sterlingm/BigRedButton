@@ -4,3 +4,5 @@ id,title,damage,actionType
 2,Poke fun,2,0
 3,Cite facts,2,0
 4,Threaten,1,0
+5,Misinformation,2,1
+6,Tweet,1,2

@@ -1,16 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System;
-using NUnit.Framework;
-using NUnit.Framework.Internal.Filters;
-using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.AI;
 
 public class EnemyCreator : MonoBehaviour
 {
-
 
 	// From Csv2Table
 	public class Row
