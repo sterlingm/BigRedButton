@@ -16,8 +16,7 @@ public class EnemyCreator : MonoBehaviour
 		public string y_pos;
 		public string movement_type;
 		public string movement_details;
-		public List<string> responses = new List<string> ();
-		public List<string> topics = new List<string> ();
+		public string actions;
 	}
 
 	[SerializeField]
@@ -72,7 +71,7 @@ public class EnemyCreator : MonoBehaviour
 	 */ 
 	public void init()
 	{
-
+        // For each row
         for (int i = 0; i < rowList.Count;i++)
 		{
 			// If an id exists, get all the other fields
@@ -172,28 +171,21 @@ public class EnemyCreator : MonoBehaviour
 				e.goalOrig = e.goal;
 
 				/*
-				 * Responses
+				 * Actions
+                 * Split the 'actions' string of ids
+                 * And clone the corresponding EnemyAction from the EnemyActionList
 				 */ 
 				Char delimiter = ' ';
-				for(int j=0;j<rowList[i].responses.Count;j++)
+                string[] actions = rowList[i].actions.Split(delimiter);
+				for(int j=0;j<actions.Length;j++)
 				{
-					// Make EnemyResponse
-					EnemyResponse er = new EnemyResponse ();
-					er.init (j, rowList[i].responses[j]);
-					er.i_topic = j;
-
-					// Get and add the topics that the player can obtain from the response
-					string topsStr = rowList [i].topics [j];
-					String[] tops = topsStr.Split (delimiter);
-					foreach(string t in tops)
-					{
-						int topic;
-						Int32.TryParse (t, out topic);
-						er.topicsToObtain.Add (topic);
-					}
-
+                    // Get EnemyAction
+                    int i_action;
+                    Int32.TryParse(actions[j], out i_action);
+                    EnemyAction er = EnemyActionList.self.list[i_action].Clone();
+               
 					// Add response to enemy's list of responses
-					e.AddResponse (er);
+					e.actions.Add(er);
 				}
 
 				// Add the enemy to list
@@ -231,20 +223,9 @@ public class EnemyCreator : MonoBehaviour
 			row.type = grid[i][2];
 			row.x_pos = grid[i][3];
 			row.y_pos = grid[i][4];
-			row.movement_type = grid [i] [5];
-			row.movement_details = grid [i] [6];
-
-			// Load in response strings
-			for(int j=i_startResps;j<grid[i].Length;j+=2)
-			{
-				row.responses.Add (grid [i] [j]);
-			}
-
-			// Load in topics
-			for(int j=i_startResps+1;j<grid[i].Length;j+=2)
-			{
-				row.topics.Add (grid [i] [j]);
-			}
+			row.movement_type = grid[i][5];
+			row.movement_details = grid[i][6];
+            row.actions = grid[i][7];
 
 			rowList.Add(row);
 		}

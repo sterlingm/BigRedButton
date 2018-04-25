@@ -1,7 +1,7 @@
-using UnityEngine;
+using System;
 
 [System.Serializable]
-public class EnemyAction
+public class EnemyAction : ICloneable
 {
     // Topic id
     private int id;
@@ -25,6 +25,19 @@ public class EnemyAction
         this.type = type;
         this.baseDmg = (float)baseDmg;
         this.maxTargets = maxTargets;
+    }
+
+    public EnemyAction Clone()
+    {
+        EnemyAction result = new EnemyAction();
+
+        result.id           = id;
+        result.title        = title;
+        result.type         = type;
+        result.baseDmg      = baseDmg;
+        result.maxTargets   = maxTargets;
+
+        return result;
     }
 }
 

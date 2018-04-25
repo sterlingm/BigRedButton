@@ -5,17 +5,20 @@ using System;
 // CSV loading stuff is copied over from CSV2Table asset in asset store
 public class EnemyActionList : MonoBehaviour
 {
-	public List<Row> rowList;
-	bool isLoaded = false;
+    // Singleton
+    public static EnemyActionList self;
+
+	private List<Row> rowList;
+	private bool isLoaded = false;
 
 	[SerializeField]
-	TextAsset file;
+	private TextAsset file;
 
 	[SerializeField]
 	public List<EnemyAction> list;
 
 	// From Csv2Table
-	public class Row
+	private class Row
 	{
 		public string id;
 		public string title;
@@ -26,6 +29,11 @@ public class EnemyActionList : MonoBehaviour
 
 	void Awake ()
 	{
+        if(self == null)
+        {
+            self = this;
+        }
+
 		rowList = new List<Row>();
 		file = Resources.Load ("enemy-actions") as TextAsset;
 		Load (file);
@@ -76,11 +84,6 @@ public class EnemyActionList : MonoBehaviour
 		return isLoaded;
 	}
 
-	public List<Row> GetRowList()
-	{
-		return rowList;
-	}
-
 	public void Load(TextAsset csv)
 	{
 		rowList.Clear();
@@ -98,62 +101,6 @@ public class EnemyActionList : MonoBehaviour
 		}
 		isLoaded = true;
 	}
-
-	public int NumRows()
-	{
-		return rowList.Count;
-	}
-
-	public Row GetAt(int i)
-	{
-		if(rowList.Count <= i)
-			return null;
-		return rowList[i];
-	}
-
-	public Row Find_id(string find)
-	{
-		return rowList.Find(x => x.id == find);
-	}
-	public List<Row> FindAll_id(string find)
-	{
-		return rowList.FindAll(x => x.id == find);
-	}
-
-	public Row Find_title(string find)
-	{
-		return rowList.Find(x => x.title == find);
-	}
-	public List<Row> FindAll_title(string find)
-	{
-		return rowList.FindAll(x => x.title == find);
-	}
-
-	public Row Find_type(string find)
-	{
-		return rowList.Find(x => x.type == find);
-	}
-	public List<Row> FindAll_type(string find)
-	{
-		return rowList.FindAll(x => x.type == find);
-	}
-
-	public Row Find_baseDamage(string find)
-	{
-		return rowList.Find(x => x.baseDamage == find);
-	}
-	public List<Row> FindAll_baseDamage(string find)
-	{
-		return rowList.FindAll(x => x.baseDamage == find);
-	}
-
-    public Row Find_maxTargets(string find)
-    {
-        return rowList.Find(x => x.maxTargets == find);
-    }
-    public List<Row> FindAll_maxTargets(string find)
-    {
-        return rowList.FindAll(x => x.maxTargets == find);
-    }
+    
 }
 
