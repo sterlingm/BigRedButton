@@ -182,7 +182,9 @@ public class EnemyCreator : MonoBehaviour
                     // Get EnemyAction
                     int i_action;
                     Int32.TryParse(actions[j], out i_action);
-                    EnemyAction er = EnemyActionList.self.list[i_action].Clone();
+
+                    // Get the corresponding EnemyAction, and clone it (have to cast b/c clone returns object)
+                    EnemyAction er = (EnemyAction)EnemyActionList.self.list[i_action].Clone();
                
 					// Add response to enemy's list of responses
 					e.actions.Add(er);

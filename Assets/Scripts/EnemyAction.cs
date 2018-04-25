@@ -27,7 +27,7 @@ public class EnemyAction : ICloneable
         this.maxTargets = maxTargets;
     }
 
-    public EnemyAction Clone()
+    public object Clone()
     {
         EnemyAction result = new EnemyAction();
 
