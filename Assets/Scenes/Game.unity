@@ -5381,6 +5381,7 @@ GameObject:
   - component: {fileID: 1206835928}
   - component: {fileID: 1206835926}
   - component: {fileID: 1206835929}
+  - component: {fileID: 1206835930}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -5440,6 +5441,19 @@ MonoBehaviour:
   encounterInstance: {fileID: 0}
   scrollView: {fileID: 17810793}
   encActive: 0
+--- !u!114 &1206835930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1206835925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f62e62a5b869d94a8383f1ceb3c8b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  file: {fileID: 0}
+  list: []
 --- !u!1001 &1207017915
 Prefab:
   m_ObjectHideFlags: 0
@@ -6498,7 +6512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1441893852
 MonoBehaviour:
   m_ObjectHideFlags: 0

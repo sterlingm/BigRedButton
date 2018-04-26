@@ -2,6 +2,3 @@ id,name,type,x_pos,y_pos,movement type,movement details,actions
 0,John Smith,1,30,10,0,,0 1 2
 1,Joe Shmoe,2,15,15,1,"25,25",0 1 2
 2,Tim McDoogle,0,40,20,0,,2
-3,Julian Fascade,2,10,35,1,"10,40",1
-4,Howard Snow,0,20,45,1,"30,45",0
-5,Lisa Waltaker,0,25,30,1,"45,30",1 2

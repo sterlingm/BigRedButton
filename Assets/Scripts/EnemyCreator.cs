@@ -37,7 +37,7 @@ public class EnemyCreator : MonoBehaviour
 	{
 		enemyList = new List<Enemy> ();
 		rowList = new List<Row>();
-        file = Resources.Load("enemy-list") as TextAsset;
+        file = Resources.Load("enemies") as TextAsset;
 		Load (file);
 		init ();
 	}
@@ -182,7 +182,7 @@ public class EnemyCreator : MonoBehaviour
                     // Get EnemyAction
                     int i_action;
                     Int32.TryParse(actions[j], out i_action);
-
+                    Debug.Log(String.Format("i_action: {0} EnemyActionList.self.list: {1}", i_action, EnemyActionList.self.list));
                     // Get the corresponding EnemyAction, and clone it (have to cast b/c clone returns object)
                     EnemyAction er = (EnemyAction)EnemyActionList.self.list[i_action].Clone();
                
