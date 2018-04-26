@@ -72,15 +72,15 @@ public class Encounter : MonoBehaviour {
 		dropDown.ClearOptions ();
 
 		// Populate topic options
-		List<string> topicStrs = player.GetTopicStrings ();
-		topicStrs.Insert (0, "Make a selection");
-		dropDown.AddOptions (topicStrs);
+		List<string> actionStrs = player.GetActionStrings ();
+		actionStrs.Insert (0, "Make a selection");
+		dropDown.AddOptions (actionStrs);
 
 		// Stop enemy from moving
 		//e.move = false;
         e.StopMoving();
 
-		// Set numRounds 
+		// Set numRounds
 		numRounds = 0;
 	}
 
@@ -91,20 +91,20 @@ public class Encounter : MonoBehaviour {
 	private void setOptions()
 	{
 		// Get topic strings
-		List<string> topicStrs = player.GetTopicStrings ();
+		List<string> actionStrs = player.GetActionStrings ();
 
 		// Insert "Make a selection" to prompt the user
-		topicStrs.Insert (0, "Make a selection");
+		actionStrs.Insert (0, "Make a selection");
 
 		// Set options
 		dropDown.ClearOptions ();
-		dropDown.AddOptions (topicStrs);
+		dropDown.AddOptions (actionStrs);
 	}
 
 	/*
 	 * Add any new topics that the player can obtain from the enemy's latest response
 	 */ 
-	public void addNewTopics()
+	/*public void addNewTopics()
 	{
 		foreach(int i_topics in enemy.lastResponse.topicsToObtain)
 		{
@@ -119,7 +119,7 @@ public class Encounter : MonoBehaviour {
 				player.i_topics.Add (i_topics);
 			}
 		}
-	}
+	}*/
 
 	/*
 	 * Attempt to make the enemy an Ally
@@ -159,11 +159,12 @@ public class Encounter : MonoBehaviour {
 		dropDown.interactable = true;
 		displayingResponse = false;
 	}
+    
 
-	/*
+    /*
 	 * Update
-	 */ 
-	public void Update()
+	 */
+    public void Update()
 	{
 		if(choiceMade)
 		{
@@ -171,46 +172,29 @@ public class Encounter : MonoBehaviour {
 			// Get the choice from the Dropdown
 			// Subtract 1 because the first index is "Make a selection"
 			int choice = dropDown.value-1;
+			
+			// Apply topic to enemy
+			enemy.ApplyAction (player.GetAction(choice));
 
-			// If the user selected "Make ally"
-			if(choice == player.i_topics.Count)
-			{
-				// Check if they already have max # of allies
-				if(player.allies.Count >= 2)
-				{
-					// Display some error message
-					errorMsg.text = "You already have 2 allies!";
-				}
-				// Try to make an ally
-				else if(tryMakeAlly())
-				{
-					player.BuildAlly (enemy);
-					enemy.hp = 0;
-				}
-				else
-				{
-					// Some penalty
-					// Maybe remove time from timer? Display a certain message? "The office is onto you!"
-				}
-			}
+            // Display enemy response
+            //StartCoroutine (DisplayEnemyResponse ());
 
-			// Else if a topic was selected
-			else
-			{
-				// Apply topic to enemy
-				enemy.ApplyTopic (player.GetTopic(choice));
+            // Make Boss choose an actions
+            int enemyChoice = UnityEngine.Random.Range(0, enemy.actions.Count);
+            EnemyAction b = enemy.actions[enemyChoice];
 
-				// Display enemy response
-				StartCoroutine (DisplayEnemyResponse ());
+            player.ApplyEnemyAction(b);
+            /*foreach (Ally a in allies)
+            {
+                a.ApplyBossAction(b);
+            }*/
 
-				// Check enemy response for new topics
-				addNewTopics ();
+            // Set text string to show the action
+            enemy.textbox.text = b.title;
 
-				// Increment numRounds
-				numRounds++;
-			}
-
-
+            // Increment numRounds
+            numRounds++;
+			
 			// Set dropdown options to show any new topics
 			setOptions ();
 

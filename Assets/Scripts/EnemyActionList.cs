@@ -48,9 +48,8 @@ public class EnemyActionList : MonoBehaviour
 		list = new List<EnemyAction> ();
 		for(int i=0;i<rowList.Count;i++)
 		{
-			int id, type, maxTargets;
-			double baseDmg;
-			if(Int32.TryParse(rowList[i].id, out id) && Int32.TryParse(rowList[i].type, out type) && Double.TryParse(rowList[i].baseDamage, out baseDmg) && Int32.TryParse(rowList[i].maxTargets, out maxTargets))
+			int id, type, baseDmg, maxTargets;
+			if(Int32.TryParse(rowList[i].id, out id) && Int32.TryParse(rowList[i].type, out type) && Int32.TryParse(rowList[i].baseDamage, out baseDmg) && Int32.TryParse(rowList[i].maxTargets, out maxTargets))
 			{
 				// Get TopicType from the list
 				Common.EnemyActionType enemyActType 	= Common.enemyActionTypeList[Int32.Parse (rowList [i].type)];

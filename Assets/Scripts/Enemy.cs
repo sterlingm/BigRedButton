@@ -24,8 +24,7 @@ public class Enemy : MonoBehaviour
 	private List<Common.TopicType> strongTo;
 	private float weakMod;
 	private float strongMod;
-
-
+    
 	private BoxCollider boxCollider;
 	private Rigidbody rb;
 
@@ -226,40 +225,33 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private float CalculateDmg(Topic topic)
+    private float CalculateDmg(PlayerAction action)
 	{
-		float result = topic.baseDmg;
+		float result = action.baseDmg;
 
-		if(Common.weakTo[(int)enemyType].Contains(topic.type))
+		/*if(Common.weakTo[ (int)enemyType ].Contains(action.type))
 		{
 			Debug.Log ("Adding weakMod");
 			result += weakMod;
 		}
-		else if(Common.strongTo[(int)enemyType].Contains(topic.type))
+		else if(Common.strongTo[ (int)enemyType ].Contains(action.type))
 		{
 			Debug.Log ("Adding strongMod");
 			result += strongMod;
-		}
+		}*/
 
 		Debug.Log ("Damage: " + result);
 		return result;
 	}
 
 
-	public void ApplyTopic(Topic topic)
+	public void ApplyAction(PlayerAction action)
 	{
 		/*
 		 *  Determine loss of hp
 		 */
-		hp -= CalculateDmg (topic);
+		hp -= CalculateDmg (action);
 		Debug.Log ("hp: " + hp);
-
-		// Set response
-		responses.TryGetValue (topic, out lastResponse);
-		if(lastResponse.response.CompareTo("") == 0)
-		{
-			lastResponse = Common.enemyDefaultResp;
-		}
 	}
 
 	public void Move()

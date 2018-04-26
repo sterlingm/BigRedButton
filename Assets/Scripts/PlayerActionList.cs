@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PlayerActionList : MonoBehaviour
 {
+    // Singleton
+    public static PlayerActionList self = null;
 
 	public class Row
 	{
@@ -27,6 +29,10 @@ public class PlayerActionList : MonoBehaviour
 
 	void Awake ()
 	{
+        if(self == null)
+        {
+            self = this;
+        }
 		rowList = new List<Row>();
 		file = Resources.Load ("player-actions") as TextAsset;
 		Load (file);
@@ -49,7 +55,7 @@ public class PlayerActionList : MonoBehaviour
 
 				pa.title = rowList [i].title;
 
-				Int32.TryParse (rowList [i].damage, out pa.damage);
+				Int32.TryParse (rowList [i].damage, out pa.baseDmg);
 
 				Int32.TryParse (rowList [i].actionType, out pa.actionType);
 

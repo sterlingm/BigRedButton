@@ -5,18 +5,13 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public static Player self;
-
-	[SerializeField]
-	// List of topics for the main game loop
-	private TopicList topicList;
-	public List<int> i_topics;
-
+    
     // This is set in EncounterManager
     public bool inEncounter;
 
-	[SerializeField]
-	// Boss fight actions
-	public PlayerActionList actionList;
+    //[SerializeField]
+    // Here to compile Boss scene, fix this soon
+    public PlayerActionList actionList;
 
 	// Boss fight stats
 	public int hp;
@@ -46,12 +41,6 @@ public class Player : MonoBehaviour
         // If Game scene is loaded, grab topicList object
         if (SceneManager.GetActiveScene().buildIndex == 0)
 		{
-			// Give the player a few topics to bring up initially
-			topicList = GameObject.Find ("Topic List").GetComponent<TopicList> ();
-			i_topics = new List<int> ();
-			i_topics.Add (0);
-			i_topics.Add (1);
-			i_topics.Add (2);
 
 			// Set ally action list
 			allyActionList = GameObject.Find ("AllyActionList").GetComponent<AllyActionList> ();
@@ -84,7 +73,7 @@ public class Player : MonoBehaviour
 					i_allyActionsForType [i_type].Add (actionId);
 				}
 			}
-		}
+		}   // end if scene index == 0
 
 		hp = 10;
 	}
@@ -126,32 +115,24 @@ public class Player : MonoBehaviour
 		hp -= b.baseDmg;
 	}
 
-	public Topic GetTopic(int i)
-	{
-		return topicList.list [i_topics [i]];
-	}
+    public void ApplyEnemyAction(EnemyAction a)
+    {
+        hp -= a.baseDmg;
+    }
+    
 
-	public List<string> GetTopicStrings()
-	{
-		List<string> result = new List<string>();
-
-		for(int i=0;i<i_topics.Count;i++)
-		{
-			result.Add (topicList.list[i_topics [i]].title);
-		}
-
-		// Insert "Make Ally"
-		result.Add ("Make ally");
-		return result;
-	}
-
+    public PlayerAction GetAction(int i)
+    {
+        return PlayerActionList.self.list[i];
+    }
+    
 
 	public List<string> GetActionStrings()
 	{
 		List<string> result = new List<string> ();
-		for(int i=0;i<actionList.list.Count;i++)
+		for(int i=0;i< PlayerActionList.self.list.Count;i++)
 		{
-			result.Add (actionList.list[i].title);
+			result.Add (PlayerActionList.self.list[i].title);
 		}
 		return result;
 	}

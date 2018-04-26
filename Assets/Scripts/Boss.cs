@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour
 
 	public void ApplyPlayerAction(PlayerAction pa)
 	{
-		hp -= pa.damage;
+		hp -= pa.baseDmg;
 	}
 }
 

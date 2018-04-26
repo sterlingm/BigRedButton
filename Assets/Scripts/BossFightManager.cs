@@ -236,12 +236,11 @@ public class BossFightManager : MonoBehaviour
 			int choice = dropDown.value-1;
 
 			// Apply the Action to the boss
-			boss.ApplyPlayerAction (player.actionList.list [choice]);
+			boss.ApplyPlayerAction (PlayerActionList.self.list [choice]);
 
 			// If the player has selected an action for each character, it is the boss' turn
 			if(i_activeChar == player.allies.Count)
-			{
-				
+			{				
 				// Make Boss choose an actions
 				int bossChoice = UnityEngine.Random.Range (0, boss.actionList.list.Count);
 				BossAction b = boss.actionList.list [bossChoice];
