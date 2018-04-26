@@ -31,10 +31,18 @@ public class Encounter : MonoBehaviour {
 	// Number of times the player has selected a topic
 	private int numRounds;
 
-	/*
+
+    // Text objects to display hp values
+    public Text playerHp;
+    public Text enemyNPC;
+
+
+
+
+    /*
 	 * Awake
-	 */ 
-	void Awake () 
+	 */
+    void Awake () 
 	{
 		choiceMade = false;
 		dropDown = GameObject.Find ("/GUI/TopicList").GetComponent<Dropdown> ();
@@ -137,7 +145,7 @@ public class Encounter : MonoBehaviour {
 	/*
 	 * Display the enemy's response on screen
 	 * It displays each character one by one with a slight delay
-	 */ 
+	  
 	public IEnumerator DisplayEnemyResponse()
 	{
 		// Set flag 
@@ -158,7 +166,7 @@ public class Encounter : MonoBehaviour {
 		// Turn stuff back on
 		dropDown.interactable = true;
 		displayingResponse = false;
-	}
+	}*/
     
 
     /*

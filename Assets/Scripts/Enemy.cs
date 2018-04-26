@@ -44,14 +44,7 @@ public class Enemy : MonoBehaviour
     public Vector3 navStart;
     public Vector3 navGoalPersist;
 
-
-    // Old
-    private TopicList topicList;
-    [SerializeField]
-    public Dictionary<Topic, EnemyResponse> responses;
-    public EnemyResponse lastResponse;
-
-    // New
+        // New
     private EnemyActionList actionList;
     [SerializeField]
     public List<EnemyAction> actions;
@@ -66,13 +59,7 @@ public class Enemy : MonoBehaviour
         agent.isStopped = false;
     }
 
-
-    public void AddResponse(EnemyResponse er)
-	{
-		responses.Add (topicList.list [er.i_topic], er);
-	}
-
-
+    
 	void Awake()
 	{
 		hp = 10f;
@@ -93,13 +80,10 @@ public class Enemy : MonoBehaviour
 
         // Grab the textbox to put responses in and get the topic list
 		textbox     = GameObject.Find ("Enemy Text").GetComponent<Text> ();
-		topicList   = GameObject.Find ("Topic List").GetComponent<TopicList> ();
 
 		boxCollider = GetComponent<BoxCollider> ();
 		rb 			= GetComponent<Rigidbody> ();
-
-        // Create responses dictionary
-		responses = new Dictionary<Topic, EnemyResponse> ();
+        
 
         /*
          * Old movement code for prototype
@@ -130,7 +114,7 @@ public class Enemy : MonoBehaviour
         // Check if this object has EnemyResponse values
         // If not, then it was created in the inspector 
         // Use default values to initialize its fields
-        if(responses.Count < 1)
+        if(actions.Count < 1)
         {
             // Use default initialization for Enemy
             initInspectorEnemy();
@@ -196,13 +180,9 @@ public class Enemy : MonoBehaviour
         // start and goal can be set in Inspector (I think?)
         // use those to set start and goal fields so the enemy can reverse
         // when it reaches the goal
-        for(int i=0;i<topicList.rowList.Count-1;i++)
+        for(int i=0;i<EnemyActionList.self.list.Count-1;i++)
         {
-            // Make an EnemyResponse
-            EnemyResponse er = new EnemyResponse();
-            er.init(i, String.Format("Default response for topic {0}", i));
-
-            AddResponse(er);
+            actions.Add((EnemyAction)EnemyActionList.self.list[i].Clone());
         }
     }
 
