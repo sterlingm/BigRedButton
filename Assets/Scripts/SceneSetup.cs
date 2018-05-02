@@ -11,7 +11,7 @@ public class SceneSetup : MonoBehaviour {
 	void Awake() 
 	{
 		SetupPlayer ();
-		createAllies ();
+		CreateAllies ();
 	}
 
 	/*
@@ -35,7 +35,7 @@ public class SceneSetup : MonoBehaviour {
 	/*
 	 * Create objects for each player ally
 	 */ 
-	void createAllies()
+	void CreateAllies()
 	{
 		Player player = GameObject.Find ("Player").GetComponent<Player> ();
 

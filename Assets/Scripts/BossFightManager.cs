@@ -58,7 +58,7 @@ public class BossFightManager : MonoBehaviour
 
 		// Set text field positions for Hp, turn indicators, etc
 		// Do this programatically because we don't know how many allies the player will have
-		setTextFieldPositions ();
+		SetTextFieldPositions ();
 
 		// Set the turn indicator
 		SetTurnIndicator ();
@@ -68,7 +68,7 @@ public class BossFightManager : MonoBehaviour
 	}
 
 
-	private void setTextFieldPositions()
+	private void SetTextFieldPositions()
 	{
 		// Set offsets
 		int x_offsetTurn = 40;
@@ -118,6 +118,23 @@ public class BossFightManager : MonoBehaviour
 			screenPos.y += y_offsetHp;
 			allyOneHp.transform.position = screenPos;
 		}
+        else
+        {
+            Debug.Log("In Else");
+            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyOneHp.transform.position = screenPos;
+
+            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyTwoHp.transform.position = screenPos;
+        }
 		if(player.allies.Count > 1)
 		{
 			Ally temp = GameObject.Find ("Ally 2").GetComponent<Ally> ();
@@ -142,7 +159,7 @@ public class BossFightManager : MonoBehaviour
 		}
 	}
 
-	private void setOptions()
+	private void SetOptions()
 	{
 		if(i_activeChar - 1 < player.allies.Count)
 		{
@@ -160,7 +177,7 @@ public class BossFightManager : MonoBehaviour
 		dropDown.AddOptions (actionStrs);
 	}
 
-	void updateHpText()
+	void UpdateHpText()
 	{
 		playerHp.text = String.Format ("HP: {0}", player.hp);
 
@@ -199,7 +216,7 @@ public class BossFightManager : MonoBehaviour
 		}
 	}
 
-	void applyBossAction(BossAction b)
+	void ApplyBossAction(BossAction b)
 	{
 		player.ApplyBossAction (b);
 		foreach(Ally a in allies)
@@ -225,7 +242,7 @@ public class BossFightManager : MonoBehaviour
 	{
 		if (!init)
 		{
-			setOptions ();
+			SetOptions ();
 			init = true;
 		}
 		if(choiceMade)
@@ -246,13 +263,13 @@ public class BossFightManager : MonoBehaviour
 				BossAction b = boss.actionList.list [bossChoice];
 
 				// Apply the action to the player and allies
-				applyBossAction (b);
+				ApplyBossAction (b);
 
 				// Set text string to show the action
 				bossActionText.text = String.Format("POTUS used: {0}", b.title);
 
 				// Update the HP texts
-				updateHpText ();
+				UpdateHpText ();
 
 				// Check if game is over
 				CheckGameOver ();
@@ -266,7 +283,7 @@ public class BossFightManager : MonoBehaviour
 			}
 
 			// Set dropdown options to show any new topics
-			setOptions ();
+			SetOptions ();
 
 			// Reset dropdown
 			dropDown.value = 0;

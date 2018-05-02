@@ -1680,6 +1680,7 @@ GameObject:
   - component: {fileID: 1462578173}
   - component: {fileID: 1462578172}
   - component: {fileID: 1462578176}
+  - component: {fileID: 1462578177}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1764,13 +1765,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770bbc0f1d362c4ea34d2f60fa4a0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicList: {fileID: 0}
-  i_topics: 
   inEncounter: 0
   actionList: {fileID: 771159537}
   hp: 0
   allies: []
   allyActionList: {fileID: 0}
+--- !u!114 &1462578177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1462578171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0baaf3a5b13c4d41981c5e697bc7c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  player: {fileID: 0}
 --- !u!1 &1538573639
 GameObject:
   m_ObjectHideFlags: 0
