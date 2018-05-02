@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
 		// Create the Encounter and initialize it
 		encounterInstance = Instantiate (encounterPrefab) as Encounter;
-		encounterInstance.init (player, e);
+		encounterInstance.Init (player, e);
 
 		// Set encActive to true, and disable the player character movement
 		encActive = true;

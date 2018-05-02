@@ -79,7 +79,7 @@ public class Encounter : MonoBehaviour {
 	/*
 	 * Initialize the Encounter object with a player and enemy
 	 */ 
-	public void init(Player p, Enemy e)
+	public void Init(Player p, Enemy e)
 	{
 		// Set references
 		player = p;
@@ -101,23 +101,9 @@ public class Encounter : MonoBehaviour {
 
 		// Set numRounds
 		numRounds = 0;
-	}
 
-	/*
-	 * Set the options for the dropdown
-	 * The options are the topics that a player can choose
-	 */ 
-	private void setOptions()
-	{
-		// Get topic strings
-		List<string> actionStrs = player.GetActionStrings ();
-
-		// Insert "Make a selection" to prompt the user
-		actionStrs.Insert (0, "Make a selection");
-
-		// Set options
-		playerActionDropdown.ClearOptions ();
-		playerActionDropdown.AddOptions (actionStrs);
+        // Set initial summary of encounter
+        SetInitialSummary();
 	}
 
 	/*
@@ -144,7 +130,7 @@ public class Encounter : MonoBehaviour {
 	 * Attempt to make the enemy an Ally
 	 * Return true if successful
 	 */ 
-	private bool tryMakeAlly()
+	private bool TryMakeAlly()
 	{
 		int threshold = (int)Math.Floor(enemy.hp);
 
@@ -153,7 +139,7 @@ public class Encounter : MonoBehaviour {
 		return numRounds >= 2 && num <= threshold;
 	}
 
-	/*
+    /*
 	 * Display the enemy's response on screen
 	 * It displays each character one by one with a slight delay
 	  
@@ -178,7 +164,36 @@ public class Encounter : MonoBehaviour {
 		dropDown.interactable = true;
 		displayingResponse = false;
 	}*/
-    
+
+
+    private void SetInitialSummary()
+    {
+        String summary = String.Format("You have encountered {0}!\nSelect actions until you defeat them!", enemy.name);
+        displayEncSummary.text = summary;
+    }
+
+    private void SetSummary(PlayerAction pa, EnemyAction ea)
+    {
+        String summary = String.Format("Enemy: {0}\nHP: {1}\n{0} used {2}\n\nPlayer HP: {3}\nYour last attack: {4}\n", enemy.name, enemy.hp, ea.title, player.hp, pa.title);
+        displayEncSummary.text = summary;
+    }
+
+    /*
+	 * Set the options for the dropdown
+	 * The options are the topics that a player can choose
+	 */
+    private void SetOptions()
+    {
+        // Get topic strings
+        List<string> actionStrs = player.GetActionStrings();
+
+        // Insert "Make a selection" to prompt the user
+        actionStrs.Insert(0, "Make a selection");
+
+        // Set options
+        playerActionDropdown.ClearOptions();
+        playerActionDropdown.AddOptions(actionStrs);
+    }
 
     /*
 	 * Update
@@ -215,7 +230,10 @@ public class Encounter : MonoBehaviour {
             numRounds++;
 			
 			// Set dropdown options to show any new topics
-			setOptions ();
+			SetOptions ();
+
+            // Display Encounter updates to the user
+            SetSummary(player.GetAction(choice), b);
 
 			// Reset dropdown
 			playerActionDropdown.value = 0;
