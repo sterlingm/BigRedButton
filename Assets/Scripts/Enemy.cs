@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 	public float        hp;
 	public String       enemyName;
 	public String       initEncounter;
-	public Text         textbox;
 	public bool         collidingWithPlayer;
 	public Transform    navGoalTF;
    
@@ -77,10 +76,7 @@ public class Enemy : MonoBehaviour
 
 		// Get and store transform of the player
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
-
-        // Grab the textbox to put responses in and get the topic list
-		textbox     = GameObject.Find ("Enemy Text").GetComponent<Text> ();
-
+        
 		boxCollider = GetComponent<BoxCollider> ();
 		rb 			= GetComponent<Rigidbody> ();
         
@@ -153,11 +149,6 @@ public class Enemy : MonoBehaviour
         Debug.Log(String.Format("coll.gameObject.name: {0}", coll.gameObject.name));
 		if(coll.gameObject.name == "Player" && !collidingWithPlayer && Player.self.inEncounter == false)
 		{
-			if(textbox.text.Length == 0)
-			{
-				textbox.text = String.Format ("{0}, I'm {1}", initEncounter, enemyName);
-			}
-			textbox.gameObject.SetActive (true);
             EncounterEventManager.TriggerEvent (Common.ENC_EVENT_STR, this);
 			collidingWithPlayer = true;
 		}

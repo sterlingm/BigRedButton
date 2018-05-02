@@ -11,8 +11,6 @@ using System.Xml.Schema;
 
 public class Encounter : MonoBehaviour {
 
-	[SerializeField]
-	public Dropdown dropDown;
 
 
 	// Player and enemy involved in the encounter
@@ -33,8 +31,11 @@ public class Encounter : MonoBehaviour {
 
 
     // Text objects to display hp values
-    public Text playerHp;
-    public Text enemyNPC;
+    [SerializeField]
+    public Dropdown playerActionDropdown;
+    public ScrollRect encSummaryBox;
+    public Text displayEncSummary;
+
 
 
 
@@ -45,12 +46,22 @@ public class Encounter : MonoBehaviour {
     void Awake () 
 	{
 		choiceMade = false;
-		dropDown = GameObject.Find ("/GUI/TopicList").GetComponent<Dropdown> ();
-		dropDown.onValueChanged.AddListener(DropdownValueChanged);
+		playerActionDropdown = GameObject.Find ("/GUI/Player Action List").GetComponent<Dropdown> ();
+		playerActionDropdown.onValueChanged.AddListener(DropdownValueChanged);
 
 		errorMsg = GameObject.Find ("/GUI/ErrorMsgs").GetComponent<Text> ();
 
-		numRounds = 0;
+
+        // Get game objects used for displaying information to the user
+        encSummaryBox       = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
+        displayEncSummary   = GameObject.Find("Encounter summary").GetComponent<Text>();
+
+        // Make them visible
+        displayEncSummary.gameObject.SetActive(true);
+        encSummaryBox.gameObject.transform.localPosition    = new Vector3(325f, -125f, 0f);
+        playerActionDropdown.gameObject.transform.localPosition = new Vector3(250f, 8.5f, 0f);
+
+        numRounds = 0;
 	}
 
 	/*
@@ -77,12 +88,12 @@ public class Encounter : MonoBehaviour {
         Player.self.inEncounter = true;
 
 		// Clear player topic options
-		dropDown.ClearOptions ();
+		playerActionDropdown.ClearOptions ();
 
 		// Populate topic options
 		List<string> actionStrs = player.GetActionStrings ();
 		actionStrs.Insert (0, "Make a selection");
-		dropDown.AddOptions (actionStrs);
+		playerActionDropdown.AddOptions (actionStrs);
 
 		// Stop enemy from moving
 		//e.move = false;
@@ -105,8 +116,8 @@ public class Encounter : MonoBehaviour {
 		actionStrs.Insert (0, "Make a selection");
 
 		// Set options
-		dropDown.ClearOptions ();
-		dropDown.AddOptions (actionStrs);
+		playerActionDropdown.ClearOptions ();
+		playerActionDropdown.AddOptions (actionStrs);
 	}
 
 	/*
@@ -179,7 +190,7 @@ public class Encounter : MonoBehaviour {
 			// Player's turn
 			// Get the choice from the Dropdown
 			// Subtract 1 because the first index is "Make a selection"
-			int choice = dropDown.value-1;
+			int choice = playerActionDropdown.value-1;
 			
 			// Apply topic to enemy
 			enemy.ApplyAction (player.GetAction(choice));
@@ -198,7 +209,7 @@ public class Encounter : MonoBehaviour {
             }*/
 
             // Set text string to show the action
-            enemy.textbox.text = b.title;
+            //enemy.textbox.text = b.title;
 
             // Increment numRounds
             numRounds++;
@@ -207,7 +218,7 @@ public class Encounter : MonoBehaviour {
 			setOptions ();
 
 			// Reset dropdown
-			dropDown.value = 0;
+			playerActionDropdown.value = 0;
 
 			// Reset choiceMade
 			choiceMade = false;
@@ -223,16 +234,19 @@ public class Encounter : MonoBehaviour {
 			//enemy.move = true;
             enemy.StartMoving();
             enemy.gameObject.SetActive (false);
-			GameObject.Find ("Enemy Text").SetActive (false);
-			GameObject.Find ("Scroll View").SetActive (false);
+			//GameObject.Find ("Scroll View").SetActive (false);
 
-            enemy.textbox.text = "";
 
 			// Enable character control again
 			player.GetComponent<IsoCharControl> ().enabled = true;
 
             // Set inEncounter
             Player.self.inEncounter = false;
+
+            // Make encounter box and ui stuff invisible
+            displayEncSummary.text = "";
+            encSummaryBox.gameObject.transform.localPosition = new Vector3(1000f, 1000f, 1000f);
+            playerActionDropdown.gameObject.transform.localPosition = new Vector3(1000f, 1000f, 1000f);
 
             // Destroy this Encounter object
             Destroy (gameObject);
