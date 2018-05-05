@@ -16,5 +16,7 @@ public class Goal : MonoBehaviour {
 		{
 			SceneManager.LoadScene ("Boss");
 		}
+
+        
 	}
 }
