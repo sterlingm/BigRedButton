@@ -28,9 +28,7 @@ public class SceneSetupTD : MonoBehaviour
 
         // Prune list?
         player.GetPrunedList(iEnc);
-
-		// Disable player movement
-        player.GetComponent<IsoCharControl> ().enabled = false;
+        
 	}
 
 
