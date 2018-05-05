@@ -2,10 +2,13 @@
 
 public class SceneSetupTD : MonoBehaviour
 {
+
+    int iEnc;
     
 	// Use this for initialization
 	void Awake() 
 	{
+        iEnc = 0;
 		SetupPlayer ();
 	}
 
@@ -22,6 +25,9 @@ public class SceneSetupTD : MonoBehaviour
 
 		// Set player action list for player object
 		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionListTD> ();
+
+        // Prune list?
+        player.GetPrunedList(iEnc);
 
 		// Disable player movement
         player.GetComponent<IsoCharControl> ().enabled = false;

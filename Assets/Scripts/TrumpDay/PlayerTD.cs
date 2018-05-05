@@ -12,6 +12,7 @@ public class PlayerTD : MonoBehaviour
     //[SerializeField]
     // Here to compile Boss scene, fix this soon
     public PlayerActionListTD actionList;
+    public List<PlayerActionTD> actions;
 
 	// Boss fight stats
 	public int hp;
@@ -34,6 +35,8 @@ public class PlayerTD : MonoBehaviour
         {
             self = this;
         }
+
+        actions = new List<PlayerActionTD>();
         
         /*
 		 *  Initialize stuff
@@ -78,6 +81,17 @@ public class PlayerTD : MonoBehaviour
 		hp = 10;
 	}
 
+    public void GetPrunedList(int iEnc)
+    {
+        for(int i=0;i<PlayerActionListTD.self.list.Count;i++)
+        {
+            if(PlayerActionListTD.self.list[i].encType == iEnc)
+            {
+                actions.Add(PlayerActionListTD.self.list[i]);
+            }
+        }
+    }
+
 
 	public void BuildAlly(Enemy e)
 	{
@@ -121,18 +135,18 @@ public class PlayerTD : MonoBehaviour
     }
     
 
-    public PlayerAction GetAction(int i)
+    public PlayerActionTD GetAction(int i)
     {
-        return PlayerActionList.self.list[i];
+        return actions[i];
     }
     
 
 	public List<string> GetActionStrings()
 	{
 		List<string> result = new List<string> ();
-		for(int i=0;i< PlayerActionListTD.self.list.Count;i++)
+		for(int i=0;i<actions.Count;i++)
 		{
-			result.Add (PlayerActionListTD.self.list[i].title);
+			result.Add (actions[i].title);
 		}
 		return result;
 	}

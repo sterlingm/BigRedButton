@@ -265,7 +265,7 @@ public class FightManager : MonoBehaviour
 
 			// Apply the Action to the boss
 			//boss.ApplyPlayerAction (PlayerActionList.self.list [choice]);
-            enemy.ApplyAction(PlayerActionListTD.self.list[choice]);
+            enemy.ApplyAction(player.GetAction(choice));
 
 			// If the player has selected an action for each character, it is the boss' turn
 			if(i_activeChar == player.allies.Count)
