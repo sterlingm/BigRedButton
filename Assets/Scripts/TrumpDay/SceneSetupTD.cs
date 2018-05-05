@@ -16,12 +16,12 @@ public class SceneSetupTD : MonoBehaviour
 	void SetupPlayer()
 	{
 		// Set new player position
-		Player player = GameObject.Find ("Player").GetComponent<Player> ();
+		PlayerTD player = GameObject.Find ("Player").GetComponent<PlayerTD> ();
 		Vector3 playerPos = new Vector3 (25f, 0.5f, 15f);
 		player.transform.position = playerPos;
 
 		// Set player action list for player object
-		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionList> ();
+		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionListTD> ();
 
 		// Disable player movement
         player.GetComponent<IsoCharControl> ().enabled = false;

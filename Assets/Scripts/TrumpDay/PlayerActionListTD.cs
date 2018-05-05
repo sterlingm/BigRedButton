@@ -34,7 +34,7 @@ public class PlayerActionListTD : MonoBehaviour
             self = this;
         }
 		rowList = new List<Row>();
-		file = Resources.Load ("player-actions") as TextAsset;
+		file = Resources.Load ("TrumpDay/player-actions") as TextAsset;
 		Load (file);
 		init ();
 	}

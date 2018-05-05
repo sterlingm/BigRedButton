@@ -6,29 +6,27 @@ using System;
 public class FightManager : MonoBehaviour 
 {
 
-	public Player player;
+	public PlayerTD player;
 	public Boss boss;
 	public List<Ally> allies;
 	public Dropdown dropDown;
+    public EnemyTD enemy;
 
 	public bool choiceMade;
 
-	private bool init;
 
 	public Text bossActionText;
 
-	private int i_activeChar;
+
+    private bool init;
+    private int i_activeChar;
 
 	public Text playerTurnText;
-	public List<Text> allyTurnTexts;
-	public List<Text> allyHpTexts;
-	public Text allyOneTurnText;
-	public Text allyTwoTurnText;
-	public Text bossTurnText;
-	public Text bossHp;
+	//public List<Text> allyTurnTexts;
+	//public List<Text> allyHpTexts;
+	public Text enemyTurnText;
+    public Text enemyHp;
 	public Text playerHp;
-	public Text allyOneHp;
-	public Text allyTwoHp;
 
 	public Camera camera;
 
@@ -41,7 +39,7 @@ public class FightManager : MonoBehaviour
 
 		// Set player object
 		// Cannot link in inspector because Player comes from previous scene
-		player = GameObject.Find ("Player").GetComponent<Player> ();
+		player = GameObject.Find ("Player").GetComponent<PlayerTD> ();
 
 		// Set List<Ally> elements
 		for(int i=0;i<player.allies.Count;i++)
@@ -59,9 +57,64 @@ public class FightManager : MonoBehaviour
 		// Set the turn indicator
 		SetTurnIndicator ();
 
+        // Set index of active character
+        i_activeChar = 0;
+        
 		// End initialization
 		init = false;
 	}
+
+
+    private void SetAllyTextFieldPositions()
+    {
+        /*
+        // Can't put these into Lists because then we can't set the values in the Inspector
+        // So set them both manually instead of in a loop
+        if (player.allies.Count > 0)
+        {
+            Ally temp = GameObject.Find("Ally 1").GetComponent<Ally>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetTurn;
+            screenPos.y += y_offsetTurn;
+            allyOneTurnText.transform.position = screenPos;
+
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetHp;
+            screenPos.y += y_offsetHp;
+            allyOneHp.transform.position = screenPos;
+        }
+        else
+        {
+            Debug.Log("In Else");
+            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyOneHp.transform.position = screenPos;
+
+            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyTwoHp.transform.position = screenPos;
+        }
+        if (player.allies.Count > 1)
+        {
+            Ally temp = GameObject.Find("Ally 2").GetComponent<Ally>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetTurn;
+            screenPos.y += y_offsetTurn;
+            allyTwoTurnText.transform.position = screenPos;
+
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetHp;
+            screenPos.y += y_offsetHp;
+            allyTwoHp.transform.position = screenPos;
+        }
+        */
+    }
 
 
 	private void SetTextFieldPositions()
@@ -94,57 +147,14 @@ public class FightManager : MonoBehaviour
 		Vector3 potusPos = camera.WorldToScreenPoint (boss.transform.position);
 		potusPos.x += x_offsetTurn;
 		potusPos.y += y_offsetTurn;
-		bossTurnText.transform.position = potusPos;
+		enemyTurnText.transform.position = potusPos;
 
-		/*
+        /*
 		 * Allies
-		 */ 
-		// Can't put these into Lists because then we can't set the values in the Inspector
-		// So set them both manually instead of in a loop
-		if(player.allies.Count > 0)
-		{
-			Ally temp = GameObject.Find ("Ally 1").GetComponent<Ally> ();
-			Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-			screenPos.x += x_offsetTurn;
-			screenPos.y += y_offsetTurn;
-			allyOneTurnText.transform.position = screenPos;
+		 */
+        //SetAllyTextFieldPositions();
 
-			screenPos = camera.WorldToScreenPoint (temp.transform.position);
-			screenPos.x += x_offsetHp;
-			screenPos.y += y_offsetHp;
-			allyOneHp.transform.position = screenPos;
-		}
-        else
-        {
-            Debug.Log("In Else");
-            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyOneHp.transform.position = screenPos;
-
-            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyTwoHp.transform.position = screenPos;
-        }
-		if(player.allies.Count > 1)
-		{
-			Ally temp = GameObject.Find ("Ally 2").GetComponent<Ally> ();
-			Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-			screenPos.x += x_offsetTurn;
-			screenPos.y += y_offsetTurn;
-			allyTwoTurnText.transform.position = screenPos;
-
-			screenPos = camera.WorldToScreenPoint (temp.transform.position);
-			screenPos.x += x_offsetHp;
-			screenPos.y += y_offsetHp;
-			allyTwoHp.transform.position = screenPos;
-		}
-	}
+    }
 
 	private void DropdownValueChanged(int choice)
 	{
@@ -161,9 +171,12 @@ public class FightManager : MonoBehaviour
 		{
 			Debug.LogWarning (String.Format ("i_activeChar: {0} player.allies.Count: {1}", i_activeChar, player.allies.Count));
 		}
-		// Get list of actions for the current active character
-		List<string> actionStrs = i_activeChar == 0 ? player.GetActionStrings () 
-													: player.allies [i_activeChar - 1].GetActionsStrs ();
+		
+        // Get list of actions for the current active character
+		//List<string> actionStrs = i_activeChar == 0 ? player.GetActionStrings () 
+		//											: player.allies [i_activeChar - 1].GetActionsStrs ();
+
+        List<string> actionStrs = player.GetActionStrings();
 
 		// Insert "Make a selection to prompt the user
 		actionStrs.Insert (0, "Make a selection");
@@ -176,39 +189,41 @@ public class FightManager : MonoBehaviour
 	void UpdateHpText()
 	{
 		playerHp.text = String.Format ("HP: {0}", player.hp);
+        enemyHp.text = String.Format("HP: {0}", enemy.hp);
 
-		if(allies.Count > 0)
+		/*if(allies.Count > 0)
 		{
 			allyOneHp.text = String.Format ("HP: {0}", allies [0].hp);
 		}
 		if(allies.Count > 1)
 		{
 			allyTwoHp.text = String.Format ("HP: {0}", allies [1].hp);
-		}
+		}*/
 	}
 		
 	void SetTurnIndicator()
 	{
 		playerTurnText.gameObject.SetActive (false);
-		bossTurnText.gameObject.SetActive (false);
-		allyOneTurnText.gameObject.SetActive (false);
-		allyTwoTurnText.gameObject.SetActive (false);
+		enemyTurnText.gameObject.SetActive (false);
+
+        //allyOneTurnText.gameObject.SetActive (false);
+		//allyTwoTurnText.gameObject.SetActive (false);
 
 		if(i_activeChar == 0)
 		{
 			playerTurnText.gameObject.SetActive (true);
 		}
-		else if(i_activeChar == 1)
+		/*else if(i_activeChar == 1)
 		{
 			allyOneTurnText.gameObject.SetActive (true);
 		}
 		else if(i_activeChar == 2)
 		{
 			allyTwoTurnText.gameObject.SetActive (true);
-		}
+		}*/
 		else
 		{
-			bossTurnText.gameObject.SetActive (true);
+			enemyTurnText.gameObject.SetActive (true);
 		}
 	}
 
@@ -249,12 +264,13 @@ public class FightManager : MonoBehaviour
 			int choice = dropDown.value-1;
 
 			// Apply the Action to the boss
-			boss.ApplyPlayerAction (PlayerActionList.self.list [choice]);
+			//boss.ApplyPlayerAction (PlayerActionList.self.list [choice]);
+            enemy.ApplyAction(PlayerActionListTD.self.list[choice]);
 
 			// If the player has selected an action for each character, it is the boss' turn
 			if(i_activeChar == player.allies.Count)
 			{				
-				// Make Boss choose an actions
+				/*// Make Boss choose an actions
 				int bossChoice = UnityEngine.Random.Range (0, boss.actionList.list.Count);
 				BossAction b = boss.actionList.list [bossChoice];
 
@@ -262,7 +278,7 @@ public class FightManager : MonoBehaviour
 				ApplyBossAction (b);
 
 				// Set text string to show the action
-				bossActionText.text = String.Format("POTUS used: {0}", b.title);
+				bossActionText.text = String.Format("POTUS used: {0}", b.title);*/
 
 				// Update the HP texts
 				UpdateHpText ();
@@ -288,7 +304,7 @@ public class FightManager : MonoBehaviour
 			SetTurnIndicator ();
 
 			// Set new boss HP
-			bossHp.text = String.Format ("HP: {0}", boss.hp);
+			//enemyHp.text = String.Format ("HP: {0}", enemy.hp);
 
 			// Reset choiceMade
 			choiceMade = false;

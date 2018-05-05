@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 23616009}
   - component: {fileID: 23616008}
   m_Layer: 5
-  m_Name: BossTurn
+  m_Name: EnemyTurn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 117884487}
   - component: {fileID: 117884486}
   m_Layer: 5
-  m_Name: BossAction
+  m_Name: EnemyAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 182102865}
   - component: {fileID: 182102864}
   m_Layer: 5
-  m_Name: BossHP
+  m_Name: EnemyHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1555,6 +1555,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1120032045}
+--- !u!20 &1187932382 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20215723256720490, guid: d7ffff9b9b61e7448b0ca12d0902f83f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1054157668}
 --- !u!1 &1218857818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,8 +1679,8 @@ GameObject:
   - component: {fileID: 1462578174}
   - component: {fileID: 1462578173}
   - component: {fileID: 1462578172}
-  - component: {fileID: 1462578176}
   - component: {fileID: 1462578177}
+  - component: {fileID: 1462578176}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1757,7 +1762,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1462578171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d770bbc0f1d362c4ea34d2f60fa4a0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f0278584b27c8b49a02287316cccc39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inEncounter: 0
@@ -2123,23 +2128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1635ff30ecf4f4d96cda52f425e2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  boss: {fileID: 0}
+  player: {fileID: 1462578176}
+  boss: {fileID: 2146807805}
   allies: []
-  dropDown: {fileID: 0}
+  dropDown: {fileID: 450898097}
+  enemy: {fileID: 2146807806}
   choiceMade: 0
-  bossActionText: {fileID: 0}
-  playerTurnText: {fileID: 0}
-  allyTurnTexts: []
-  allyHpTexts: []
-  allyOneTurnText: {fileID: 0}
-  allyTwoTurnText: {fileID: 0}
-  bossTurnText: {fileID: 0}
-  bossHp: {fileID: 0}
-  playerHp: {fileID: 0}
-  allyOneHp: {fileID: 0}
-  allyTwoHp: {fileID: 0}
-  camera: {fileID: 0}
+  bossActionText: {fileID: 117884486}
+  playerTurnText: {fileID: 1120032047}
+  enemyTurnText: {fileID: 23616008}
+  enemyHp: {fileID: 182102864}
+  playerHp: {fileID: 1664459469}
+  camera: {fileID: 1187932382}
 --- !u!4 &1868964838
 Transform:
   m_ObjectHideFlags: 0
@@ -2424,6 +2424,7 @@ GameObject:
   - component: {fileID: 2146807802}
   - component: {fileID: 2146807801}
   - component: {fileID: 2146807805}
+  - component: {fileID: 2146807806}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -2510,3 +2511,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 25
   actionList: {fileID: 1107694165}
+--- !u!114 &2146807806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2146807800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be90c789254b944991719c0a4e47da1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  movementType: 0
+  id: 0
+  hp: 20
+  enemyName: The Enemy
+  actions: []
