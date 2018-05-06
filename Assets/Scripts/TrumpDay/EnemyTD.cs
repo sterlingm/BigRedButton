@@ -26,9 +26,9 @@ public class EnemyTD : MonoBehaviour
         
 
     // New
-    private EnemyActionList actionList;
+    private EnemyActionListTD actionList;
     [SerializeField]
-    public List<EnemyAction> actions;
+    public List<EnemyActionTD> actions;
 
     
     
@@ -77,10 +77,10 @@ public class EnemyTD : MonoBehaviour
         // start and goal can be set in Inspector (I think?)
         // use those to set start and goal fields so the enemy can reverse
         // when it reaches the goal
-        //for(int i=0;i<EnemyActionList.self.list.Count-1;i++)
-        //{
-            //actions.Add((EnemyAction)EnemyActionList.self.list[i].Clone());
-        //}
+        for(int i=0;i<EnemyActionListTD.self.list.Count-1;i++)
+        {
+            actions.Add((EnemyActionTD)EnemyActionListTD.self.list[i].Clone());
+        }
     }
 
     public void SetStrongWeak()

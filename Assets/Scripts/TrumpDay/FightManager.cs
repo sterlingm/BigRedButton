@@ -217,6 +217,11 @@ public class FightManager : MonoBehaviour
 		}
 	}
 
+    void ApplyEnemyAction(EnemyActionTD e)
+    {
+        player.ApplyEnemyAction(e);
+    }
+
 	void CheckGameOver()
 	{
 		if(boss.hp <= 0)
@@ -237,29 +242,36 @@ public class FightManager : MonoBehaviour
 			SetOptions ();
 			init = true;
 		}
-		if(choiceMade)
-		{
-			// Player's turn
-			// Get the choice from the Dropdown
-			// Subtract 1 because the first index is "Make a selection"
-			int choice = dropDown.value-1;
+        if (choiceMade)
+        {
+            // Player's turn
+            // Get the choice from the Dropdown
+            // Subtract 1 because the first index is "Make a selection"
+            int choice = dropDown.value - 1;
 
-			// Apply the Action to the boss
-			//boss.ApplyPlayerAction (PlayerActionList.self.list [choice]);
+            // Apply the Action to the boss
             enemy.ApplyAction(player.GetAction(choice));
 
-			// If the player has selected an action for each character, it is the boss' turn
-			if(i_activeChar == player.allies.Count)
-			{				
-				/*// Make Boss choose an actions
-				int bossChoice = UnityEngine.Random.Range (0, boss.actionList.list.Count);
-				BossAction b = boss.actionList.list [bossChoice];
+            i_activeChar++;
+
+            choiceMade = false;
+        }
+
+			// Player is index 0, so if they have gone then it is the enemies' turn
+			if(i_activeChar > 0 && i_activeChar < enemies.Count)
+			{
+                Debug.Log(String.Format("enemies.Count: {0} i_activeChar: {1}", enemies.Count, i_activeChar));
+                EnemyTD eActive = enemies[i_activeChar - 1];
+
+				// Make Boss choose an actions
+				int enemyChoice = UnityEngine.Random.Range (0, eActive.actions.Count);
+                EnemyActionTD e = eActive.actions[enemyChoice];
 
 				// Apply the action to the player and allies
-				ApplyBossAction (b);
+				ApplyEnemyAction (e);
 
 				// Set text string to show the action
-				bossActionText.text = String.Format("POTUS used: {0}", b.title);*/
+				bossActionText.text = String.Format("Enemy used: {0}", e.title);
 
 				// Update the HP texts
 				UpdateHpText ();
@@ -268,11 +280,12 @@ public class FightManager : MonoBehaviour
 				CheckGameOver ();
 
 				// Set active character back to player
-				i_activeChar = 0;
-			}
-			else
-			{
 				i_activeChar++;
+			}
+            // Once all enemies have gone, reset the index back to 0
+			else if(i_activeChar == enemies.Count)
+			{
+				i_activeChar = 0;
 			}
 
 			// Set dropdown options to show any new topics
@@ -289,7 +302,7 @@ public class FightManager : MonoBehaviour
 
 			// Reset choiceMade
 			choiceMade = false;
-		}
+		//}
 
 		// Check if boss is dead
 		if (boss.hp <= 0)

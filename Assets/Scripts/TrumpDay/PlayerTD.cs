@@ -129,7 +129,7 @@ public class PlayerTD : MonoBehaviour
 		hp -= b.baseDmg;
 	}
 
-    public void ApplyEnemyAction(EnemyAction a)
+    public void ApplyEnemyAction(EnemyActionTD a)
     {
         hp -= a.baseDmg;
     }
