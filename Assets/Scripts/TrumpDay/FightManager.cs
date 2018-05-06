@@ -3,14 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class FightManager : MonoBehaviour 
+public class FightManager : MonoBehaviour
 {
+    // Singleton
+    public static FightManager self = null;
 
-	public PlayerTD player;
+    public PlayerTD player;
 	public Boss boss;
 	public List<Ally> allies;
 	public Dropdown dropDown;
     public EnemyTD enemy;
+
+    public EnemyTD enemyPrefab;
+    public List<EnemyTD> enemies;
+    public List<Text> enemiesHP;
+    public List<Text> enemiesTurn;
 
 	public bool choiceMade;
 
@@ -32,6 +39,11 @@ public class FightManager : MonoBehaviour
 
 	void Awake()
 	{
+        if(self == null)
+        {
+            self = this;
+        }
+
 		// Set dropdown object
 		choiceMade = false;
 		dropDown = GameObject.Find ("/GUI/BossFightActions").GetComponent<Dropdown> ();
@@ -62,58 +74,27 @@ public class FightManager : MonoBehaviour
         
 		// End initialization
 		init = false;
+
+        // Create the enemies
+        CreateEnemyObjects();
 	}
+    
 
-
-    private void SetAllyTextFieldPositions()
+    /*
+	 * Create objects for each Enemy
+	 */
+    void CreateEnemyObjects()
     {
-        /*
-        // Can't put these into Lists because then we can't set the values in the Inspector
-        // So set them both manually instead of in a loop
-        if (player.allies.Count > 0)
-        {
-            Ally temp = GameObject.Find("Ally 1").GetComponent<Ally>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetTurn;
-            screenPos.y += y_offsetTurn;
-            allyOneTurnText.transform.position = screenPos;
+        // Get the total number of enemies from somewhere based on encounter
+        int n = UnityEngine.Random.Range(1, 5);
+        PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();
 
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetHp;
-            screenPos.y += y_offsetHp;
-            allyOneHp.transform.position = screenPos;
-        }
-        else
+        for (int i = 0; i < n; i++)
         {
-            Debug.Log("In Else");
-            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyOneHp.transform.position = screenPos;
-
-            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyTwoHp.transform.position = screenPos;
+            Vector3 p = new Vector3(player.transform.position.x - (10 * (i + 1)), player.transform.position.y, player.transform.position.z);
+            EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+            enemies.Add(e);
         }
-        if (player.allies.Count > 1)
-        {
-            Ally temp = GameObject.Find("Ally 2").GetComponent<Ally>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetTurn;
-            screenPos.y += y_offsetTurn;
-            allyTwoTurnText.transform.position = screenPos;
-
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetHp;
-            screenPos.y += y_offsetHp;
-            allyTwoHp.transform.position = screenPos;
-        }
-        */
     }
 
 
@@ -319,5 +300,66 @@ public class FightManager : MonoBehaviour
 			// Destroy this Encounter object
 			Destroy (gameObject);
 		}
-	}	// End Update
+	}   // End Update
+
+
+
+
+
+
+
+
+
+    /*private void SetAllyTextFieldPositions()
+    {
+        
+        // Can't put these into Lists because then we can't set the values in the Inspector
+        // So set them both manually instead of in a loop
+        if (player.allies.Count > 0)
+        {
+            Ally temp = GameObject.Find("Ally 1").GetComponent<Ally>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetTurn;
+            screenPos.y += y_offsetTurn;
+            allyOneTurnText.transform.position = screenPos;
+
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetHp;
+            screenPos.y += y_offsetHp;
+            allyOneHp.transform.position = screenPos;
+        }
+        else
+        {
+            Debug.Log("In Else");
+            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyOneHp.transform.position = screenPos;
+
+            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += 1000f;
+            screenPos.y += 1000f;
+            screenPos.z += 1000f;
+            allyTwoHp.transform.position = screenPos;
+        }
+        if (player.allies.Count > 1)
+        {
+            Ally temp = GameObject.Find("Ally 2").GetComponent<Ally>();
+            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetTurn;
+            screenPos.y += y_offsetTurn;
+            allyTwoTurnText.transform.position = screenPos;
+
+            screenPos = camera.WorldToScreenPoint(temp.transform.position);
+            screenPos.x += x_offsetHp;
+            screenPos.y += y_offsetHp;
+            allyTwoHp.transform.position = screenPos;
+        }
+        
+    }*/
+
+
 }

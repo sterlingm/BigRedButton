@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigRedButton", "BigRedButton.csproj", "{CFE77385-7F15-8447-476D-ED34470AA08C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigRedButton.Editor", "BigRedButton.Editor.csproj", "{2056ABC6-A456-7A1A-DEE2-8E940ED1227D}"

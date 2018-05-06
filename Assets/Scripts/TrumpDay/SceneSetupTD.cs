@@ -4,6 +4,7 @@ public class SceneSetupTD : MonoBehaviour
 {
 
     int iEnc;
+    EnemyTD enemyPrefab;
     
 	// Use this for initialization
 	void Awake() 
@@ -32,4 +33,13 @@ public class SceneSetupTD : MonoBehaviour
 	}
 
 
+    void createEnemyObjects()
+    {
+        PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();
+        for (int i=0;i<FightManager.self.enemies.Count;i++)
+        {
+            Vector3 p = new Vector3(player.transform.position.x - (10 * (i + 1)), player.transform.position.y, player.transform.position.z);
+            EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+        }
+    }
 }
