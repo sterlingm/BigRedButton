@@ -257,52 +257,53 @@ public class FightManager : MonoBehaviour
             choiceMade = false;
         }
 
-			// Player is index 0, so if they have gone then it is the enemies' turn
-			if(i_activeChar > 0 && i_activeChar < enemies.Count)
-			{
-                Debug.Log(String.Format("enemies.Count: {0} i_activeChar: {1}", enemies.Count, i_activeChar));
-                EnemyTD eActive = enemies[i_activeChar - 1];
+		// Player is index 0, so if they have gone then it is the enemies' turn
+		if(i_activeChar > 0 && i_activeChar <= enemies.Count)
+		{
+            Debug.Log(String.Format("enemies.Count: {0} i_activeChar: {1}", enemies.Count, i_activeChar));
+            EnemyTD eActive = enemies[i_activeChar - 1];
 
-				// Make Boss choose an actions
-				int enemyChoice = UnityEngine.Random.Range (0, eActive.actions.Count);
-                EnemyActionTD e = eActive.actions[enemyChoice];
+			// Make Boss choose an actions
+			int enemyChoice = UnityEngine.Random.Range (0, eActive.actions.Count);
+            EnemyActionTD e = eActive.actions[enemyChoice];
 
-				// Apply the action to the player and allies
-				ApplyEnemyAction (e);
+            Debug.Log(String.Format("Enemy action dmg: {0}", e.baseDmg));
 
-				// Set text string to show the action
-				bossActionText.text = String.Format("Enemy used: {0}", e.title);
+			// Apply the action to the player and allies
+			ApplyEnemyAction (e);
 
-				// Update the HP texts
-				UpdateHpText ();
+			// Set text string to show the action
+			bossActionText.text = String.Format("Enemy used: {0}", e.title);
 
-				// Check if game is over
-				CheckGameOver ();
+			// Update the HP texts
+			UpdateHpText ();
 
-				// Set active character back to player
-				i_activeChar++;
-			}
-            // Once all enemies have gone, reset the index back to 0
-			else if(i_activeChar == enemies.Count)
-			{
-				i_activeChar = 0;
-			}
+			// Check if game is over
+			CheckGameOver ();
 
-			// Set dropdown options to show any new topics
-			SetOptions ();
+			// Set active character back to player
+			i_activeChar++;
+		}
+        // Once all enemies have gone, reset the index back to 0
+		else
+		{
+			i_activeChar = 0;
+		}
 
-			// Reset dropdown
-			dropDown.value = 0;
+		// Set dropdown options to show any new topics
+		SetOptions ();
 
-			// Set new turn indicator
-			SetTurnIndicator ();
+		// Reset dropdown
+		dropDown.value = 0;
 
-			// Set new boss HP
-			//enemyHp.text = String.Format ("HP: {0}", enemy.hp);
+		// Set new turn indicator
+		SetTurnIndicator ();
 
-			// Reset choiceMade
-			choiceMade = false;
-		//}
+		// Set new boss HP
+		//enemyHp.text = String.Format ("HP: {0}", enemy.hp);
+
+		// Reset choiceMade
+		choiceMade = false;
 
 		// Check if boss is dead
 		if (boss.hp <= 0)
