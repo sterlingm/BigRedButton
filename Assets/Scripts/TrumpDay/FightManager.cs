@@ -21,7 +21,8 @@ public class FightManager : MonoBehaviour
 
 	public bool choiceMade;
 
-
+    public Font enemyHPFont;
+    public Transform canvasTrans;
 	public Text bossActionText;
 
 
@@ -31,8 +32,6 @@ public class FightManager : MonoBehaviour
 	public Text playerTurnText;
 	//public List<Text> allyTurnTexts;
 	//public List<Text> allyHpTexts;
-	public Text enemyTurnText;
-    public Text enemyHp;
 	public Text playerHp;
 
 	public Camera camera;
@@ -94,11 +93,44 @@ public class FightManager : MonoBehaviour
             Vector3 p = new Vector3(player.transform.position.x - (10 * (i + 1)), player.transform.position.y, player.transform.position.z);
             EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
             enemies.Add(e);
+
+
+            GameObject t = CreateText(e, canvasTrans, string.Format("{0} HP: {1}", e.name, e.hp), 10, Color.green);
+
+
+            // Reset playerPos and apply HP text offset
+            Vector3 pHP = camera.WorldToScreenPoint(p);
+            pHP.x += 0;
+            pHP.y += -75;
+            t.transform.position = pHP;
+
+            Debug.Log(String.Format("Location is ({0})", pHP));
+            enemiesHP.Add(t.GetComponent<Text>());
         }
     }
 
+    GameObject CreateText(EnemyTD enemy, Transform canvas_transform, string text_to_print, int font_size, Color text_color)
+    {
+        // Create object and set parent
+        GameObject textObject = new GameObject(string.Format("{0} HP", enemy.name));
+        textObject.transform.SetParent(canvas_transform);
 
-	private void SetTextFieldPositions()
+        // Make a rect transform
+        RectTransform trans = textObject.AddComponent<RectTransform>();
+        trans.anchoredPosition = new Vector2(enemy.transform.position.x, enemy.transform.position.y);
+
+        // Add the text component
+        Text text = textObject.AddComponent<Text>();
+        text.text = text_to_print;
+        text.fontSize = font_size;
+        text.color = text_color;
+        text.font = enemyHPFont;
+
+        return textObject;
+    }
+
+
+    private void SetTextFieldPositions()
 	{
 		// Set offsets
 		int x_offsetTurn = 40;
@@ -128,7 +160,19 @@ public class FightManager : MonoBehaviour
 		Vector3 potusPos = camera.WorldToScreenPoint (boss.transform.position);
 		potusPos.x += x_offsetTurn;
 		potusPos.y += y_offsetTurn;
-		enemyTurnText.transform.position = potusPos;
+
+        /*
+         * Enemies
+         */ 
+        // for(int i=0;i<enemies.Count;i++)
+        //{
+        //    Vector3 p = camera.WorldToScreenPoint(enemies[i].transform.position);
+        //    p.x += x_offsetTurn;
+        //    p.y += y_offsetTurn;
+
+        //    //Text eHP = new Text();
+        //    enemiesHP.Add(eHP);
+        //}
 
         /*
 		 * Allies
@@ -170,7 +214,7 @@ public class FightManager : MonoBehaviour
 	void UpdateHpText()
 	{
 		playerHp.text = String.Format ("HP: {0}", player.hp);
-        enemyHp.text = String.Format("HP: {0}", enemy.hp);
+        //enemyHp.text = String.Format("HP: {0}", enemy.hp);
 
 		/*if(allies.Count > 0)
 		{
@@ -185,7 +229,7 @@ public class FightManager : MonoBehaviour
 	void SetTurnIndicator()
 	{
 		playerTurnText.gameObject.SetActive (false);
-		enemyTurnText.gameObject.SetActive (false);
+		//enemyTurnText.gameObject.SetActive (false);
 
         //allyOneTurnText.gameObject.SetActive (false);
 		//allyTwoTurnText.gameObject.SetActive (false);
@@ -202,10 +246,6 @@ public class FightManager : MonoBehaviour
 		{
 			allyTwoTurnText.gameObject.SetActive (true);
 		}*/
-		else
-		{
-			enemyTurnText.gameObject.SetActive (true);
-		}
 	}
 
 	void ApplyBossAction(BossAction b)
