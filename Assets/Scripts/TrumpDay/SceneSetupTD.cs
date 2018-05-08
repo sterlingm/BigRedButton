@@ -35,6 +35,8 @@ public class SceneSetupTD : MonoBehaviour
 	}
 
 
+    // NOT CALLED!! 
+    // Currently using the version in FightManager
     void CreateEnemyObjects()
     {
         PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();

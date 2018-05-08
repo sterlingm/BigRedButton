@@ -9,7 +9,6 @@ public class FightManager : MonoBehaviour
     public static FightManager self = null;
 
     public PlayerTD player;
-	public Boss boss;
 	public List<Ally> allies;
 	public Dropdown dropDown;
     public EnemyTD enemy;
@@ -21,9 +20,10 @@ public class FightManager : MonoBehaviour
 
 	public bool choiceMade;
 
+    // Enemy stuff
+    public Transform enemyLocRef;
     public Font enemyHPFont;
     public Transform canvasTrans;
-	public Text bossActionText;
 
 
     private bool init;
@@ -86,11 +86,29 @@ public class FightManager : MonoBehaviour
     {
         // Get the total number of enemies from somewhere based on encounter
         int n = UnityEngine.Random.Range(1, 5);
+        n = 4;
         PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();
 
-        for (int i = 0; i < n; i++)
+        int x_offset = 0;
+        int z_offset = 0;
+
+        // Make rows of enemies, 2 per row
+        // Start at 2 to not run into issues with i=0 or 1
+        // i/2 for i=0 and i=1 will be equal locations, and doing i+1 also runs into problems with making rows
+        for (int i = 2; i <= n+1; i++)
         {
-            Vector3 p = new Vector3(player.transform.position.x - (10 * (i + 1)), player.transform.position.y, player.transform.position.z);
+            if(i % 2 == 0)
+            {
+                x_offset = (i/2) * 3;
+                z_offset = (i/2) * 3;
+            }
+            else
+            {
+                x_offset = -(i/2) * 3;
+                z_offset = (i/2) * 3;
+            }
+            Debug.Log(String.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
+            Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
             EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
             enemies.Add(e);
 
@@ -152,15 +170,7 @@ public class FightManager : MonoBehaviour
 		playerPos.x += x_offsetHp;
 		playerPos.y += y_offsetHp;
 		playerHp.transform.position = playerPos;
-
-		/*
-		 * Boss
-		 */ 
-		// Set boss turn indicator text position
-		Vector3 potusPos = camera.WorldToScreenPoint (boss.transform.position);
-		potusPos.x += x_offsetTurn;
-		potusPos.y += y_offsetTurn;
-
+        
         /*
          * Enemies
          */ 
@@ -264,7 +274,7 @@ public class FightManager : MonoBehaviour
 
 	void CheckGameOver()
 	{
-		if(boss.hp <= 0)
+		if(enemies.Count == 0)
 		{
 			UnityEngine.SceneManagement.SceneManager.LoadScene ("GameWon");
 		}
@@ -313,7 +323,7 @@ public class FightManager : MonoBehaviour
 			ApplyEnemyAction (e);
 
 			// Set text string to show the action
-			bossActionText.text = String.Format("Enemy used: {0}", e.title);
+			//bossActionText.text = String.Format("Enemy used: {0}", e.title);
 
 			// Update the HP texts
 			UpdateHpText ();
@@ -346,14 +356,14 @@ public class FightManager : MonoBehaviour
 		choiceMade = false;
 
 		// Check if boss is dead
-		if (boss.hp <= 0)
+		/*if (boss.hp <= 0)
 		{
 			// Deal with enemy
 			boss.gameObject.SetActive (false);
 
 			// Destroy this Encounter object
 			Destroy (gameObject);
-		}
+		}*/
 	}   // End Update
 
 
