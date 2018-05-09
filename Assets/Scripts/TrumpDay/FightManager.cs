@@ -86,7 +86,7 @@ public class FightManager : MonoBehaviour
     {
         // Get the total number of enemies from somewhere based on encounter
         int n = UnityEngine.Random.Range(1, 5);
-        n = 4;
+        n = 2;
         PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();
 
         int x_offset = 0;
@@ -107,27 +107,28 @@ public class FightManager : MonoBehaviour
                 x_offset = -(i/2) * 3;
                 z_offset = (i/2) * 3;
             }
-            Debug.Log(String.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
+            //Debug.Log(String.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
+
+            // Create vector for position and instantiate an enemy
             Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
             EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+
+            // Add enemy to list
             enemies.Add(e);
 
+            // Creaate a text object based on the enemy
+            GameObject t = CreateEnemyHPText(e, canvasTrans, string.Format("HP: {1}", e.name, e.hp));
 
-            GameObject t = CreateText(e, canvasTrans, string.Format("{0} HP: {1}", e.name, e.hp), 10, Color.green);
-
-
-            // Reset playerPos and apply HP text offset
+            // Get location for pHP
             Vector3 pHP = camera.WorldToScreenPoint(p);
-            pHP.x += 0;
-            pHP.y += -75;
             t.transform.position = pHP;
 
-            Debug.Log(String.Format("Location is ({0})", pHP));
+            // Add the text object to list
             enemiesHP.Add(t.GetComponent<Text>());
         }
     }
 
-    GameObject CreateText(EnemyTD enemy, Transform canvas_transform, string text_to_print, int font_size, Color text_color)
+    GameObject CreateEnemyHPText(EnemyTD enemy, Transform canvas_transform, string text_to_print)
     {
         // Create object and set parent
         GameObject textObject = new GameObject(string.Format("{0} HP", enemy.name));
@@ -140,8 +141,9 @@ public class FightManager : MonoBehaviour
         // Add the text component
         Text text = textObject.AddComponent<Text>();
         text.text = text_to_print;
-        text.fontSize = font_size;
-        text.color = text_color;
+        text.fontSize = 24;
+        text.color = Color.red;
+        text.alignment = TextAnchor.MiddleCenter;
         text.font = enemyHPFont;
 
         return textObject;
@@ -171,24 +173,6 @@ public class FightManager : MonoBehaviour
 		playerPos.y += y_offsetHp;
 		playerHp.transform.position = playerPos;
         
-        /*
-         * Enemies
-         */ 
-        // for(int i=0;i<enemies.Count;i++)
-        //{
-        //    Vector3 p = camera.WorldToScreenPoint(enemies[i].transform.position);
-        //    p.x += x_offsetTurn;
-        //    p.y += y_offsetTurn;
-
-        //    //Text eHP = new Text();
-        //    enemiesHP.Add(eHP);
-        //}
-
-        /*
-		 * Allies
-		 */
-        //SetAllyTextFieldPositions();
-
     }
 
 	private void DropdownValueChanged(int choice)
@@ -207,10 +191,7 @@ public class FightManager : MonoBehaviour
 			Debug.LogWarning (String.Format ("i_activeChar: {0} player.allies.Count: {1}", i_activeChar, player.allies.Count));
 		}
 		
-        // Get list of actions for the current active character
-		//List<string> actionStrs = i_activeChar == 0 ? player.GetActionStrings () 
-		//											: player.allies [i_activeChar - 1].GetActionsStrs ();
-
+        // Get actions for the player
         List<string> actionStrs = player.GetActionStrings();
 
 		// Insert "Make a selection to prompt the user
@@ -221,21 +202,22 @@ public class FightManager : MonoBehaviour
 		dropDown.AddOptions (actionStrs);
 	}
 
+    /*
+     * Update the HP text objects for all characters
+     */ 
 	void UpdateHpText()
 	{
-		playerHp.text = String.Format ("HP: {0}", player.hp);
-        //enemyHp.text = String.Format("HP: {0}", enemy.hp);
+		playerHp.text = String.Format ("{0}", player.hp);
 
-		/*if(allies.Count > 0)
-		{
-			allyOneHp.text = String.Format ("HP: {0}", allies [0].hp);
-		}
-		if(allies.Count > 1)
-		{
-			allyTwoHp.text = String.Format ("HP: {0}", allies [1].hp);
-		}*/
-	}
+        for(int i=0;i<enemiesHP.Count;i++)
+        {
+            enemiesHP[i].text = String.Format("{0}", enemies[i].hp);
+        }
+    }
 		
+    /*
+     * Maybe use this later on to give a little delay for each enemy to use their move
+     */ 
 	void SetTurnIndicator()
 	{
 		playerTurnText.gameObject.SetActive (false);
@@ -257,21 +239,19 @@ public class FightManager : MonoBehaviour
 			allyTwoTurnText.gameObject.SetActive (true);
 		}*/
 	}
-
-	void ApplyBossAction(BossAction b)
-	{
-		player.ApplyBossAction (b);
-		foreach(Ally a in allies)
-		{
-			a.ApplyBossAction (b);
-		}
-	}
-
+    
+    /*
+     * Apply an enemy action
+     * Reduce hp, change status, etc
+     */ 
     void ApplyEnemyAction(EnemyActionTD e)
     {
         player.ApplyEnemyAction(e);
     }
 
+    /*
+     * Check for terminal state
+     */ 
 	void CheckGameOver()
 	{
 		if(enemies.Count == 0)
@@ -285,6 +265,25 @@ public class FightManager : MonoBehaviour
 		}
 	}
 
+    /*
+     * Removing an enemy requires destroying scene game objects 
+     * and removing instances from lists
+     */ 
+    private void DestroyEnemyAtIndex(int i)
+    {
+        // Destroy GameObjects
+        Destroy(enemies[i].gameObject);
+        Destroy(enemiesHP[i].gameObject);
+
+        // Remove objects 
+        enemies.RemoveAt(i);
+        enemiesHP.RemoveAt(i);
+    }
+
+
+    /*
+     * Manage the turn-based combat
+     */ 
 	void Update()
 	{
 		if (!init)
@@ -299,9 +298,15 @@ public class FightManager : MonoBehaviour
             // Subtract 1 because the first index is "Make a selection"
             int choice = dropDown.value - 1;
 
+            int i_target = 0;
+            
             // Apply the Action to the boss
-            enemy.ApplyAction(player.GetAction(choice));
-
+            enemies[i_target].ApplyPlayerAction(player.GetAction(choice));
+            if(enemies[i_target].hp <= 0)
+            {
+                DestroyEnemyAtIndex(i_target);
+            }
+            
             i_activeChar++;
 
             choiceMade = false;
@@ -322,12 +327,6 @@ public class FightManager : MonoBehaviour
 			// Apply the action to the player and allies
 			ApplyEnemyAction (e);
 
-			// Set text string to show the action
-			//bossActionText.text = String.Format("Enemy used: {0}", e.title);
-
-			// Update the HP texts
-			UpdateHpText ();
-
 			// Check if game is over
 			CheckGameOver ();
 
@@ -338,10 +337,13 @@ public class FightManager : MonoBehaviour
 		else
 		{
 			i_activeChar = 0;
-		}
+        }
 
-		// Set dropdown options to show any new topics
-		SetOptions ();
+        // Update the HP texts
+        UpdateHpText();
+
+        // Set dropdown options to show any new topics
+        SetOptions ();
 
 		// Reset dropdown
 		dropDown.value = 0;

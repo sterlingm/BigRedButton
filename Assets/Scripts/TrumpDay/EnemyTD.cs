@@ -4,80 +4,80 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.AI;
 
-public class EnemyTD : MonoBehaviour 
+public class EnemyTD : MonoBehaviour
 {
 
-	public Common.EnemyType     enemyType;
-	public Common.MovementType  movementType;
+    public Common.EnemyType enemyType;
+    public Common.MovementType movementType;
 
-	public int          id;
-	public float        hp;
-	public String       enemyName;
-   
-    
-	private List<Common.TopicType> weakTo;
-	private List<Common.TopicType> strongTo;
-	private float weakMod;
-	private float strongMod;
-    
+    public int id;
+    public float hp;
+    public String enemyName;
 
-	private BoxCollider boxCollider;
-	private Rigidbody rb;
-        
+
+    private List<Common.TopicType> weakTo;
+    private List<Common.TopicType> strongTo;
+    private float weakMod;
+    private float strongMod;
+
+
+    private BoxCollider boxCollider;
+    private Rigidbody rb;
+
 
     // New
     private EnemyActionListTD actionList;
     [SerializeField]
     public List<EnemyActionTD> actions;
 
-    
-    
-	void Awake()
-	{
-		weakMod = 3f;
-		strongMod = -3f;
-
-		weakTo      = new List<Common.TopicType> ();
-		strongTo    = new List<Common.TopicType> ();
-		weakTo.Add      (Common.TopicType.HOSTILE_TALK);
-		strongTo.Add    (Common.TopicType.SHOP_TALK);
-        
-		boxCollider = GetComponent<BoxCollider> ();
-		rb 			= GetComponent<Rigidbody> ();
-     }
 
 
-	void Start () 
-	{
+    void Awake()
+    {
+        weakMod = 3f;
+        strongMod = -3f;
+
+        weakTo = new List<Common.TopicType>();
+        strongTo = new List<Common.TopicType>();
+        weakTo.Add(Common.TopicType.HOSTILE_TALK);
+        strongTo.Add(Common.TopicType.SHOP_TALK);
+
+        boxCollider = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    	
-    void Update () 
-	{
+
+    void Start()
+    {
+    }
+
+
+    void Update()
+    {
         // Check if this object has EnemyResponse values
         // If not, then it was created in the inspector 
         // Use default values to initialize its fields
-        if(actions.Count < 1)
+        if (actions.Count < 1)
         {
             // Use default initialization for Enemy
             InitInspectorEnemy();
-        }        
+        }
     }
 
-	
+
     public void InitInspectorEnemy()
     {
         Debug.Log("In initInspectorEnemy");
         // Create or grab a list of default EnemyResponses
         // Add them to responses field with AddResponse
-        
+
         // enemyType should be set in Inspector so use that
         // to set strongTo and weakTo
 
         // start and goal can be set in Inspector (I think?)
         // use those to set start and goal fields so the enemy can reverse
         // when it reaches the goal
-        for(int i=0;i<EnemyActionListTD.self.list.Count-1;i++)
+        for (int i = 0; i < EnemyActionListTD.self.list.Count - 1; i++)
         {
             actions.Add((EnemyActionTD)EnemyActionListTD.self.list[i].Clone());
         }
@@ -85,7 +85,7 @@ public class EnemyTD : MonoBehaviour
 
     public void SetStrongWeak()
     {
-        switch(enemyType)
+        switch (enemyType)
         {
             case Common.EnemyType.CABINET:
                 weakTo.Add(Common.TopicType.HOSTILE_TALK);
@@ -98,15 +98,15 @@ public class EnemyTD : MonoBehaviour
             default:
                 break;
         }
-            
+
     }
 
 
     private float CalculateDmg(PlayerActionTD action)
-	{
-		float result = action.baseDmg;
+    {
+        float result = action.baseDmg;
 
-		/*if(Common.weakTo[ (int)enemyType ].Contains(action.type))
+        /*if(Common.weakTo[ (int)enemyType ].Contains(action.type))
 		{
 			Debug.Log ("Adding weakMod");
 			result += weakMod;
@@ -117,19 +117,30 @@ public class EnemyTD : MonoBehaviour
 			result += strongMod;
 		}*/
 
-		Debug.Log ("Damage: " + result);
-		return result;
-	}
+        Debug.Log("Damage: " + result);
+        return result;
+    }
 
 
-	public void ApplyAction(PlayerActionTD action)
-	{
-		/*
+    public void ApplyPlayerAction(PlayerActionTD action)
+    {
+        /*
 		 *  Determine loss of hp
 		 */
-		hp -= CalculateDmg (action);
-		Debug.Log ("hp: " + hp);
-	}
+        hp -= CalculateDmg(action);
+        Debug.Log("hp: " + hp);
+
+        CheckDead();
+    }
+
+    public void CheckDead()
+    {
+        Debug.Log("In CheckDead");
+        if(hp <= 0)
+        {
+            //Destroy(this.gameObject);
+        }
+    }
 
 	
 

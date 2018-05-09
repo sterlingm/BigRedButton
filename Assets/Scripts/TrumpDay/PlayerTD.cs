@@ -78,7 +78,7 @@ public class PlayerTD : MonoBehaviour
 			}
 		}   // end if scene index == 0
 
-		hp = 10;
+		hp = 25;
 	}
 
     public void GetPrunedList(int iEnc)
