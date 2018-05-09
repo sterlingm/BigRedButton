@@ -155,24 +155,19 @@ public class FightManager : MonoBehaviour
 		// Set offsets
 		int x_offsetTurn = 40;
 		int y_offsetTurn = -55;
-		int x_offsetHp = 0;
-		int y_offsetHp = 0;
 
-		/*
+        /*
 		 * Player
-		 */ 
-		// Player turn indicator
-		Vector3 playerPos = camera.WorldToScreenPoint (player.transform.position);
+		 */
+
+        // Set playerHP text to player location
+        Vector3 playerPos = camera.WorldToScreenPoint(player.transform.position);
+        playerHp.transform.position = playerPos;
+
+        // Player turn indicator
 		playerPos.x += x_offsetTurn;
 		playerPos.y += y_offsetTurn;
-		playerTurnText.transform.position = playerPos;
-
-		// Reset playerPos and apply HP text offset
-		playerPos = camera.WorldToScreenPoint (player.transform.position);
-		playerPos.x += x_offsetHp;
-		playerPos.y += y_offsetHp;
-		playerHp.transform.position = playerPos;
-        
+		playerTurnText.transform.position = playerPos;        
     }
 
 	private void DropdownValueChanged(int choice)
