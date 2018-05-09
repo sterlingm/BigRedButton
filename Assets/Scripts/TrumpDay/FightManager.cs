@@ -155,8 +155,8 @@ public class FightManager : MonoBehaviour
 		// Set offsets
 		int x_offsetTurn = 40;
 		int y_offsetTurn = -55;
-		int x_offsetHp = 60;
-		int y_offsetHp = -35;
+		int x_offsetHp = 0;
+		int y_offsetHp = 0;
 
 		/*
 		 * Player
