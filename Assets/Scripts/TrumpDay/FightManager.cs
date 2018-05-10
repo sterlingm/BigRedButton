@@ -26,6 +26,7 @@ public class FightManager : MonoBehaviour
     public Transform canvasTrans;
 
 
+    public bool fightOver;
     private bool init;
     private int i_activeChar;
 
@@ -76,7 +77,9 @@ public class FightManager : MonoBehaviour
 
         // Create the enemies
         CreateEnemyObjects();
-	}
+
+        fightOver = false;
+    }
     
 
     /*
@@ -116,7 +119,7 @@ public class FightManager : MonoBehaviour
             // Add enemy to list
             enemies.Add(e);
 
-            // Creaate a text object based on the enemy
+            // Create a text object based on the enemy
             GameObject t = CreateEnemyHPText(e, canvasTrans, string.Format("HP: {1}", e.name, e.hp));
 
             // Get location for pHP
@@ -345,22 +348,14 @@ public class FightManager : MonoBehaviour
 
 		// Set new turn indicator
 		SetTurnIndicator ();
-
-		// Set new boss HP
-		//enemyHp.text = String.Format ("HP: {0}", enemy.hp);
-
+        
 		// Reset choiceMade
 		choiceMade = false;
 
-		// Check if boss is dead
-		/*if (boss.hp <= 0)
-		{
-			// Deal with enemy
-			boss.gameObject.SetActive (false);
-
-			// Destroy this Encounter object
-			Destroy (gameObject);
-		}*/
+        if(enemies.Count == 0)
+        {
+            fightOver = true;
+        }
 	}   // End Update
 
 

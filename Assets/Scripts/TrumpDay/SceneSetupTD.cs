@@ -14,6 +14,7 @@ public class SceneSetupTD : MonoBehaviour
         iEnc = 0;
 		SetupPlayer ();
 	}
+    
 
 	/*
 	 * Setup Player stuff for the scene
