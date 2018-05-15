@@ -3,7 +3,7 @@
 public class ScheduleItem
 {
 
-    public float time;
+    public int durInMin;
     public string title;
     public int numEnemies;
 
