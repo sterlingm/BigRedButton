@@ -43,13 +43,18 @@ public class ScheduleSceneSetup : MonoBehaviour {
         items.Add(sb);
         items.Add(sc);
 
-        for (int i=0;i<items.Count;i++)
+        SetItemTexts();
+    }
+
+    private void SetItemTexts()
+    {
+        for (int i = 0; i < items.Count; i++)
         {
             GameObject obj = CreateTextForItem(items[i], curTime);
             curTime = AddDurToTime(curTime, items[i].durInMin);
 
             // Get location for pHP
-            obj.transform.localPosition = new Vector3(0, (items.Count-i) * 100);
+            obj.transform.localPosition = new Vector3(0, (items.Count - i) * 100);
         }
     }
 	
