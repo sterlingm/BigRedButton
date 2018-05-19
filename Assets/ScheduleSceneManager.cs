@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScheduleSceneManager : MonoBehaviour {
@@ -30,8 +31,9 @@ public class ScheduleSceneManager : MonoBehaviour {
     public void ReadyButtonListener()
     {
         Debug.Log("In ReadyButtonListener");
-        
+
         // Go into fight scene
+        SceneManager.LoadScene("Fight");
     }
 
 }

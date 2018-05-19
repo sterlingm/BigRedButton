@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class FightManager : MonoBehaviour
@@ -355,6 +356,7 @@ public class FightManager : MonoBehaviour
         if(enemies.Count == 0)
         {
             fightOver = true;
+            SceneManager.LoadScene("Schedule");
         }
 	}   // End Update
 
