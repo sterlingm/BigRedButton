@@ -80,7 +80,7 @@ public class FightManager : MonoBehaviour
 		init = false;
 
         // Create the enemies
-        CreateEnemyObjects();
+        //CreateEnemyObjects();
 
         fightOver = false;
     }

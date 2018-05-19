@@ -217,10 +217,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 284499206}
-  - component: {fileID: 284499205}
   - component: {fileID: 284499204}
   m_Layer: 0
-  m_Name: SceneSetup
+  m_Name: ScheduleSceneSetup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,17 +239,6 @@ MonoBehaviour:
   canvasTrans: {fileID: 279724000}
   itemFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   curTime: 0
---- !u!114 &284499205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 284499203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f47eac025dd2884e9cd9473060b4bf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &284499206
 Transform:
   m_ObjectHideFlags: 0
@@ -410,7 +398,7 @@ GameObject:
   - component: {fileID: 700944012}
   - component: {fileID: 700944013}
   m_Layer: 0
-  m_Name: ReadyButton
+  m_Name: ScheduleSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,7 +425,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 700944010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5127594bd85e1140aaa640b0ac692fb, type: 3}
+  m_Script: {fileID: 11500000, guid: d4b690be36515494f94c1bb0dab0000f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   readyButton: {fileID: 2098310753}
