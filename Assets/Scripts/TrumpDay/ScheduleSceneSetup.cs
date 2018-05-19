@@ -44,6 +44,9 @@ public class ScheduleSceneSetup : MonoBehaviour {
         items.Add(sc);
 
         SetItemTexts();
+
+        // Set the next item
+        SetNextFight();
     }
 
     private void SetItemTexts()
@@ -58,6 +61,17 @@ public class ScheduleSceneSetup : MonoBehaviour {
         }
     }
 	
+    private void SetNextFight()
+    {
+        if(PersistentData.itemsCompleted < items.Count)
+        {
+            PersistentData.nextItem = items[PersistentData.itemsCompleted];
+        }
+        else
+        {
+            Debug.Log("No more items to complete");
+        }
+    }
 
 	void Update ()
     {

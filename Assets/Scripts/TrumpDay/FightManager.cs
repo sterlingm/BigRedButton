@@ -23,12 +23,6 @@ public class FightManager : MonoBehaviour
 
 	public bool choiceMade;
 
-    // Enemy stuff
-    public Transform enemyLocRef;
-    public Font enemyHPFont;
-    public Transform canvasTrans;
-
-
     public bool fightOver;
     private bool init;
     private int i_activeChar;
@@ -38,8 +32,7 @@ public class FightManager : MonoBehaviour
 	//public List<Text> allyTurnTexts;
 	//public List<Text> allyHpTexts;
 	public Text playerHp;
-
-	public Camera camera;
+    
 
 	void Awake()
 	{
@@ -64,11 +57,7 @@ public class FightManager : MonoBehaviour
 			Ally temp = GameObject.Find (n).GetComponent<Ally> ();
 			allies.Add (temp);
 		}
-
-
-		// Set text field positions for Hp, turn indicators, etc
-		// Do this programatically because we don't know how many allies the player will have
-		SetTextFieldPositions ();
+        
 
 		// Set the turn indicator
 		SetTurnIndicator ();
@@ -78,104 +67,12 @@ public class FightManager : MonoBehaviour
         
 		// End initialization
 		init = false;
-
-        // Create the enemies
-        //CreateEnemyObjects();
-
+        
+        // Set flag
         fightOver = false;
     }
     
-
-    /*
-	 * Create objects for each Enemy
-	 */
-    void CreateEnemyObjects()
-    {
-        // Get the total number of enemies from somewhere based on encounter
-        int n = UnityEngine.Random.Range(1, 5);
-        n = 2;
-        PlayerTD player = GameObject.Find("Player").GetComponent<PlayerTD>();
-
-        int x_offset = 0;
-        int z_offset = 0;
-
-        // Make rows of enemies, 2 per row
-        // Start at 2 to not run into issues with i=0 or 1
-        // i/2 for i=0 and i=1 will be equal locations, and doing i+1 also runs into problems with making rows
-        for (int i = 2; i <= n+1; i++)
-        {
-            if(i % 2 == 0)
-            {
-                x_offset = (i/2) * 3;
-                z_offset = (i/2) * 3;
-            }
-            else
-            {
-                x_offset = -(i/2) * 3;
-                z_offset = (i/2) * 3;
-            }
-            //Debug.Log(String.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
-
-            // Create vector for position and instantiate an enemy
-            Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
-            EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
-
-            // Add enemy to list
-            enemies.Add(e);
-
-            // Create a text object based on the enemy
-            GameObject t = CreateEnemyHPText(e, canvasTrans, string.Format("HP: {1}", e.name, e.hp));
-
-            // Get location for pHP
-            Vector3 pHP = camera.WorldToScreenPoint(p);
-            t.transform.position = pHP;
-
-            // Add the text object to list
-            enemiesHP.Add(t.GetComponent<Text>());
-        }
-    }
-
-    GameObject CreateEnemyHPText(EnemyTD enemy, Transform canvas_transform, string text_to_print)
-    {
-        // Create object and set parent
-        GameObject textObject = new GameObject(string.Format("{0} HP", enemy.name));
-        textObject.transform.SetParent(canvas_transform);
-
-        // Make a rect transform
-        RectTransform trans = textObject.AddComponent<RectTransform>();
-        trans.anchoredPosition = new Vector2(enemy.transform.position.x, enemy.transform.position.y);
-
-        // Add the text component
-        Text text = textObject.AddComponent<Text>();
-        text.text = text_to_print;
-        text.fontSize = 24;
-        text.color = Color.red;
-        text.alignment = TextAnchor.MiddleCenter;
-        text.font = enemyHPFont;
-
-        return textObject;
-    }
-
-
-    private void SetTextFieldPositions()
-	{
-		// Set offsets
-		int x_offsetTurn = 40;
-		int y_offsetTurn = -55;
-
-        /*
-		 * Player
-		 */
-
-        // Set playerHP text to player location
-        Vector3 playerPos = camera.WorldToScreenPoint(player.transform.position);
-        playerHp.transform.position = playerPos;
-
-        // Player turn indicator
-		playerPos.x += x_offsetTurn;
-		playerPos.y += y_offsetTurn;
-		playerTurnText.transform.position = playerPos;        
-    }
+    
 
 	private void DropdownValueChanged(int choice)
 	{
@@ -359,68 +256,13 @@ public class FightManager : MonoBehaviour
         if(enemies.Count == 0)
         {
             fightOver = true;
+            PersistentData.itemsCompleted++;
             SceneManager.LoadScene("Schedule");
         }
 	}   // End Update
 
 
 
-
-
-
-
-
-
-    /*private void SetAllyTextFieldPositions()
-    {
-        
-        // Can't put these into Lists because then we can't set the values in the Inspector
-        // So set them both manually instead of in a loop
-        if (player.allies.Count > 0)
-        {
-            Ally temp = GameObject.Find("Ally 1").GetComponent<Ally>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetTurn;
-            screenPos.y += y_offsetTurn;
-            allyOneTurnText.transform.position = screenPos;
-
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetHp;
-            screenPos.y += y_offsetHp;
-            allyOneHp.transform.position = screenPos;
-        }
-        else
-        {
-            Debug.Log("In Else");
-            Text temp = GameObject.Find("AllyOneHP").GetComponent<Text>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyOneHp.transform.position = screenPos;
-
-            temp = GameObject.Find("AllyTwoHP").GetComponent<Text>();
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += 1000f;
-            screenPos.y += 1000f;
-            screenPos.z += 1000f;
-            allyTwoHp.transform.position = screenPos;
-        }
-        if (player.allies.Count > 1)
-        {
-            Ally temp = GameObject.Find("Ally 2").GetComponent<Ally>();
-            Vector3 screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetTurn;
-            screenPos.y += y_offsetTurn;
-            allyTwoTurnText.transform.position = screenPos;
-
-            screenPos = camera.WorldToScreenPoint(temp.transform.position);
-            screenPos.x += x_offsetHp;
-            screenPos.y += y_offsetHp;
-            allyTwoHp.transform.position = screenPos;
-        }
-        
-    }*/
-
+    
 
 }

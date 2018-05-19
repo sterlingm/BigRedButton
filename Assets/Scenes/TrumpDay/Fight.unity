@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: c1ff0f97c8227ef4c9d4a56df1cd3dab,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -1832,13 +1833,9 @@ MonoBehaviour:
   enemiesHP: []
   enemiesTurn: []
   choiceMade: 0
-  enemyLocRef: {fileID: 1746452336}
-  enemyHPFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  canvasTrans: {fileID: 2085636789}
   fightOver: 0
   playerTurnText: {fileID: 1120032047}
   playerHp: {fileID: 1664459469}
-  camera: {fileID: 1187932382}
 --- !u!4 &1868964838
 Transform:
   m_ObjectHideFlags: 0

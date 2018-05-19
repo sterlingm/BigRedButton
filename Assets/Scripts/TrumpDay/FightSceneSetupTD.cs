@@ -45,8 +45,10 @@ public class FightSceneSetupTD : MonoBehaviour
 
         // Prune list?
         player.GetPrunedList(iEnc);
+        SetPlayerTextPosition();
 
         CreateEnemyObjects();
+
 	}
 
 
@@ -121,7 +123,7 @@ public class FightSceneSetupTD : MonoBehaviour
     }
 
 
-    private void SetTextFieldPositions()
+    private void SetPlayerTextPosition()
     {
         // Set offsets
         int x_offsetTurn = 40;
