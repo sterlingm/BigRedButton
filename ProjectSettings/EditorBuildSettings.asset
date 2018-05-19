@@ -17,3 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameWon.unity
     guid: 3b15f643fdfb33744ab179c18cc5186e
+  - enabled: 1
+    path: Assets/Scenes/Schedule.unity
+    guid: 0b78eae0e9f7ca847bafb5cfcab0d39d
+  - enabled: 1
+    path: Assets/Scenes/TrumpDay/Fight.unity
+    guid: ed3f84deafad6c54ca12aceb0a127960

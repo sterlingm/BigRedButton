@@ -14,17 +14,18 @@ public class PlayerActionListTD : MonoBehaviour
 		public string damage;
 		public string actionType;
         public string encType;
-	}
+    }
 
 
-	[SerializeField]
-	List<Row> rowList = new List<Row>();
+    [SerializeField]
+    public List<PlayerActionTD> list;
+
+
+    List<Row> rowList = new List<Row>();
 	bool isLoaded = false;
 
 	TextAsset file;
 
-	[SerializeField]
-	public List<PlayerActionTD> list;
 
 
 	void Awake ()
