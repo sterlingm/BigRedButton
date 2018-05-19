@@ -9,6 +9,8 @@ public class FightManager : MonoBehaviour
     // Singleton
     public static FightManager self = null;
 
+    public ScheduleItem currentItem;
+
     public PlayerTD player;
 	public List<Ally> allies;
 	public Dropdown dropDown;
@@ -30,6 +32,7 @@ public class FightManager : MonoBehaviour
     public bool fightOver;
     private bool init;
     private int i_activeChar;
+
 
 	public Text playerTurnText;
 	//public List<Text> allyTurnTexts;
