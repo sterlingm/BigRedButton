@@ -20,7 +20,8 @@ public class FightSceneSetupTD : MonoBehaviour
     // Use this for initialization
     void Awake() 
 	{
-        iEnc = 0;
+        iEnc = (int)PersistentData.nextItem.type;
+        Debug.Log("iEnc: " + iEnc);
 	}
 
     private void Start()
@@ -60,7 +61,7 @@ public class FightSceneSetupTD : MonoBehaviour
     {
         // Get the total number of enemies from somewhere based on encounter
         int n = Random.Range(1, 5);
-        n = 2;
+        n = 1;
 
         int x_offset = 0;
         int z_offset = 0;

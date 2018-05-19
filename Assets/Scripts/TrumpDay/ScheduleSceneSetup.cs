@@ -22,21 +22,24 @@ public class ScheduleSceneSetup : MonoBehaviour {
         {
             title = "Fox and Friends",
             durInMin = 60,
-            numEnemies = 3
+            numEnemies = 3,
+            type = ScheduleItem.ITEMTYPE.FOX_AND_FRIENDS
         };
 
         ScheduleItem sb = new ScheduleItem
         {
             title = "Press conference",
             durInMin = 30,
-            numEnemies = 6
+            numEnemies = 6,
+            type = ScheduleItem.ITEMTYPE.PRESS_CONF
         };
 
         ScheduleItem sc = new ScheduleItem
         {
             title = "Intelligence briefing",
             durInMin = 60,
-            numEnemies = 4
+            numEnemies = 4,
+            type = ScheduleItem.ITEMTYPE.INTEL_BRIEF
         };
 
         items.Add(sa);
@@ -65,6 +68,7 @@ public class ScheduleSceneSetup : MonoBehaviour {
     {
         if(PersistentData.itemsCompleted < items.Count)
         {
+            Debug.Log(string.Format("Setting next item. itemsCompleted: {0} (int)type: {1}", PersistentData.itemsCompleted, items[PersistentData.itemsCompleted].type));
             PersistentData.nextItem = items[PersistentData.itemsCompleted];
         }
         else

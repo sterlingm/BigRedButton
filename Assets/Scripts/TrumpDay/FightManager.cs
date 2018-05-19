@@ -257,6 +257,7 @@ public class FightManager : MonoBehaviour
         {
             fightOver = true;
             PersistentData.itemsCompleted++;
+            Debug.Log("Ending fight and incrementing itemsCompleted to : " + PersistentData.itemsCompleted);
             SceneManager.LoadScene("Schedule");
         }
 	}   // End Update
