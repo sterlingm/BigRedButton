@@ -32,7 +32,11 @@ public class Common
 	public enum EnemyType
 	{
 		CABINET,
-		CONGRESS,
+		SENATE_D,
+        SENATE_R,
+        HOUSE_D,
+        HOUSE_R,
+        FOX_ANCHOR,
 		PRESS
     }
 

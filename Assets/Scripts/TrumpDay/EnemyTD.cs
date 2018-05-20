@@ -7,20 +7,20 @@ using UnityEngine.AI;
 public class EnemyTD : MonoBehaviour
 {
 
-    public Common.EnemyType enemyType;
-    public Common.MovementType movementType;
 
     public int id;
     public float hp;
     public String enemyName;
 
 
+    // Not done
+    public Common.EnemyType enemyType;
     private List<Common.TopicType> weakTo;
     private List<Common.TopicType> strongTo;
     private float weakMod;
     private float strongMod;
 
-
+    // Maybe add for sprites?
     private BoxCollider boxCollider;
     private Rigidbody rb;
 
@@ -90,10 +90,6 @@ public class EnemyTD : MonoBehaviour
             case Common.EnemyType.CABINET:
                 weakTo.Add(Common.TopicType.HOSTILE_TALK);
                 strongTo.Add(Common.TopicType.SHOP_TALK);
-                break;
-            case Common.EnemyType.CONGRESS:
-                break;
-            case Common.EnemyType.PRESS:
                 break;
             default:
                 break;

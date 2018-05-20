@@ -185,10 +185,6 @@ public class Enemy : MonoBehaviour
                 weakTo.Add(Common.TopicType.HOSTILE_TALK);
                 strongTo.Add(Common.TopicType.SHOP_TALK);
                 break;
-            case Common.EnemyType.CONGRESS:
-                break;
-            case Common.EnemyType.PRESS:
-                break;
             default:
                 break;
         }

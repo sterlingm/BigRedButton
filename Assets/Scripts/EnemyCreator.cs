@@ -123,9 +123,9 @@ public class EnemyCreator : MonoBehaviour
 				case 0:
 					e.enemyType = Common.EnemyType.CABINET;
 					break;
-				case 1:
-					e.enemyType = Common.EnemyType.CONGRESS;
-					break;
+				//case 1:
+					//e.enemyType = Common.EnemyType.CONGRESS;
+					//break;
 				case 2:
 					e.enemyType = Common.EnemyType.PRESS;
 					break;
