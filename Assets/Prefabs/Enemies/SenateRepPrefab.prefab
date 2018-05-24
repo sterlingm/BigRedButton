@@ -111,4 +111,12 @@ MonoBehaviour:
   hp: 6
   enemyName: The Enemy
   enemyType: 2
-  actions: []
+  actions:
+  - title: Point Finger
+    type: 0
+    baseDmg: 2
+    maxTargets: 2
+  - title: Cry
+    type: 0
+    baseDmg: 1
+    maxTargets: 0

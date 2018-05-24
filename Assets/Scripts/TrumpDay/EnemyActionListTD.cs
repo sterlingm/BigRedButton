@@ -35,7 +35,7 @@ public class EnemyActionListTD : MonoBehaviour
         }
 
 		rowList = new List<Row>();
-		file = Resources.Load ("enemy-actions") as TextAsset;
+		file = Resources.Load ("TrumpDay/enemy-actions") as TextAsset;
 		Load (file);
 		Init ();
 	}

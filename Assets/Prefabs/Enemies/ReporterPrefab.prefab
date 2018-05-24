@@ -111,4 +111,20 @@ MonoBehaviour:
   hp: 6
   enemyName: The Enemy
   enemyType: 5
-  actions: []
+  actions:
+  - title: Sensationalize
+    type: 0
+    baseDmg: 2
+    maxTargets: 3
+  - title: Quote (out of context)
+    type: 0
+    baseDmg: 3
+    maxTargets: 0
+  - title: Tough Question
+    type: 1
+    baseDmg: 1
+    maxTargets: 0
+  - title: Cite Facts
+    type: 1
+    baseDmg: 5
+    maxTargets: 0

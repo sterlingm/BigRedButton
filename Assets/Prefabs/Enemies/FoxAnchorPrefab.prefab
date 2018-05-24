@@ -111,4 +111,16 @@ MonoBehaviour:
   hp: 6
   enemyName: The Enemy
   enemyType: 5
-  actions: []
+  actions:
+  - title: Soft-ball Questionnnnn
+    type: 0
+    baseDmg: 1
+    maxTargets: 1
+  - title: Praise
+    type: 0
+    baseDmg: -1
+    maxTargets: 1
+  - title: Point Finger
+    type: 1
+    baseDmg: 0
+    maxTargets: 1

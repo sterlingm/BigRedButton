@@ -111,4 +111,16 @@ MonoBehaviour:
   hp: 3
   enemyName: The Enemy
   enemyType: 4
-  actions: []
+  actions:
+  - title: Point Finger
+    type: 0
+    baseDmg: 2
+    maxTargets: 0
+  - title: Cry
+    type: 0
+    baseDmg: 1
+    maxTargets: 0
+  - title: Kiss Shoes
+    type: 1
+    baseDmg: -3
+    maxTargets: 1

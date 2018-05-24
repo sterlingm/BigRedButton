@@ -1,0 +1,7 @@
+id,title,type,baseDmg,maxTargets
+0,Attack,0,2,1
+1,Gossip,0,1,2
+2,Lie,1,1,1
+3,Threaten,1,1,2
+4,Criticize,2,3,1
+5,Handshake,2,1,1

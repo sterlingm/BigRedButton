@@ -57,11 +57,11 @@ public class EnemyTD : MonoBehaviour
         // Check if this object has EnemyResponse values
         // If not, then it was created in the inspector 
         // Use default values to initialize its fields
-        if (actions.Count < 1)
+        /*if (actions.Count < 1)
         {
             // Use default initialization for Enemy
             InitInspectorEnemy();
-        }
+        }*/
     }
 
 
