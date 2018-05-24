@@ -60,6 +60,38 @@ public class FightSceneSetupTD : MonoBehaviour
 
 	}
 
+    EnemyTD MakeEnemyAtPosition(Vector3 p)
+    {
+        // Check the enemy type for the schedule item
+        EnemyTD result = null;
+        switch (PersistentData.nextItem.enemyType)
+        {
+            case Common.EnemyType.FOX_ANCHOR:
+                result = Instantiate(foxAnchorPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            case Common.EnemyType.HOUSE_D:
+                result = Instantiate(houseDemPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            case Common.EnemyType.HOUSE_R:
+                result = Instantiate(houseRepPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            case Common.EnemyType.PRESS:
+                result = Instantiate(pressPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            case Common.EnemyType.SENATE_D:
+                result = Instantiate(senateDemPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            case Common.EnemyType.SENATE_R:
+                result = Instantiate(senateRepPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+            default:
+                result = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+                break;
+        }
+
+        return result;
+    }
+
 
 
     /*
@@ -94,32 +126,8 @@ public class FightSceneSetupTD : MonoBehaviour
             // Create vector for position and instantiate an enemy
             Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
 
-            // Check the enemy type for the schedule item
-            EnemyTD e = null;
-            switch(PersistentData.nextItem.enemyType)
-            {
-                case Common.EnemyType.FOX_ANCHOR:
-                    e = Instantiate(foxAnchorPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                case Common.EnemyType.HOUSE_D:
-                    e = Instantiate(houseDemPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                case Common.EnemyType.HOUSE_R:
-                    e = Instantiate(houseRepPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                case Common.EnemyType.PRESS:
-                    e = Instantiate(pressPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                case Common.EnemyType.SENATE_D:
-                    e = Instantiate(senateDemPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                case Common.EnemyType.SENATE_R:
-                    e = Instantiate(senateRepPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-                default:
-                    e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
-                    break;
-            }
+            // Make the enemy type for the schedule item
+            EnemyTD e = MakeEnemyAtPosition(p);
 
             // Add enemy to list
             FightManager.self.enemies.Add(e);
