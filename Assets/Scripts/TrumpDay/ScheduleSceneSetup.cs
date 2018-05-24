@@ -23,7 +23,8 @@ public class ScheduleSceneSetup : MonoBehaviour {
             title = "Fox and Friends",
             durInMin = 60,
             numEnemies = 3,
-            type = ScheduleItem.ITEMTYPE.FOX_AND_FRIENDS
+            type = ScheduleItem.ITEMTYPE.FOX_AND_FRIENDS,
+            enemyType = Common.EnemyType.FOX_ANCHOR
         };
 
         ScheduleItem sb = new ScheduleItem
@@ -31,7 +32,8 @@ public class ScheduleSceneSetup : MonoBehaviour {
             title = "Press conference",
             durInMin = 30,
             numEnemies = 6,
-            type = ScheduleItem.ITEMTYPE.PRESS_CONF
+            type = ScheduleItem.ITEMTYPE.PRESS_CONF,
+            enemyType = Common.EnemyType.PRESS
         };
 
         ScheduleItem sc = new ScheduleItem
@@ -39,7 +41,8 @@ public class ScheduleSceneSetup : MonoBehaviour {
             title = "Intelligence briefing",
             durInMin = 60,
             numEnemies = 4,
-            type = ScheduleItem.ITEMTYPE.INTEL_BRIEF
+            type = ScheduleItem.ITEMTYPE.INTEL_BRIEF,
+            enemyType = Common.EnemyType.HOUSE_R
         };
 
         items.Add(sa);

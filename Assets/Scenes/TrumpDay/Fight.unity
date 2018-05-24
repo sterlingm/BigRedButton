@@ -1473,6 +1473,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 114851792700627868, guid: f81b538c80264114dba9ce2d779baa00,
     type: 2}
+  pressPrefab: {fileID: 114189160758510512, guid: 090b0644cd7b11646853109cb235c90f,
+    type: 2}
+  houseRepPrefab: {fileID: 114704400618472592, guid: 8fbed0da51cbe44448a079880e308c78,
+    type: 2}
+  houseDemPrefab: {fileID: 114011673694819336, guid: b33288d7c1b2f0b43b361d3fc98c521a,
+    type: 2}
+  senateRepPrefab: {fileID: 114497051570869282, guid: 22eee069bc85fa94682441c23b08c808,
+    type: 2}
+  senateDemPrefab: {fileID: 114898523622883104, guid: 795b6572a42d37246bbe0c4e282927f9,
+    type: 2}
+  foxAnchorPrefab: {fileID: 114920365979912228, guid: 077a02e664b6e544989d510588df4a73,
+    type: 2}
   canvasTrans: {fileID: 2085636789}
   enemyLocRef: {fileID: 1746452336}
   enemyHPFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}

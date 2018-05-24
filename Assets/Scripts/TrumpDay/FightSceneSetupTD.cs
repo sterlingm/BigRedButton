@@ -5,7 +5,15 @@ public class FightSceneSetupTD : MonoBehaviour
 {
 
     int iEnc;
+
     public EnemyTD enemyPrefab;
+    public EnemyTD pressPrefab;
+    public EnemyTD houseRepPrefab;
+    public EnemyTD houseDemPrefab;
+    public EnemyTD senateRepPrefab;
+    public EnemyTD senateDemPrefab;
+    public EnemyTD foxAnchorPrefab;
+
     public Transform canvasTrans;
 
 
@@ -61,7 +69,7 @@ public class FightSceneSetupTD : MonoBehaviour
     {
         // Get the total number of enemies from somewhere based on encounter
         int n = Random.Range(1, 5);
-        n = 1;
+        n = 2;
 
         int x_offset = 0;
         int z_offset = 0;
@@ -85,7 +93,33 @@ public class FightSceneSetupTD : MonoBehaviour
 
             // Create vector for position and instantiate an enemy
             Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
-            EnemyTD e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+
+            // Check the enemy type for the schedule item
+            EnemyTD e = null;
+            switch(PersistentData.nextItem.enemyType)
+            {
+                case Common.EnemyType.FOX_ANCHOR:
+                    e = Instantiate(foxAnchorPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                case Common.EnemyType.HOUSE_D:
+                    e = Instantiate(houseDemPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                case Common.EnemyType.HOUSE_R:
+                    e = Instantiate(houseRepPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                case Common.EnemyType.PRESS:
+                    e = Instantiate(pressPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                case Common.EnemyType.SENATE_D:
+                    e = Instantiate(senateDemPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                case Common.EnemyType.SENATE_R:
+                    e = Instantiate(senateRepPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+                default:
+                    e = Instantiate(enemyPrefab, p, Quaternion.identity) as EnemyTD;
+                    break;
+            }
 
             // Add enemy to list
             FightManager.self.enemies.Add(e);

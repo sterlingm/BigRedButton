@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  hp: 6
-  enemyName: The Enemy
+  hp: 4
+  enemyName: Fox Anchor
   enemyType: 5
   actions:
   - title: Soft-ball Questionnnnn

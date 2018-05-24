@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   hp: 6
-  enemyName: The Enemy
+  enemyName: Senate Rep
   enemyType: 2
   actions:
   - title: Point Finger
