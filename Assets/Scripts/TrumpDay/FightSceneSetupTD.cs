@@ -4,8 +4,6 @@ using UnityEngine.UI;
 public class FightSceneSetupTD : MonoBehaviour
 {
 
-    int iEnc;
-
     public EnemyTD enemyPrefab;
     public EnemyTD pressPrefab;
     public EnemyTD houseRepPrefab;
@@ -28,8 +26,6 @@ public class FightSceneSetupTD : MonoBehaviour
     // Use this for initialization
     void Awake() 
 	{
-        iEnc = (int)PersistentData.nextItem.type;
-        Debug.Log("iEnc: " + iEnc);
 	}
 
     private void Start()
@@ -53,17 +49,17 @@ public class FightSceneSetupTD : MonoBehaviour
 		player.actionList = GameObject.Find ("PlayerActionList").GetComponent<PlayerActionListTD> ();
 
         // Prune list?
-        player.GetPrunedList(iEnc);
+        player.GetPrunedList((int)PersistentData.nextItem.type);
         SetPlayerTextPosition();
 
         CreateEnemyObjects();
-
 	}
 
     EnemyTD MakeEnemyAtPosition(Vector3 p)
     {
         // Check the enemy type for the schedule item
         EnemyTD result = null;
+        Debug.Log("In MakeEnemyAtPosition, enemyType: " + PersistentData.nextItem.enemyType);
         switch (PersistentData.nextItem.enemyType)
         {
             case Common.EnemyType.FOX_ANCHOR:
@@ -100,8 +96,7 @@ public class FightSceneSetupTD : MonoBehaviour
     void CreateEnemyObjects()
     {
         // Get the total number of enemies from somewhere based on encounter
-        int n = Random.Range(1, 5);
-        n = 2;
+        int n = Random.Range(1, PersistentData.nextItem.numEnemies);
 
         int x_offset = 0;
         int z_offset = 0;
