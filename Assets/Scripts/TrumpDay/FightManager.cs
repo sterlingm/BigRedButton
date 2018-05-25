@@ -221,10 +221,15 @@ public class FightManager : MonoBehaviour
         }
 
         // Player is index 0, so if they have gone then it is the enemies' turn
-        if (i_activeChar  % 2 == 1)
+        if (i_activeChar  % 2 == 1 && enemies.Count > 0)
 		{
-            Debug.Log(String.Format("enemies.Count: {0} i_activeChar: {1}", enemies.Count, i_activeChar));
-            EnemyTD eActive = enemies[i_activeChar - 1];
+            // Choose a random enemy to go
+            int i_enemy = UnityEngine.Random.Range(0, enemies.Count);
+            EnemyTD eActive = enemies[i_enemy];
+
+            // Log which enemy takes a turn
+            Debug.Log(String.Format("i_enemy: {0} enemies.Count: {1} i_activeChar: {2}", i_enemy, enemies.Count, i_activeChar));
+
 
 			// Make Boss choose an actions
 			int enemyChoice = UnityEngine.Random.Range (0, eActive.actions.Count);
