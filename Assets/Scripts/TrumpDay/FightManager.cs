@@ -155,12 +155,12 @@ public class FightManager : MonoBehaviour
 	{
 		if(enemies.Count == 0)
 		{
-			UnityEngine.SceneManagement.SceneManager.LoadScene ("GameWon");
+			SceneManager.LoadScene ("GameWon");
 		}
 
 		if(player.hp <= 0)
 		{
-			UnityEngine.SceneManagement.SceneManager.LoadScene ("GameLost");
+			SceneManager.LoadScene ("GameLost");
 		}
 	}
 
@@ -211,8 +211,17 @@ public class FightManager : MonoBehaviour
             choiceMade = false;
         }
 
-		// Player is index 0, so if they have gone then it is the enemies' turn
-		if(i_activeChar > 0 && i_activeChar <= enemies.Count)
+        // Check if we have killed all enemies
+        if (enemies.Count == 0)
+        {
+            fightOver = true;
+            PersistentData.itemsCompleted++;
+            Debug.Log("Ending fight and incrementing itemsCompleted to : " + PersistentData.itemsCompleted);
+            SceneManager.LoadScene("Schedule");
+        }
+
+        // Player is index 0, so if they have gone then it is the enemies' turn
+        if (i_activeChar  % 2 == 1)
 		{
             Debug.Log(String.Format("enemies.Count: {0} i_activeChar: {1}", enemies.Count, i_activeChar));
             EnemyTD eActive = enemies[i_activeChar - 1];
@@ -230,13 +239,8 @@ public class FightManager : MonoBehaviour
 			CheckGameOver ();
 
 			// Set active character back to player
-			i_activeChar++;
-		}
-        // Once all enemies have gone, reset the index back to 0
-		else
-		{
 			i_activeChar = 0;
-        }
+		}
 
         // Update the HP texts
         UpdateHpText();
@@ -252,14 +256,6 @@ public class FightManager : MonoBehaviour
         
 		// Reset choiceMade
 		choiceMade = false;
-
-        if(enemies.Count == 0)
-        {
-            fightOver = true;
-            PersistentData.itemsCompleted++;
-            Debug.Log("Ending fight and incrementing itemsCompleted to : " + PersistentData.itemsCompleted);
-            SceneManager.LoadScene("Schedule");
-        }
 	}   // End Update
 
 
