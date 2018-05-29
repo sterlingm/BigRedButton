@@ -13,7 +13,8 @@ public class FightManager : MonoBehaviour
 
     public PlayerTD player;
 	public List<Ally> allies;
-	public Dropdown dropDown;
+	public Dropdown actionsDropDown;
+    public Dropdown targetDropDown;
     public EnemyTD enemy;
 
     public EnemyTD enemyPrefab;
@@ -22,6 +23,7 @@ public class FightManager : MonoBehaviour
     public List<Text> enemiesTurn;
 
 	public bool choiceMade;
+    public bool targetSelected;
 
     public bool fightOver;
     private bool init;
@@ -41,14 +43,15 @@ public class FightManager : MonoBehaviour
             self = this;
         }
 
-		// Set dropdown object
-		choiceMade = false;
-		dropDown = GameObject.Find ("/GUI/BossFightActions").GetComponent<Dropdown> ();
-		dropDown.onValueChanged.AddListener(DropdownValueChanged);
+        // Set dropdown listeners and booleans		
+		actionsDropDown.onValueChanged.AddListener(ActionsDropdownChanged);
+        targetDropDown.onValueChanged.AddListener(TargetDropdownChanged);
+        choiceMade      = false;
+        targetSelected  = false;
 
-		// Set player object
-		// Cannot link in inspector because Player comes from previous scene
-		player = GameObject.Find ("Player").GetComponent<PlayerTD> ();
+        // Set player object
+        // Cannot link in inspector because Player comes from previous scene
+        player = GameObject.Find ("Player").GetComponent<PlayerTD> ();
 
 		// Set List<Ally> elements
 		for(int i=0;i<player.allies.Count;i++)
@@ -74,16 +77,26 @@ public class FightManager : MonoBehaviour
     
     
 
-	private void DropdownValueChanged(int choice)
+	private void ActionsDropdownChanged(int choice)
 	{
-		Debug.Log ("In DropdownValueChanged");
+		Debug.Log ("In ActionsDropdownChanged");
 		if(!choiceMade)
 		{
 			choiceMade = true;
 		}
 	}
 
-	private void SetOptions()
+    private void TargetDropdownChanged(int choice)
+    {
+        Debug.Log("In TargetDropdownChanged");
+        if (!targetSelected)
+        {
+            targetSelected = true;
+        }
+    }
+
+
+    private void SetActionsDropdown()
 	{
 		if(i_activeChar - 1 < player.allies.Count)
 		{
@@ -97,14 +110,30 @@ public class FightManager : MonoBehaviour
 		actionStrs.Insert (0, "Make a selection");
 
 		// Clear and re-set the options	
-		dropDown.ClearOptions ();
-		dropDown.AddOptions (actionStrs);
+		actionsDropDown.ClearOptions ();
+		actionsDropDown.AddOptions (actionStrs);
 	}
+
+    private void SetTargetsDropdown()
+    {
+        List<string> strs = new List<string>();
+        for(int i=0;i<enemies.Count;i++)
+        {
+            strs.Add(i.ToString());
+        }
+        
+        // Insert "Make a selection to prompt the user
+        strs.Insert(0, "Select target");
+
+        // Clear and re-set the options	
+        targetDropDown.ClearOptions();
+        targetDropDown.AddOptions(strs);
+    }
 
     /*
      * Update the HP text objects for all characters
-     */ 
-	void UpdateHpText()
+     */
+    void UpdateHpText()
 	{
 		playerHp.text = String.Format ("{0}", player.hp);
 
@@ -187,7 +216,8 @@ public class FightManager : MonoBehaviour
 	{
 		if (!init)
 		{
-			SetOptions ();
+			SetActionsDropdown ();
+            SetTargetsDropdown();
 			init = true;
 		}
         if (choiceMade)
@@ -195,20 +225,38 @@ public class FightManager : MonoBehaviour
             // Player's turn
             // Get the choice from the Dropdown
             // Subtract 1 because the first index is "Make a selection"
-            int choice = dropDown.value - 1;
+            int choice = actionsDropDown.value - 1;
 
-            int i_target = 0;
-            
-            // Apply the Action to the boss
-            enemies[i_target].ApplyPlayerAction(player.GetAction(choice));
-            if(enemies[i_target].hp <= 0)
+            // Get the target
+            if(targetSelected || enemies.Count == 1)
             {
-                DestroyEnemyAtIndex(i_target);
-            }
-            
-            i_activeChar++;
+                int i_target = enemies.Count == 1 ? 0 : targetDropDown.value - 1;
 
-            choiceMade = false;
+                // Apply the Action to the boss
+                enemies[i_target].ApplyPlayerAction(player.GetAction(choice));
+                if (enemies[i_target].hp <= 0)
+                {
+                    DestroyEnemyAtIndex(i_target);
+                }
+
+                i_activeChar++;
+
+                // Set dropdown options to show any new topics
+                SetActionsDropdown();
+                SetTargetsDropdown();
+
+                // Reset dropdown
+                actionsDropDown.value = 0;
+
+                // Set new turn indicator
+                SetTurnIndicator();
+
+                // Reset choiceMade
+                //choiceMade = false;
+
+                choiceMade = false;
+                targetSelected = false;
+            }
         }
 
         // Check if we have killed all enemies
@@ -249,18 +297,6 @@ public class FightManager : MonoBehaviour
 
         // Update the HP texts
         UpdateHpText();
-
-        // Set dropdown options to show any new topics
-        SetOptions ();
-
-		// Reset dropdown
-		dropDown.value = 0;
-
-		// Set new turn indicator
-		SetTurnIndicator ();
-        
-		// Reset choiceMade
-		choiceMade = false;
 	}   // End Update
 
 
