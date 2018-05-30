@@ -31,9 +31,8 @@ public class FightManager : MonoBehaviour
 
 
 	public Text playerTurnText;
-	//public List<Text> allyTurnTexts;
-	//public List<Text> allyHpTexts;
 	public Text playerHp;
+    public Text actionTitleText;
     
 
 	void Awake()
@@ -232,6 +231,8 @@ public class FightManager : MonoBehaviour
             {
                 int i_target = enemies.Count == 1 ? 0 : targetDropDown.value - 1;
 
+                DisplayAttack(0, choice);
+
                 // Apply the Action to the boss
                 enemies[i_target].ApplyPlayerAction(player.GetAction(choice));
                 if (enemies[i_target].hp <= 0)
@@ -240,6 +241,7 @@ public class FightManager : MonoBehaviour
                 }
 
                 i_activeChar++;
+
 
                 // Set dropdown options to show any new topics
                 SetActionsDropdown();
@@ -285,9 +287,11 @@ public class FightManager : MonoBehaviour
 
             Debug.Log(String.Format("Enemy action dmg: {0}", e.baseDmg));
 
-			// Apply the action to the player and allies
-			ApplyEnemyAction (e);
+            DisplayAttack(i_enemy + 1, enemyChoice);
 
+            // Apply the action to the player and allies
+            ApplyEnemyAction (e);
+            
 			// Check if game is over
 			CheckGameOver ();
 
@@ -300,6 +304,18 @@ public class FightManager : MonoBehaviour
 	}   // End Update
 
 
+    void DisplayAttack(int i_char, int i_action)
+    {
+        Debug.Log(string.Format("i_char: {0} i_action: {1} player.actions.Count: {2} enemies.Count: {3}", i_char, i_action, player.actions.Count, enemies.Count));
+        if(i_char == 0)
+        {
+            actionTitleText.text = string.Format("POTUS used {0}!", player.actions[i_action].title);
+        }
+        else
+        {
+            actionTitleText.text = string.Format("{0} used {1}!", enemies[i_char - 1].enemyName, enemies[i_char - 1].actions[i_action].title);
+        }
+    }
 
     
 

@@ -79,7 +79,7 @@ public class ScheduleSceneSetup : MonoBehaviour {
             CreateLineForItem(i);
         }
     }
-    	
+ 
     private void SetNextFight()
     {
         if(PersistentData.itemsCompleted < items.Count)
