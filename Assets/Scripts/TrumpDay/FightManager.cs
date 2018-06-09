@@ -15,7 +15,6 @@ public class FightManager : MonoBehaviour
     public PlayerTD player;
 	public List<Ally> allies;
 	public Dropdown actionsDropDown;
-    public Dropdown targetDropDown;
     public EnemyTD enemy;
 
     public EnemyTD enemyPrefab;
@@ -52,7 +51,6 @@ public class FightManager : MonoBehaviour
 
         // Set dropdown listeners and booleans		
 		actionsDropDown.onValueChanged.AddListener(ActionsDropdownChanged);
-        targetDropDown.onValueChanged.AddListener(TargetDropdownChanged);
         choiceMade      = false;
         targetSelected  = false;
 
@@ -122,22 +120,6 @@ public class FightManager : MonoBehaviour
 		actionsDropDown.ClearOptions ();
 		actionsDropDown.AddOptions (actionStrs);
 	}
-
-    private void SetTargetsDropdown()
-    {
-        List<string> strs = new List<string>();
-        for(int i=0;i<enemies.Count;i++)
-        {
-            strs.Add(i.ToString());
-        }
-        
-        // Insert "Make a selection to prompt the user
-        strs.Insert(0, "Select target");
-
-        // Clear and re-set the options	
-        targetDropDown.ClearOptions();
-        targetDropDown.AddOptions(strs);
-    }
 
     /*
      * Update the HP text objects for all characters
@@ -270,7 +252,6 @@ public class FightManager : MonoBehaviour
 		if (!init)
 		{
 			SetActionsDropdown ();
-            SetTargetsDropdown();
 			init = true;
         }
 
@@ -302,7 +283,6 @@ public class FightManager : MonoBehaviour
 
                 // Set dropdown options to show any new topics
                 SetActionsDropdown();
-                SetTargetsDropdown();
 
                 // Reset dropdown
                 actionsDropDown.value = 0;
