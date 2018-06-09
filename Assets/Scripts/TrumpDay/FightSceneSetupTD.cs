@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class FightSceneSetupTD : MonoBehaviour
 {
-
+    // Prefabs
     public EnemyTD enemyPrefab;
     public EnemyTD pressPrefab;
     public EnemyTD houseRepPrefab;
@@ -11,6 +11,7 @@ public class FightSceneSetupTD : MonoBehaviour
     public EnemyTD senateRepPrefab;
     public EnemyTD senateDemPrefab;
     public EnemyTD foxAnchorPrefab;
+    public LineRenderer targetLinePrefab;
 
     public Transform canvasTrans;
 
@@ -108,15 +109,15 @@ public class FightSceneSetupTD : MonoBehaviour
         {
             if (i % 2 == 0)
             {
-                x_offset = (i / 2) * 3;
-                z_offset = (i / 2) * 3;
+                x_offset = (i / 2) * 4;
+                z_offset = (i / 2) * 4;
             }
             else
             {
-                x_offset = -(i / 2) * 3;
-                z_offset = (i / 2) * 3;
+                x_offset = -(i / 2) * 4;
+                z_offset = (i / 2) * 4;
             }
-            //Debug.Log(String.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
+            //Debug.Log(string.Format("i: {0} i/2: {1} x_offset: {2} z_offset: {3}", i, i / 2, x_offset, z_offset));
 
             // Create vector for position and instantiate an enemy
             Vector3 p = new Vector3(enemyLocRef.position.x + x_offset, enemyLocRef.position.y, enemyLocRef.position.z + z_offset);
@@ -126,16 +127,28 @@ public class FightSceneSetupTD : MonoBehaviour
 
             // Add enemy to list
             FightManager.self.enemies.Add(e);
+        }
+        
+        // Sort the enemies array by X position
+        // This makes the targeting more intuitive 
+        // so that pressing left and right goes to enemy to the left or right
+        FightManager.self.enemies.Sort();
 
+        // Create other stuff for enemies (hp texts, target lines, etc)
+        foreach(EnemyTD e in FightManager.self.enemies)
+        {
             // Create a text object based on the enemy
             GameObject t = CreateEnemyHPText(e, canvasTrans, string.Format("HP: {1}", e.name, e.hp));
 
             // Get location for pHP
-            Vector3 pHP = isoCamera.WorldToScreenPoint(p);
+            Vector3 pHP = isoCamera.WorldToScreenPoint(e.gameObject.transform.position);
             t.transform.position = pHP;
 
             // Add the text object to list
             FightManager.self.enemiesHP.Add(t.GetComponent<Text>());
+
+            // Make line to show if enemy is being targeted
+            FightManager.self.targetLines.Add(CreateEnemyTargetLines(e));
         }
     }
 
@@ -158,6 +171,23 @@ public class FightSceneSetupTD : MonoBehaviour
         text.font = enemyHPFont;
 
         return textObject;
+    }
+
+    LineRenderer CreateEnemyTargetLines(EnemyTD enemy)
+    {
+        // Create the line renderer
+        Vector3 p = new Vector3(0, 0.25f, 1.25f);
+        LineRenderer l = Instantiate(targetLinePrefab, p, Quaternion.identity) as LineRenderer;
+        l.transform.SetParent(enemy.transform);
+        l.useWorldSpace = false;
+
+        // Set the local position
+        l.transform.localPosition = p;
+
+        // Set to be inactive initially
+        l.gameObject.SetActive(false);
+
+        return l;
     }
 
 

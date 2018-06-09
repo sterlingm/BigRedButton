@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.AI;
 
-public class EnemyTD : MonoBehaviour
+public class EnemyTD : MonoBehaviour, IComparable<EnemyTD>
 {
 
 
@@ -62,6 +62,14 @@ public class EnemyTD : MonoBehaviour
             // Use default initialization for Enemy
             InitInspectorEnemy();
         }*/
+    }
+    
+    /*
+     * Use this to sort based on location
+     */ 
+    public int CompareTo(EnemyTD e)
+    {
+        return gameObject.transform.position.x.CompareTo(e.gameObject.transform.position.x);
     }
 
 
@@ -138,9 +146,10 @@ public class EnemyTD : MonoBehaviour
         }
     }
 
-	
 
-	public override string ToString()
+
+
+    public override string ToString()
 	{
 		return String.Format ("Enemy:\n\tName: {0}\n\tHP: {1}", enemyName, hp.ToString ());
 	}

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 public class FightManager : MonoBehaviour
 {
@@ -21,18 +22,25 @@ public class FightManager : MonoBehaviour
     public List<EnemyTD> enemies;
     public List<Text> enemiesHP;
     public List<Text> enemiesTurn;
+    public List<LineRenderer> targetLines;
 
 	public bool choiceMade;
     public bool targetSelected;
+    public bool selectingTarget;
+
+    public Ray mouseRay;
+    public RaycastHit mouseHit;
 
     public bool fightOver;
     private bool init;
     private int i_activeChar;
+    private int i_target;
 
 
 	public Text playerTurnText;
 	public Text playerHp;
     public Text actionTitleText;
+    public Text damageText;
     
 
 	void Awake()
@@ -48,6 +56,8 @@ public class FightManager : MonoBehaviour
         choiceMade      = false;
         targetSelected  = false;
 
+        targetLines = new List<LineRenderer>();
+
         // Set player object
         // Cannot link in inspector because Player comes from previous scene
         player = GameObject.Find ("Player").GetComponent<PlayerTD> ();
@@ -60,7 +70,7 @@ public class FightManager : MonoBehaviour
 			allies.Add (temp);
 		}
         
-
+       
 		// Set the turn indicator
 		SetTurnIndicator ();
 
@@ -207,6 +217,50 @@ public class FightManager : MonoBehaviour
         enemiesHP.RemoveAt(i);
     }
 
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+
+    /*
+     * Move the target cursor
+     * Set current to be inactive and the next one to be active
+     */ 
+    void ChangeTarget(int i)
+    {
+        targetLines[i_target].gameObject.SetActive(false);
+        targetLines[i].gameObject.SetActive(true);
+
+        i_target = i;
+    }
+
+    /*
+     * Check for user input to change the target of an attack
+     * Should only be called after user has selected an action
+     * Assumes that choiceMade is true
+     */ 
+    void DetectTarget()
+    {
+        targetLines[i_target].gameObject.SetActive(true);
+        if (targetSelected == false && Input.GetKeyDown(KeyCode.Return))
+        {
+            targetSelected = true;
+        }
+        else if (targetSelected == false && Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (i_target < enemies.Count - 1)
+            {
+                ChangeTarget(i_target + 1);
+            }
+        }
+        else if (targetSelected == false && Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (i_target > 0)
+            {
+                ChangeTarget(i_target - 1);
+            }
+        }
+    }
 
     /*
      * Manage the turn-based combat
@@ -218,7 +272,8 @@ public class FightManager : MonoBehaviour
 			SetActionsDropdown ();
             SetTargetsDropdown();
 			init = true;
-		}
+        }
+
         if (choiceMade)
         {
             // Player's turn
@@ -226,12 +281,14 @@ public class FightManager : MonoBehaviour
             // Subtract 1 because the first index is "Make a selection"
             int choice = actionsDropDown.value - 1;
 
-            // Get the target
-            if(targetSelected || enemies.Count == 1)
-            {
-                int i_target = enemies.Count == 1 ? 0 : targetDropDown.value - 1;
+            DetectTarget();
 
-                DisplayAttack(0, choice);
+            // Get the target
+            if (targetSelected || enemies.Count == 1)
+            {
+                //int i_target = enemies.Count == 1 ? 0 : targetDropDown.value - 1;
+
+                DisplayAttack(0, choice, i_target);
 
                 // Apply the Action to the boss
                 enemies[i_target].ApplyPlayerAction(player.GetAction(choice));
@@ -256,6 +313,8 @@ public class FightManager : MonoBehaviour
                 // Reset choiceMade
                 //choiceMade = false;
 
+                // Make target inactive
+                targetLines[i_target].gameObject.SetActive(false);
                 choiceMade = false;
                 targetSelected = false;
             }
@@ -284,14 +343,14 @@ public class FightManager : MonoBehaviour
 			// Make Boss choose an actions
 			int enemyChoice = UnityEngine.Random.Range (0, eActive.actions.Count);
             EnemyActionTD e = eActive.actions[enemyChoice];
-
+            
             Debug.Log(String.Format("Enemy action dmg: {0}", e.baseDmg));
 
-            DisplayAttack(i_enemy + 1, enemyChoice);
+            DisplayAttack(i_enemy + 1, enemyChoice, 0);
 
             // Apply the action to the player and allies
             ApplyEnemyAction (e);
-            
+                        
 			// Check if game is over
 			CheckGameOver ();
 
@@ -303,17 +362,23 @@ public class FightManager : MonoBehaviour
         UpdateHpText();
 	}   // End Update
 
-
-    void DisplayAttack(int i_char, int i_action)
+    void DisplayAttack(int i_char, int i_action, int i_target)
     {
         Debug.Log(string.Format("i_char: {0} i_action: {1} player.actions.Count: {2} enemies.Count: {3}", i_char, i_action, player.actions.Count, enemies.Count));
         if(i_char == 0)
         {
             actionTitleText.text = string.Format("POTUS used {0}!", player.actions[i_action].title);
+
+            // Need to consider world/camera coordinates when moving damage
+            // Move damage to target
+            damageText.transform.position = enemies[i_target].transform.position;
         }
         else
         {
             actionTitleText.text = string.Format("{0} used {1}!", enemies[i_char - 1].enemyName, enemies[i_char - 1].actions[i_action].title);
+
+            // Move damage to target
+            damageText.transform.position = player.transform.position;
         }
     }
 
